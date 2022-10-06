@@ -1,4 +1,17 @@
 package com.nsgej.gestinapp.domain.model
 
-class TipoProducto {
+import com.beust.klaxon.Klaxon
+
+private val klaxon = Klaxon()
+class TipoProducto(val id: Int, val nombre: String, val estado: Boolean) {
+
+    override fun toString(): String {
+        return "TipoProducto(id=$id, nombre='$nombre', estado=$estado)"
+    }
+
+    fun toJson() = klaxon.toJsonString(this)
+
+    companion object {
+        fun fromJson(json: String) = klaxon.parse<TipoProducto>(json)
+    }
 }
