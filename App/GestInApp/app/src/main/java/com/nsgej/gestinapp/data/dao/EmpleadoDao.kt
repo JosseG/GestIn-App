@@ -1,12 +1,10 @@
 package com.nsgej.gestinapp.data.dao
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.nsgej.gestinapp.data.entities.EmpleadoEntity
-import com.nsgej.gestinapp.domain.model.Empleado
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -22,6 +20,6 @@ interface EmpleadoDao {
     suspend fun agregarEmpleado(empleado: EmpleadoEntity)
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun agregarEmpleados(empleado: List<EmpleadoEntity>)
+    suspend fun agregarEmpleados(empleados: List<EmpleadoEntity>)
 
 }
