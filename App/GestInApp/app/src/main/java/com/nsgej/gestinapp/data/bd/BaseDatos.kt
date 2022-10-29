@@ -2,8 +2,10 @@ package com.nsgej.gestinapp.data.bd
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.nsgej.gestinapp.data.dao.EmpleadoDao
+import com.nsgej.gestinapp.data.dao.*
 import com.nsgej.gestinapp.data.entities.*
+import com.nsgej.gestinapp.domain.model.AccesoCargo
+import com.nsgej.gestinapp.domain.model.Almacen
 import com.nsgej.gestinapp.domain.model.Sucursal
 
 @Database(
@@ -27,5 +29,10 @@ import com.nsgej.gestinapp.domain.model.Sucursal
 abstract class BaseDatos : RoomDatabase() {
 
     abstract fun getEmpleadoDao(): EmpleadoDao
+    abstract fun getAccesoDao(): AccesoDao
+    abstract fun getAccesoCargoDao(): AccesoCargoDao
+    abstract fun getAlmacenDao(): AlmacenDao
+    abstract fun getCargoDao(): CargoDao
+
 
 }

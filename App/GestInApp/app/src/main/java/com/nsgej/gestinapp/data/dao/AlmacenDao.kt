@@ -4,8 +4,11 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Transaction
 import com.nsgej.gestinapp.data.entities.AccesoEntity
 import com.nsgej.gestinapp.data.entities.AlmacenEntity
+import com.nsgej.gestinapp.data.entities.relations.otm.AlmacenConEmpleadosEntity
+import com.nsgej.gestinapp.data.entities.relations.otm.AlmacenConInventariosEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -22,5 +25,13 @@ interface AlmacenDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun agregarAlmacenes(almacenes: List<AlmacenEntity>)
+
+    @Transaction
+    @Query("select * from tb_almacen where id_almacen = :id")
+    suspend fun obtenerAlmacenConEmpleados(id : String) : List<AlmacenConEmpleadosEntity>
+
+    @Transaction
+    @Query("select * from tb_almacen where id_almacen = :id")
+    suspend fun obtenerAlmacenConInventarios(id : String) : List<AlmacenConInventariosEntity>
 
 }

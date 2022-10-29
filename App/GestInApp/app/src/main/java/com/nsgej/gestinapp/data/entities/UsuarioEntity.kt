@@ -3,6 +3,7 @@ package com.nsgej.gestinapp.data.entities
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.nsgej.gestinapp.domain.model.Usuario
 
 @Entity(tableName = "tb_usuario")
 class UsuarioEntity(
@@ -14,3 +15,5 @@ class UsuarioEntity(
     @ColumnInfo(name = "contrasena_usuario") val contrasena: String,
     @ColumnInfo(name = "estado") val estado: Boolean = true
 )
+
+fun Usuario.toEntity() = UsuarioEntity(idEmpleado = idEmpleado, idCargo = idCargo, alias = alias, contrasena = contrasena, estado = estado)

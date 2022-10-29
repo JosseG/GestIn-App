@@ -1,11 +1,10 @@
 package com.nsgej.gestinapp.data.dao
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.nsgej.gestinapp.data.entities.SucursalEntity
 import com.nsgej.gestinapp.data.entities.UsuarioEntity
+import com.nsgej.gestinapp.data.entities.relations.otm.EmpleadoConInventariosEntity
+import com.nsgej.gestinapp.data.entities.relations.otm.SucursalConAlmacenesEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -23,6 +22,8 @@ interface SucursalDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun agregarSucursales(sucursales: List<SucursalEntity>)
 
-
+    @Transaction
+    @Query("select * from tb_sucursal where id_sucursal = :id")
+    suspend fun obtenerSucursalConAlmacenes(id : String) : List<SucursalConAlmacenesEntity>
 
 }

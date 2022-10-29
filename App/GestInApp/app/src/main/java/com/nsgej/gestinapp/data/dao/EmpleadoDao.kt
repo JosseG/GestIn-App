@@ -1,10 +1,10 @@
 package com.nsgej.gestinapp.data.dao
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.nsgej.gestinapp.data.entities.EmpleadoEntity
+import com.nsgej.gestinapp.data.entities.relations.otm.CargoConUsuariosEntity
+import com.nsgej.gestinapp.data.entities.relations.otm.EmpleadoConInventariosEntity
+import com.nsgej.gestinapp.data.entities.relations.oto.EmpleadoYUsuario
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -21,5 +21,13 @@ interface EmpleadoDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun agregarEmpleados(empleados: List<EmpleadoEntity>)
+
+    @Transaction
+    @Query("select * from tb_empleado where id_empleado = :id")
+    suspend fun obtenerEmpleadoYUsuarioPorIdEmpleado(id : String) : List<EmpleadoYUsuario>
+
+    @Transaction
+    @Query("select * from tb_empleado where id_empleado = :id")
+    suspend fun obtenerEmpleadoConInventarios(id : String) : List<EmpleadoConInventariosEntity>
 
 }

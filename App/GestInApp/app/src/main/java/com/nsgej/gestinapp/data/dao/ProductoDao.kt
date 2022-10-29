@@ -1,11 +1,10 @@
 package com.nsgej.gestinapp.data.dao
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.nsgej.gestinapp.data.entities.MenuEntity
 import com.nsgej.gestinapp.data.entities.ProductoEntity
+import com.nsgej.gestinapp.data.entities.relations.otm.EmpleadoConInventariosEntity
+import com.nsgej.gestinapp.data.entities.relations.otm.ProductoConInventariosEntity
 import kotlinx.coroutines.flow.Flow
 
 
@@ -24,5 +23,7 @@ interface ProductoDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun agregarProductos(productos: List<ProductoEntity>)
 
-
+    @Transaction
+    @Query("select * from tb_producto where id_producto = :id")
+    suspend fun obtenerProductoConInventarios(id : String) : List<ProductoConInventariosEntity>
 }
