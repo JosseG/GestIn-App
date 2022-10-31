@@ -1,0 +1,25 @@
+los diseños ya estan creados, los de productos no ya que eso me toco a mi
+los botones solo funcionan para llevarte de un fragment a otro, ustedes ya 
+agregan lo que crean conveniente en el codigo
+
+
+NELSON:como tu vez inventarios
+
+--->transaccion inventarios
+para los combos 
+cree  item_combos_trsc_inventario
+
+--->reporte inventarios
+-para el combo
+cree  item_combos_rprt_inventario
+-para la lista use recyclerview
+cree item_reporte_inventario
+
+GIAMPIERE Y SEBAS:como ustedes ven empleado
+
+-Entrar a mantenimiento/personal -->van a encontrar que solo se ve un
+ boton redondo verde eso te lleva al registrar, para que visualicen el actualizar
+ tienen que codificarlo.
+-Ya esta listo el recyclerview en el mntm_empleado_listar(si entran al diseño lo veran)
+ para esto se creo el item_mntm_empleado
+
