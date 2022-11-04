@@ -26,4 +26,9 @@ interface ProductoDao {
     @Transaction
     @Query("select * from tb_producto where id_producto = :id")
     suspend fun obtenerProductoConInventarios(id : String) : List<ProductoConInventariosEntity>
+
+
+    @Query("DELETE FROM tb_producto")
+    suspend fun borrarTodo()
+
 }

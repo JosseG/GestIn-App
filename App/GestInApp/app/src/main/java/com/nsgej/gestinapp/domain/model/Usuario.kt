@@ -4,7 +4,7 @@ import com.beust.klaxon.Klaxon
 import com.nsgej.gestinapp.data.entities.UsuarioEntity
 
 private val klaxon = Klaxon()
-class Usuario(val id: Int, val idEmpleado: String, val idCargo: String, val alias: String, val contrasena: String, val estado: Boolean) {
+class Usuario(val id: Int=0, var idEmpleado: String, var idCargo: String, val alias: String, val contrasena: String, val estado: Boolean) {
 
     override fun toString(): String {
         return "Usuario(id=$id, idEmpleado='$idEmpleado', idCargo='$idCargo', alias='$alias', contrasena='$contrasena', estado=$estado)"

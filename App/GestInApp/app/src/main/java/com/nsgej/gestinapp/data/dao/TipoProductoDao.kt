@@ -30,4 +30,9 @@ interface TipoProductoDao {
     @Transaction
     @Query("select * from tb_tipoproducto where id_tipoprod = :id")
     suspend fun obtenerTipoProductoConProductos(id : String) : List<TipoProductoConProductosEntity>
+
+    @Query("DELETE FROM tb_tipoproducto")
+    suspend fun borrarTodo()
+
+
 }

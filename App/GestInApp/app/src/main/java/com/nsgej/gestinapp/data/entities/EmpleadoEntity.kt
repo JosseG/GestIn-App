@@ -1,10 +1,19 @@
 package com.nsgej.gestinapp.data.entities
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import androidx.room.*
+import com.nsgej.gestinapp.domain.model.Empleado
+import com.nsgej.gestinapp.domain.model.Usuario
 
-@Entity(tableName = "tb_empleado")
+@Entity(
+    tableName = "tb_empleado",foreignKeys = [
+        ForeignKey(
+            entity = AlmacenEntity::class,
+            parentColumns = ["id_almacen"],
+            childColumns = ["id_almacen"]
+        )
+    ],
+    indices = [Index(value = ["id_almacen"])]
+)
 data class EmpleadoEntity(
     @PrimaryKey
     @ColumnInfo(name = "id_empleado") val id: String,
@@ -15,3 +24,5 @@ data class EmpleadoEntity(
     @ColumnInfo(name = "telefono_empleado") val telefono: String,
     @ColumnInfo(name = "estado") val estado: Boolean = true
 )
+
+fun Empleado.toEntity() = EmpleadoEntity(id,idAlmacen,nombre, apellido, correo, telefono, estado)

@@ -14,7 +14,7 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [MntmEmpleadoActualizacionFragment.newInstance] factory method to
+ * Use the [MntmEmpleadoActualizarFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
 class MntmEmpleadoActualizacionFragment : Fragment() {
@@ -45,7 +45,7 @@ class MntmEmpleadoActualizacionFragment : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment MntmEmpleadoActualizacionFragment.
+         * @return A new instance of fragment MntmEmpleadoActualizarFragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic

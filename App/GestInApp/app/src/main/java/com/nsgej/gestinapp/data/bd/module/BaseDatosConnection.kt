@@ -23,4 +23,21 @@ object BaseDatosConnection {
     @Singleton
     @Provides
     fun provideEmpleadoDao(db:BaseDatos) = db.getEmpleadoDao()
+
+    @Singleton
+    @Provides
+    fun provideUsuarioDao(db:BaseDatos) = db.getUsuarioDao()
+
+    @Singleton
+    @Provides
+    fun provideCargoDao(db:BaseDatos) = db.getCargoDao()
+
+    @Singleton
+    @Provides
+    fun provideSucursalDao(db:BaseDatos) = db.getSucursalDao()
+
+    @Singleton
+    @Provides
+    fun provideAlmacenDao(db:BaseDatos) = db.getAlmacenDao()
+
 }

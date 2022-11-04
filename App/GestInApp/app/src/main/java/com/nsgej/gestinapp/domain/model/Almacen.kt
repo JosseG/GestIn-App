@@ -7,7 +7,7 @@ import com.nsgej.gestinapp.data.entities.AlmacenEntity
 
 private val klaxon = Klaxon()
 
-class Almacen(val id: String, val idSucursal: String, val descripcion: String, val direccion: String, val estado: Boolean) {
+class Almacen(val id: String, var idSucursal: String, val descripcion: String, val direccion: String, val estado: Boolean) {
 
 
     override fun toString(): String {

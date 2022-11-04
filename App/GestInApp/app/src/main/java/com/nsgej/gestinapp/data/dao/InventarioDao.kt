@@ -25,4 +25,7 @@ interface InventarioDao {
     suspend fun agregarInventarios(inventarios: List<InventarioEntity>)
 
 
+    @Query("DELETE FROM tb_inventario")
+    suspend fun borrarTodo()
+
 }

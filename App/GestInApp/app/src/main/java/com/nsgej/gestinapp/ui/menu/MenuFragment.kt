@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.nsgej.gestinapp.R
 import com.nsgej.gestinapp.databinding.FragmentMenuBinding
 
@@ -20,7 +21,7 @@ class MenuFragment : Fragment() {
     private var param2: String? = null
 
     private var _binding : FragmentMenuBinding? = null
-    val binding get() = _binding!!
+    private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,7 +42,18 @@ class MenuFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.root
+        binding.btnMantenimiento.setOnClickListener {
+            findNavController().navigate(R.id.action_menuFragment_to_mantenimientoFragment)
+        }
+        binding.btnTransaccion.setOnClickListener {
+            findNavController().navigate(R.id.action_menuFragment_to_transaccionFragment)
+        }
+        binding.btnReporte.setOnClickListener {
+            findNavController().navigate(R.id.action_menuFragment_to_reportesFragment)
+        }
+        binding.btnPerfil.setOnClickListener {
+            findNavController().navigate(R.id.action_menuFragment_to_perfilFragment)
+        }
     }
 
 

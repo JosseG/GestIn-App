@@ -18,7 +18,7 @@ interface AlmacenDao {
     fun obtenerAlmacenes() : Flow<List<AlmacenEntity>>
 
     @Query("select * from tb_almacen where id_almacen= :id")
-    fun obtenerAlmacenPorId(id: String) : Flow<AlmacenEntity>
+    suspend fun obtenerAlmacenPorId(id: String) : AlmacenEntity
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun agregarAlmacen(almacen: AlmacenEntity)
@@ -33,5 +33,8 @@ interface AlmacenDao {
     @Transaction
     @Query("select * from tb_almacen where id_almacen = :id")
     suspend fun obtenerAlmacenConInventarios(id : String) : List<AlmacenConInventariosEntity>
+
+    @Query("DELETE FROM tb_almacen")
+    suspend fun borrarTodo()
 
 }

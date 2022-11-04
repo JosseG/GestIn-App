@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.gridlayout.widget.GridLayout
+        android:id="@+id/gl_reporte_inventario"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/txt_producto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Id Producto:"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_column="0"
+            app:layout_row="0" />
+
+        <TextView
+            android:id="@+id/txt_cod_barra"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cod Barra:"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_column="0"
+            app:layout_row="1" />
+
+        <TextView
+            android:id="@+id/txt_descripcion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Descripción:"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_column="0"
+            app:layout_row="2" />
+
+        <TextView
+            android:id="@+id/txt_tipo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tipo"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_column="0"
+            app:layout_row="3" />
+
+        <TextView
+            android:id="@+id/txt_marca"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Marca:"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_column="0"
+            app:layout_row="4" />
+
+        <TextView
+            android:id="@+id/txt_stock"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Stock:"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_column="0"
+            app:layout_row="5" />
+
+        <TextView
+            android:id="@+id/txt_sucursal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sucursal:"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_column="0"
+            app:layout_row="6" />
+
+        <TextView
+            android:id="@+id/txt_almacen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Almacen:"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_column="0"
+            app:layout_row="7" />
+
+        <TextView
+            android:id="@+id/txt_personal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Personal:"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_column="0"
+            app:layout_row="8" />
+    </androidx.gridlayout.widget.GridLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

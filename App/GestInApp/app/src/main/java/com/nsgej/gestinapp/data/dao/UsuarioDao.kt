@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.nsgej.gestinapp.data.entities.CargoEntity
 import com.nsgej.gestinapp.data.entities.EmpleadoEntity
 import com.nsgej.gestinapp.data.entities.UsuarioEntity
 import kotlinx.coroutines.flow.Flow
@@ -18,12 +19,24 @@ interface UsuarioDao {
     fun obtenerUsuarioPorId(id: String) : Flow<UsuarioEntity>
 
     @Query("select * from tb_usuario where alias_usuario= :alias and contrasena_usuario= :contrasena")
-    fun obtenerUsuarioPorAliasYContrasena(alias: String,contrasena: String) : Flow<UsuarioEntity>
+    suspend fun obtenerUsuarioPorAliasYContrasena(alias: String,contrasena: String) : UsuarioEntity
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun agregarUsuario(usuario: UsuarioEntity)
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun agregarUsuarios(usuarios: List<UsuarioEntity>)
+
+/*
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun agregarUsuariosConEmpleadosPorCargo(usuarios: List<UsuarioEntity>,empleados: List<EmpleadoEntity>,cargo : CargoEntity)
+*/
+
+
+
+
+    @Query("delete from tb_usuario")
+    suspend fun borrarTodo()
+
 
 }

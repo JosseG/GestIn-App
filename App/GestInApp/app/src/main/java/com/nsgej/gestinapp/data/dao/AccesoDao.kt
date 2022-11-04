@@ -23,4 +23,7 @@ interface AccesoDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun agregarAccesos(accesos: List<AccesoEntity>)
 
+    @Query("DELETE FROM tb_acceso")
+    suspend fun borrarTodo()
+
 }

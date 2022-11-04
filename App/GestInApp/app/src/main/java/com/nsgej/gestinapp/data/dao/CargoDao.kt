@@ -14,7 +14,7 @@ interface CargoDao {
     fun obtenerCargos() : Flow<List<CargoEntity>>
 
     @Query("select * from tb_cargo where id_cargo= :id")
-    fun obtenerCargoPorId(id: String) : Flow<CargoEntity>
+    suspend fun obtenerCargoPorId(id: String) : CargoEntity
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun agregarCargo(cargo: CargoEntity)
@@ -23,7 +23,11 @@ interface CargoDao {
     suspend fun agregarCargos(cargos: List<CargoEntity>)
 
     @Transaction
-    @Query("select * from tb_cargo where id_cargo = :id")
-    suspend fun obtenerCargoConUsuarios(id : String) : List<CargoConUsuariosEntity>
+    @Query("select * from tb_cargo ")
+    suspend fun obtenerUsuariosConCargo() : List<CargoConUsuariosEntity>
+
+
+    @Query("DELETE FROM tb_cargo")
+    suspend fun borrarTodo()
 
 }

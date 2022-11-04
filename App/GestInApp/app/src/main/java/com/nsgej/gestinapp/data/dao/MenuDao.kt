@@ -25,4 +25,7 @@ interface MenuDao {
     @Query("select * from tb_menu where id_menu = :id")
     suspend fun obtenerMenuConAccesos(id : String) : List<MenuConAccesosEntity>
 
+    @Query("DELETE FROM tb_menu")
+    suspend fun borrarTodo()
+
 }

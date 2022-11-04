@@ -14,7 +14,7 @@ interface EmpleadoDao {
     fun obtenerEmpleados() : Flow<List<EmpleadoEntity>>
 
     @Query("select * from tb_empleado where id_empleado= :id")
-    fun obtenerEmpleadoPorId(id: String) : Flow<EmpleadoEntity>
+    fun obtenerEmpleadoPorId(id: String) : EmpleadoEntity
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun agregarEmpleado(empleado: EmpleadoEntity)
@@ -29,5 +29,9 @@ interface EmpleadoDao {
     @Transaction
     @Query("select * from tb_empleado where id_empleado = :id")
     suspend fun obtenerEmpleadoConInventarios(id : String) : List<EmpleadoConInventariosEntity>
+
+
+    @Query("DELETE FROM tb_empleado")
+    suspend fun borrarTodo()
 
 }
