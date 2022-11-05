@@ -22,7 +22,7 @@ class EmpleadoRepositorio @Inject constructor(
         return respuesta
     }
 
-    fun obtenerEmpleado(id:String) : Empleado {
+    suspend fun obtenerEmpleado(id:String) : Empleado {
         var respuesta = empleadoDao.obtenerEmpleadoPorId(id).toDomain()
         return respuesta
     }

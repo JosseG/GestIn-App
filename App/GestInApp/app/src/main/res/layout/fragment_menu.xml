@@ -29,7 +29,6 @@
         android:layout_marginStart="40dp"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="32dp"
-        android:text="@string/nombreuser"
         android:textColor="@color/white"
         android:textSize="40dp"
         android:textStyle="bold"

@@ -1,7 +1,8 @@
 package com.nsgej.gestinapp.ui.login
 
-import android.app.Activity
+
 import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,15 +10,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.nsgej.gestinapp.R
 import com.nsgej.gestinapp.databinding.FragmentLoginBinding
 import com.nsgej.gestinapp.domain.model.*
 import com.nsgej.gestinapp.viewmodel.login.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.awaitAll
 
 @AndroidEntryPoint
 class LoginFragment : Fragment() {
@@ -29,12 +28,16 @@ class LoginFragment : Fragment() {
 
     private var _binding: FragmentLoginBinding?= null
     val binding get( )= _binding!!
+
+    lateinit var sharedPreferences: SharedPreferences
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentLoginBinding.inflate(inflater, container,false)
 
+        sharedPreferences = context?.getSharedPreferences("preferences", Context.MODE_PRIVATE)!!
         return (binding.root)
     }
 
@@ -48,10 +51,7 @@ class LoginFragment : Fragment() {
         val login = binding.btnIngresar
 
         login.setOnClickListener {
-            Log.i("username", username.editText?.text.toString())
-            Log.i("password",password.editText?.text.toString())
             loginViewModel.login(username.editText?.text.toString(), password.editText?.text.toString())
-
         }
 
         loginViewModel.loginResult.observe(viewLifecycleOwner){
@@ -61,24 +61,29 @@ class LoginFragment : Fragment() {
                 return@observe
             }
             if (loginResult.success != null) {
+
+                val editor : SharedPreferences.Editor =sharedPreferences.edit()
+
+                editor.putString("ID_EMPLEADO",loginResult.success.idEmpleado)
+                editor.apply()
+
                 findNavController().navigate(R.id.action_loginFragment_to_bienvenidoFragment)
             }
 
         }
-/*        var username = binding.txtUsuario;
-        var password = binding.txtContrasena;*/
 
         loginViewModel.usuarioMutable.observe(viewLifecycleOwner){
             for(usuario in it){
-                Log.i("Usuario",usuario.alias)
+                /*Log.i("Usuario",usuario.alias)*/
             }
         }
 
-/*        val sucursal = Sucursal("S00001","NOR-ESTE",true)
+        /* ------------------------------------- 1 COMENTADO --------------------------------------*/
+        val sucursal = Sucursal("S00001","NOR-ESTE",true)
 
         val cargo = Cargo("C00001","ADMINISTRADOR",true)
 
-        val almacen = Almacen("A0001","S00002","Almacen-A","Lurin",true)
+        val almacen = Almacen("A0001","S00001","Almacen-A","Lurin",true)
 
         val empleado = Empleado("E00001","A0001","Jhon","Martinez","jmartines@email.com","990260333",true)
 
@@ -103,15 +108,30 @@ class LoginFragment : Fragment() {
         val cargos = listOf(
             cargo,
             Cargo("C00002","VENDEDOR",true)
-        )*/
-/*        loginViewModel.insertarCargos(cargos)
-        loginViewModel.insertarSucursales(sucursales)*/
-//        loginViewModel.obtenerSucursal()
-  /*      Log.i("sucursal", loginViewModel.sucursal)*/
-      /* loginViewModel.insertarAlmacenesPorSucursal(almacenes,sucursal)*/
-   /*         loginViewModel.insertarEmpleadosPorAlmacen(empleados,almacen)*/
+        )
 
-        val empleado = Empleado("E00002","A0001","Jhon","Martinez","jmartines@email.com","990260333",true)
+        loginViewModel.insertarCargos(cargos)
+        loginViewModel.insertarSucursales(sucursales)
+
+        loginViewModel.sucursalesMutable.observe(viewLifecycleOwner){
+            loginViewModel.obtenerSucursal(sucursal.id)
+        }
+
+        loginViewModel.sucursalObtenido.observe(viewLifecycleOwner){
+            loginViewModel.insertarAlmacenesPorSucursal(almacenes,sucursal)
+            loginViewModel.obtenerCargo(cargo.id)
+        }
+
+        loginViewModel.cargoObtenido.observe(viewLifecycleOwner){
+            loginViewModel.insertarEmpleadosPorAlmacen(empleados,almacen)
+            loginViewModel.insertarUsuariosPorEmpleadosPorCargo(usuarios,empleados,it)
+        }
+
+        /* ------------------------------------- 1 COMENTADO --------------------------------------*/
+
+        /* ------------------------------------- 2 COMENTADO --------------------------------------*/
+
+/*        val empleado = Empleado("E00002","A0001","Ximena","Perez","xperez@email.com","990260000",true)
 
         val usuario = Usuario(idEmpleado = "E00002", idCargo = "C00001", alias = "admin", contrasena = "admin", estado = true)
         val empleados = listOf(
@@ -120,24 +140,21 @@ class LoginFragment : Fragment() {
 
         val usuarios = listOf(
             usuario
-        )
+        )*/
 
 
-/*        viewLifecycleOwner.lifecycleScope.launch {
-            Log.i("element",loginViewModel.cargo("C00001").toString())
-        }*/
 /*        val almacen = Almacen("A0001","S00002","Almacen-A","Lurin",true)
 
         loginViewModel.obtenerCargo("C00001")
 
-        loginViewModel.observeSearchCargoLiveData().observe(viewLifecycleOwner){
+        loginViewModel.cargoObtenido.observe(viewLifecycleOwner){
             loginViewModel.insertarEmpleadosPorAlmacen(empleados,almacen)
             loginViewModel.insertarUsuariosPorEmpleadosPorCargo(usuarios,empleados,it)
         }*/
 
 
 
-
+        /* ------------------------------------- 2 COMENTADO --------------------------------------*/
 
 
     }
@@ -149,3 +166,4 @@ class LoginFragment : Fragment() {
     }
 
 }
+
