@@ -13,6 +13,7 @@ import com.nsgej.gestinapp.databinding.FragmentBienvenidoBinding
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
+
 class BienvenidoFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
@@ -23,6 +24,7 @@ class BienvenidoFragment : Fragment() {
             param2 = it.getString(ARG_PARAM2)
         }
     }
+
     private var _binding: FragmentBienvenidoBinding? = null
     val binding get() = _binding!!
 
@@ -34,12 +36,14 @@ class BienvenidoFragment : Fragment() {
         _binding = FragmentBienvenidoBinding.inflate(inflater, container, false)
         return binding.root
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.btnSiguiente.setOnClickListener {
             findNavController().navigate(R.id.action_bienvenidoFragment_to_menuFragment)
         }
     }
+
     companion object {
         @JvmStatic
         fun newInstance(param1: String, param2: String) =

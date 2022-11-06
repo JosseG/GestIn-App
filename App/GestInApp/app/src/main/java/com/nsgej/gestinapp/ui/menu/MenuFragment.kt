@@ -27,7 +27,7 @@ class MenuFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
-    private var _binding : FragmentMenuBinding? = null
+    private var _binding: FragmentMenuBinding? = null
     private val binding get() = _binding!!
 
     lateinit var sharedPreferences: SharedPreferences
@@ -56,13 +56,13 @@ class MenuFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val id = sharedPreferences.getString("ID_EMPLEADO",null)
+        val id = sharedPreferences.getString("ID_EMPLEADO", null)
 
-        if(id!=null){
+        if (id != null) {
             menuViewModel.obtenerEmpleado(id)
         }
 
-        menuViewModel.empleado.observe(viewLifecycleOwner){
+        menuViewModel.empleado.observe(viewLifecycleOwner) {
             binding.lblNombreuser.text = it.nombre
         }
 

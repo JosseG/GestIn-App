@@ -18,26 +18,27 @@ object BaseDatosConnection {
     @Singleton
     @Provides
     fun getDatabase(@ApplicationContext context: Context) =
-        Room.databaseBuilder(context, BaseDatos::class.java,"bd_almacen").build()
+        Room.databaseBuilder(context, BaseDatos::class.java, "bd_almacen").build()
 
     @Singleton
     @Provides
-    fun provideEmpleadoDao(db:BaseDatos) = db.getEmpleadoDao()
+    fun provideEmpleadoDao(db: BaseDatos) = db.getEmpleadoDao()
 
     @Singleton
     @Provides
-    fun provideUsuarioDao(db:BaseDatos) = db.getUsuarioDao()
+    fun provideUsuarioDao(db: BaseDatos) = db.getUsuarioDao()
 
     @Singleton
     @Provides
-    fun provideCargoDao(db:BaseDatos) = db.getCargoDao()
+    fun provideCargoDao(db: BaseDatos) = db.getCargoDao()
 
     @Singleton
     @Provides
-    fun provideSucursalDao(db:BaseDatos) = db.getSucursalDao()
+    fun provideSucursalDao(db: BaseDatos) = db.getSucursalDao()
 
     @Singleton
     @Provides
-    fun provideAlmacenDao(db:BaseDatos) = db.getAlmacenDao()
+    fun provideAlmacenDao(db: BaseDatos) = db.getAlmacenDao()
+
 
 }

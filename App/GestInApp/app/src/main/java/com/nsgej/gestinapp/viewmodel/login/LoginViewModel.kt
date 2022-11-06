@@ -16,8 +16,13 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @HiltViewModel
-class LoginViewModel @Inject constructor(private val usuarioRepositorio: UsuarioRepositorio,private val cargoRepositorio: CargoRepositorio,private val empleadoRepositorio: EmpleadoRepositorio, private val almacenRepositorio: AlmacenRepositorio, private val sucursalRepositorio: SucursalRepositorio) : ViewModel() {
-
+class LoginViewModel @Inject constructor(
+    private val usuarioRepositorio: UsuarioRepositorio,
+    private val cargoRepositorio: CargoRepositorio,
+    private val empleadoRepositorio: EmpleadoRepositorio,
+    private val almacenRepositorio: AlmacenRepositorio,
+    private val sucursalRepositorio: SucursalRepositorio
+) : ViewModel() {
 
 
     val usuarioMutable = usuarioRepositorio.obtenerUsuarios().asLiveData()
@@ -34,22 +39,26 @@ class LoginViewModel @Inject constructor(private val usuarioRepositorio: Usuario
 
 
     private var _sucursalObtenido = MutableLiveData<Sucursal>()
-    val sucursalObtenido : LiveData<Sucursal> = _sucursalObtenido
+    val sucursalObtenido: LiveData<Sucursal> = _sucursalObtenido
 
 
-    fun insertarUsuariosPorEmpleadosPorCargo(usuarios: List<Usuario>, empleados: List<Empleado>, cargo : Cargo){
+    fun insertarUsuariosPorEmpleadosPorCargo(
+        usuarios: List<Usuario>,
+        empleados: List<Empleado>,
+        cargo: Cargo
+    ) {
         viewModelScope.launch {
 
-            if(cargo.id == ""){
+            if (cargo.id == "") {
                 Log.i("L-usuario", "**")
                 return@launch
             }
 
-            if(usuarios.isEmpty() && empleados.isEmpty()){
+            if (usuarios.isEmpty() && empleados.isEmpty()) {
                 return@launch
             }
 
-            if(usuarios.size==empleados.size){
+            if (usuarios.size == empleados.size) {
 
                 usuarios.zip(empleados).map {
                     it.first.idEmpleado = it.second.id
@@ -61,7 +70,7 @@ class LoginViewModel @Inject constructor(private val usuarioRepositorio: Usuario
                 Log.i("L-usuario", "usuarioIng")
                 usuarioRepositorio.insertarUsuarios(usuarios)
 
-            }else{
+            } else {
                 Log.i("L-usuario", "***")
                 return@launch
             }
@@ -69,15 +78,15 @@ class LoginViewModel @Inject constructor(private val usuarioRepositorio: Usuario
         }
     }
 
-    fun insertarEmpleadosPorAlmacen(empleados: List<Empleado>, almacen: Almacen){
+    fun insertarEmpleadosPorAlmacen(empleados: List<Empleado>, almacen: Almacen) {
 
         viewModelScope.launch {
 
-            if(almacen.id == ""){
+            if (almacen.id == "") {
                 return@launch
             }
 
-            if(empleados.isEmpty()){
+            if (empleados.isEmpty()) {
                 return@launch
             }
 
@@ -92,23 +101,23 @@ class LoginViewModel @Inject constructor(private val usuarioRepositorio: Usuario
 
     }
 
-    fun obtenerSucursal () {
+    fun obtenerSucursal() {
         viewModelScope.launch {
 
-            Log.i("sucursales",sucursalRepositorio.obtenerSucursal("S00002").id )
+            Log.i("sucursales", sucursalRepositorio.obtenerSucursal("S00002").id)
 
         }
 
     }
 
-    fun insertarAlmacenesPorSucursal(almacenes : List<Almacen>,sucursal: Sucursal){
+    fun insertarAlmacenesPorSucursal(almacenes: List<Almacen>, sucursal: Sucursal) {
         viewModelScope.launch {
 
-            if(sucursal.id == ""){
+            if (sucursal.id == "") {
                 return@launch
             }
 
-            if(almacenes.isEmpty()){
+            if (almacenes.isEmpty()) {
                 return@launch
             }
 
@@ -120,30 +129,30 @@ class LoginViewModel @Inject constructor(private val usuarioRepositorio: Usuario
         }
     }
 
-    fun insertarSucursales(sucursales : List<Sucursal>){
+    fun insertarSucursales(sucursales: List<Sucursal>) {
         viewModelScope.launch {
-            Log.i("L-sucursal","insertado")
+            Log.i("L-sucursal", "insertado")
             sucursalRepositorio.insertarSucursales(sucursales)
 
         }
     }
 
-    fun insertarCargos(cargos : List<Cargo>){
+    fun insertarCargos(cargos: List<Cargo>) {
         viewModelScope.launch {
 
-            Log.i("L-cargo","insertado")
+            Log.i("L-cargo", "insertado")
             cargoRepositorio.insertarCargos(cargos)
 
         }
     }
 
-    fun obtenerCargo(id : String){
+    fun obtenerCargo(id: String) {
         viewModelScope.launch {
             _cargoObtenido.value = cargoRepositorio.obtenerCargo(id)
         }
     }
 
-    fun obtenerSucursal(id : String){
+    fun obtenerSucursal(id: String) {
         viewModelScope.launch {
             _sucursalObtenido.value = sucursalRepositorio.obtenerSucursal(id)
         }
@@ -156,14 +165,13 @@ class LoginViewModel @Inject constructor(private val usuarioRepositorio: Usuario
 
 
             if (respuesta is Respuesta.Success) {
-                Log.i("rspta",respuesta.data.toString())
+                Log.i("rspta", respuesta.data.toString())
                 _loginResult.value = LoginResult(success = respuesta.data)
             } else {
                 _loginResult.value = LoginResult(error = 0)
             }
         }
     }
-
 
 
 }

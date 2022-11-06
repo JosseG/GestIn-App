@@ -5,21 +5,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.nsgej.gestinapp.R
 import com.nsgej.gestinapp.databinding.FragmentMantenimientoBinding
 import com.nsgej.gestinapp.databinding.FragmentPerfilBinding
+import com.nsgej.gestinapp.ui.ActivityViewModel
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [PerfilFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+
 class PerfilFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -27,6 +23,9 @@ class PerfilFragment : Fragment() {
 
     private var _binding: FragmentPerfilBinding? = null
     val binding get() = _binding!!
+
+
+    private val activityViewModel by viewModels<ActivityViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,8 +39,8 @@ class PerfilFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        _binding= FragmentPerfilBinding.inflate(inflater,container,false)
+
+        _binding = FragmentPerfilBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -51,18 +50,22 @@ class PerfilFragment : Fragment() {
         binding.btnRegresar.setOnClickListener {
             findNavController().navigate(R.id.action_perfilFragment_to_menuFragment)
         }
+
+        binding.btnCerrarSesion.setOnClickListener {
+            activityViewModel.clearData()
+            activityViewModel.getStatus()
+        }
+
+        activityViewModel.onSession.observe(viewLifecycleOwner) {
+            if (!it) {
+                findNavController().navigate(R.id.action_perfilFragment_to_loginFragment)
+            }
+        }
     }
 
+
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment PerfilFragment.
-         */
-        // TODO: Rename and change types and number of parameters
+
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             PerfilFragment().apply {
