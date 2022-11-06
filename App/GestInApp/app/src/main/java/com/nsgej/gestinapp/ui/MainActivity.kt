@@ -23,6 +23,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
+
         window.requestFeature(Window.FEATURE_ACTION_BAR)
 
         setContentView(binding.root)

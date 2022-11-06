@@ -39,6 +39,11 @@ class TransaccionFragment : Fragment() {
         binding.btnInventario.setOnClickListener {
             findNavController().navigate(R.id.action_transaccionFragment_to_trscInventarioFragment)
         }
+
+        binding.btnRegresar.setOnClickListener {
+            findNavController().navigate(R.id.action_transaccionFragment_to_menuFragment)
+        }
+
     }
     companion object {
         @JvmStatic

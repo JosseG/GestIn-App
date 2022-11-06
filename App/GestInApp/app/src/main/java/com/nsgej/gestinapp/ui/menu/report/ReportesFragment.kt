@@ -1,4 +1,4 @@
-package com.nsgej.gestinapp.ui.menu.report
+ package com.nsgej.gestinapp.ui.menu.report
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -18,6 +18,9 @@ class ReportesFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    private var _binding: FragmentReportesBinding? = null
+    val binding get() = _binding!!
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -25,8 +28,7 @@ class ReportesFragment : Fragment() {
             param2 = it.getString(ARG_PARAM2)
         }
     }
-    private var _binding: FragmentReportesBinding? = null
-    val binding get() = _binding!!
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -39,6 +41,10 @@ class ReportesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.btnReporteinventario.setOnClickListener {
             findNavController().navigate(R.id.action_reportesFragment_to_rprtInventarioFragment)
+        }
+
+        binding.btnRegresar.setOnClickListener {
+            findNavController().navigate(R.id.action_reportesFragment_to_menuFragment)
         }
     }
 

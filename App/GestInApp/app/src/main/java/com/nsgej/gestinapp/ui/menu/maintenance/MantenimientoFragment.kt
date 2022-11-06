@@ -16,6 +16,9 @@ class MantenimientoFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    private var _binding: FragmentMantenimientoBinding? = null
+    val binding get() = _binding!!
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -23,8 +26,7 @@ class MantenimientoFragment : Fragment() {
             param2 = it.getString(ARG_PARAM2)
         }
     }
-    private var _binding: FragmentMantenimientoBinding? = null
-    val binding get() = _binding!!
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -39,6 +41,10 @@ class MantenimientoFragment : Fragment() {
         }
         binding.btnPersonal.setOnClickListener {
             findNavController().navigate(R.id.action_mantenimientoFragment_to_mntmEmpleadoListaFragment)
+        }
+
+        binding.btnRegresar.setOnClickListener {
+            findNavController().navigate(R.id.action_mantenimientoFragment_to_menuFragment)
         }
     }
 

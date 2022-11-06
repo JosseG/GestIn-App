@@ -41,6 +41,10 @@ class MntmEmpleadoListaFragment : Fragment() {
             findNavController().navigate(R.id.action_mntmEmpleadoListaFragment_to_mntmEmpleadoRegistroFragment2 )
         }
 
+        binding.btnRegresar.setOnClickListener {
+            findNavController().navigate(R.id.action_mntmEmpleadoListaFragment_to_mantenimientoFragment)
+        }
+
         //PARA VER EL ACTUALIZAR DEBEN DE CODIFICARLO (haciendo clik en un item)
     }
     companion object {

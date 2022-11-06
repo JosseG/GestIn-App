@@ -131,7 +131,8 @@ class LoginFragment : Fragment() {
 
         /* ------------------------------------- 2 COMENTADO --------------------------------------*/
 
-/*        val empleado = Empleado("E00002","A0001","Ximena","Perez","xperez@email.com","990260000",true)
+/*
+        val empleado = Empleado("E00002","A0001","Ximena","Perez","xperez@email.com","990260000",true)
 
         val usuario = Usuario(idEmpleado = "E00002", idCargo = "C00001", alias = "admin", contrasena = "admin", estado = true)
         val empleados = listOf(
@@ -140,17 +141,18 @@ class LoginFragment : Fragment() {
 
         val usuarios = listOf(
             usuario
-        )*/
+        )
 
 
-/*        val almacen = Almacen("A0001","S00002","Almacen-A","Lurin",true)
+        val almacen = Almacen("A0001","S00002","Almacen-A","Lurin",true)
 
         loginViewModel.obtenerCargo("C00001")
 
         loginViewModel.cargoObtenido.observe(viewLifecycleOwner){
             loginViewModel.insertarEmpleadosPorAlmacen(empleados,almacen)
             loginViewModel.insertarUsuariosPorEmpleadosPorCargo(usuarios,empleados,it)
-        }*/
+        }
+*/
 
 
 

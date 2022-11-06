@@ -9,4 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="amarillo">#F7BD1E</color>
     <color name="gris">#6B75CE</color>
+    <color name="primerFondo">#CBDFFF</color>
+    <color name="transparente">#00000000</color>
 </resources>
