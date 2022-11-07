@@ -22,6 +22,12 @@ interface InventarioDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun agregarInventarios(inventarios: List<InventarioEntity>)
 
+    @Update(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun actualizarInventario(inventario: InventarioEntity)
+
+    @Query("delete from tb_inventario where id_inventario= :cod")
+    suspend fun eliminarInventarioPorId(cod: String)
+
 
     @Query("DELETE FROM tb_inventario")
     suspend fun borrarTodo()

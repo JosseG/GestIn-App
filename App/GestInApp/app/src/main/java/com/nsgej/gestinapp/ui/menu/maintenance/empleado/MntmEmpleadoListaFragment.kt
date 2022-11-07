@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.nsgej.gestinapp.R
-import com.nsgej.gestinapp.databinding.FragmentMenuBinding
 import com.nsgej.gestinapp.databinding.FragmentMntmEmpleadoListaBinding
 
 private const val ARG_PARAM1 = "param1"
@@ -30,7 +29,7 @@ class MntmEmpleadoListaFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         _binding = FragmentMntmEmpleadoListaBinding.inflate(inflater, container, false)
         return binding.root

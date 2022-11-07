@@ -4,6 +4,8 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
+import com.nsgej.gestinapp.domain.model.Almacen
+import com.nsgej.gestinapp.domain.model.Producto
 
 @Entity(tableName = "tb_producto",indices = [Index(value = ["codigobar_producto"], unique = true)])
 class ProductoEntity(
@@ -15,3 +17,5 @@ class ProductoEntity(
     @ColumnInfo(name = "marca_producto") val marca: String,
     @ColumnInfo(name = "estado") val estado: Boolean = true
 )
+
+fun Producto.toEntity() = ProductoEntity(id, idTipoProducto, codigoBarra, descripcion, marca, estado)

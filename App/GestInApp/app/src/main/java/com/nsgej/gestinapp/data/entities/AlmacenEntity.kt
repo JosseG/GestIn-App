@@ -2,7 +2,6 @@ package com.nsgej.gestinapp.data.entities
 
 import androidx.room.*
 import com.nsgej.gestinapp.domain.model.Almacen
-import com.nsgej.gestinapp.domain.model.Cargo
 
 @Entity(
     tableName = "tb_almacen",

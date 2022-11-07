@@ -23,10 +23,12 @@ interface ProductoDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun agregarProductos(productos: List<ProductoEntity>)
 
+    @Update(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun actualizarProducto(producto : ProductoEntity)
+
     @Transaction
     @Query("select * from tb_producto where id_producto = :id")
     suspend fun obtenerProductoConInventarios(id : String) : List<ProductoConInventariosEntity>
-
 
     @Query("DELETE FROM tb_producto")
     suspend fun borrarTodo()

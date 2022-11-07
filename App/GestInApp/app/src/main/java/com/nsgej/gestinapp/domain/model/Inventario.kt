@@ -5,7 +5,7 @@ import com.nsgej.gestinapp.data.entities.InventarioEntity
 
 private val klaxon = Klaxon()
 
-class Inventario(val id: String, val idProducto: String, val idTipoInventario: Int, val idAlmacen: String, val idEmpleado: String, val cantidad: Int, val descripcion: String, val estado: Boolean) {
+class Inventario(val id: Int=0, val idProducto: String, val idTipoInventario: Int, val idAlmacen: String, val idEmpleado: String, val cantidad: Int, val descripcion: String = "", val estado: Boolean = true) {
 
     override fun toString(): String {
         return "Inventario(id='$id', idProducto='$idProducto', idTipoInventario=$idTipoInventario, idAlmacen='$idAlmacen', idEmpleado='$idEmpleado', cantidad=$cantidad, descripcion='$descripcion', estado=$estado)"

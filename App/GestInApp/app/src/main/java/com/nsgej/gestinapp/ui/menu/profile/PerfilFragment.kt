@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.nsgej.gestinapp.R
-import com.nsgej.gestinapp.databinding.FragmentMantenimientoBinding
 import com.nsgej.gestinapp.databinding.FragmentPerfilBinding
 import com.nsgej.gestinapp.ui.ActivityViewModel
 
@@ -38,7 +37,7 @@ class PerfilFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         _binding = FragmentPerfilBinding.inflate(inflater, container, false)
         return binding.root

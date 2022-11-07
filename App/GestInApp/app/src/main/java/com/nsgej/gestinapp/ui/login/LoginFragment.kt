@@ -36,7 +36,7 @@ class LoginFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
 
         return (binding.root)
@@ -65,18 +65,16 @@ class LoginFragment : Fragment() {
             }
             if (loginResult.success != null) {
 
-                /* val editor : SharedPreferences.Editor =sharedPreferences.edit()*/
-
                 activityViewModel.setData(loginResult.success.idEmpleado)
-
-                /*       editor.putString("ID_EMPLEADO",loginResult.success.idEmpleado)
-                       editor.apply()*/
 
                 findNavController().navigate(R.id.action_loginFragment_to_bienvenidoFragment)
             }
 
         }
+
+
         activityViewModel.getStatus()
+
         activityViewModel.onSession.observe(viewLifecycleOwner) {
             if (it) {
                 findNavController().navigate(R.id.action_loginFragment_to_bienvenidoFragment)
@@ -86,12 +84,13 @@ class LoginFragment : Fragment() {
 
         loginViewModel.usuarioMutable.observe(viewLifecycleOwner) {
             for (usuario in it) {
-                /*Log.i("Usuario",usuario.alias)*/
+                Log.i("Usuario",usuario.alias)
             }
         }
 
+
         /* ------------------------------------- 1 COMENTADO --------------------------------------*/
-        /* val sucursal = Sucursal("S00001","NOR-ESTE",true)
+         val sucursal = Sucursal("S00001","NOR-ESTE",true)
 
          val cargo = Cargo("C00001","ADMINISTRADOR",true)
 
@@ -138,7 +137,6 @@ class LoginFragment : Fragment() {
              loginViewModel.insertarEmpleadosPorAlmacen(empleados,almacen)
              loginViewModel.insertarUsuariosPorEmpleadosPorCargo(usuarios,empleados,it)
          }
- */
         /* ------------------------------------- 1 COMENTADO --------------------------------------*/
 
         /* ------------------------------------- 2 COMENTADO --------------------------------------*/

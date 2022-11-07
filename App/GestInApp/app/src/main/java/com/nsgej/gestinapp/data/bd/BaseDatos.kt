@@ -35,5 +35,9 @@ abstract class BaseDatos : RoomDatabase() {
     abstract fun getCargoDao(): CargoDao
     abstract fun getUsuarioDao(): UsuarioDao
     abstract fun getSucursalDao(): SucursalDao
+    abstract fun getInventarioDao(): InventarioDao
+    abstract fun getTipoInventarioDao(): TipoInventarioDao
+    abstract fun getProductoDao(): ProductoDao
+
 
 }

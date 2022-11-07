@@ -8,7 +8,7 @@ private val klaxon = Klaxon()
 class Empleado(val id: String, var idAlmacen: String, val nombre: String, val apellido: String, val correo: String, val telefono: String, val estado: Boolean) {
 
     override fun toString(): String {
-        return "Empleado(id='$id', idAlmacen='$idAlmacen', nombre='$nombre', apellido='$apellido', correo='$correo', telefono='$telefono', estado=$estado)"
+        return "$nombre $apellido"
     }
 
     fun toJson() = klaxon.toJsonString(this)

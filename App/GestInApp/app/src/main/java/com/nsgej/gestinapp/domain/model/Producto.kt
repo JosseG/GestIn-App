@@ -8,7 +8,7 @@ private val klaxon = Klaxon()
 class Producto(val id: String, val idTipoProducto: Int, val codigoBarra: String, val descripcion: String, val marca: String, val estado: Boolean) {
 
     override fun toString(): String {
-        return "Producto(id='$id', idTipoProducto=$idTipoProducto, codigoBarra='$codigoBarra', descripcion='$descripcion', marca='$marca', estado=$estado)"
+        return descripcion
     }
 
     fun toJson() = klaxon.toJsonString(this)

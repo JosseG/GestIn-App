@@ -1,73 +1,173 @@
 package com.nsgej.gestinapp.ui.menu.transaction.inventario
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.*
+import androidx.core.text.isDigitsOnly
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.nsgej.gestinapp.R
-import com.nsgej.gestinapp.databinding.FragmentTransaccionBinding
 import com.nsgej.gestinapp.databinding.FragmentTrscInventarioBinding
+import com.nsgej.gestinapp.domain.model.*
+import com.nsgej.gestinapp.viewmodel.inventario.*
+import com.nsgej.gestinapp.viewmodel.login.LoginViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [TrscInventarioFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+@AndroidEntryPoint
 class TrscInventarioFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
+    var codigoTp=0
+    var  nombreTP=""
+    var codp=""
+    var desc=""
+    var cod_al =""
+    var desc_al = ""
+    var cod_pers = ""
+    var desc_pers = ""
 
     private var _binding: FragmentTrscInventarioBinding? = null
     val binding get() = _binding!!
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+
+    private val viewmodelInventario by viewModels<InventarioViewModel>()
+
+    private val viewmodeltipoInventario by viewModels<TipoInventarioViewModel>()
+
+
+    private val loginViewModel by viewModels<LoginViewModel>()
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        // Inflate the layout for this fragment
         _binding = FragmentTrscInventarioBinding.inflate(inflater, container, false)
         return binding.root
+
+
+    }
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
+        val movimientoAuto: AutoCompleteTextView = binding.autoCompletemovimiento
+        val productoAuto: AutoCompleteTextView = binding.autoCompleteProduct
+        val almacenAuto: AutoCompleteTextView = binding.autoCompleteAlmc
+        val personalAuto: AutoCompleteTextView = binding.autoCompletePers
+
+
+        viewmodeltipoInventario.listarTipoInventario.observe(viewLifecycleOwner) { lista ->
+            TipoInventarioAdapter(requireContext(), lista).also { tp ->
+                movimientoAuto.setAdapter(tp)
+            }
+        }
+        movimientoAuto.setOnItemClickListener { parent, _, position, _ ->
+            val tipoInv = parent.adapter.getItem(position) as TipoInventario
+            codigoTp = tipoInv.id
+            nombreTP = tipoInv.nombre
+        }
+
+
+
+        loginViewModel.listarProductos.observe(viewLifecycleOwner) { lista ->
+            ProductoAdapter(requireContext(), lista).also { lp ->
+                productoAuto.setAdapter(lp)
+            }
+        }
+        productoAuto.setOnItemClickListener { parent, _, position, _ ->
+            val tipoInv = parent.adapter.getItem(position) as Producto
+            codp = tipoInv.id
+            desc = tipoInv.descripcion
+        }
         binding.btnRegresar.setOnClickListener {
             findNavController().navigate(R.id.action_trscInventarioFragment_to_transaccionFragment)
         }
+
+
+        loginViewModel.listaAlmacenes.observe(viewLifecycleOwner) { lista ->
+            AlmacenAdapter(requireContext(),lista).also { al ->
+                almacenAuto.setAdapter(al)
+            }
+        }
+        almacenAuto.setOnItemClickListener { parent, _, position, _ ->
+            val tipoInv = parent.adapter.getItem(position) as Almacen
+            cod_al = tipoInv.id
+            desc_al = tipoInv.descripcion
+        }
+
+
+        loginViewModel.listaempleados.observe(viewLifecycleOwner) { lista ->
+            PersonalAdapter(requireContext(),lista).also { pers ->
+                personalAuto.setAdapter(pers)
+            }
+        }
+        personalAuto.setOnItemClickListener { parent, _, position, _ ->
+            val tipoInv = parent.adapter.getItem(position) as Empleado
+            cod_pers = tipoInv.id
+            desc_pers = tipoInv.nombre
+        }
+
+
+        binding.btnRegistrarinventario.setOnClickListener {
+
+            val tipo = binding.txtMovimiento.editText?.text.toString()
+            if (tipo.isEmpty()) {
+                binding.txtMovimiento.error = "seleccione un producto"
+                return@setOnClickListener
+            }
+            val prod = binding.txtProducto.editText?.text.toString()
+            if (prod.isEmpty()) {
+                binding.txtProducto.error = "seleccione un producto"
+                return@setOnClickListener
+            }
+            val alm = binding.txtAlmacen.editText?.text.toString()
+            if (alm.isEmpty()) {
+                binding.txtAlmacen.error = "Seleccione un almacén"
+                return@setOnClickListener
+            }
+            val pers = binding.txtPersonal.editText?.text.toString()
+            if (pers.isEmpty()) {
+                binding.txtPersonal.error = "Seleccione un responsable"
+                return@setOnClickListener
+            }
+            val cant = binding.txtCantidad.editText?.text.toString()
+            if (cant.isEmpty()) {
+                binding.txtCantidad.error = "campo requerido"
+                return@setOnClickListener
+            } else if (!cant.isDigitsOnly()) {
+                binding.txtCantidad.error = "Este campo sólo acepta números"
+                return@setOnClickListener
+            }
+
+            val inventario = Inventario(idTipoInventario = codigoTp, idProducto = codp, idAlmacen = cod_al, idEmpleado = cod_pers, cantidad = cant.toInt())
+
+            viewmodelInventario.RegistraInventario(inventario)
+
+            viewmodelInventario.listarTodoInventario.observe(viewLifecycleOwner) { lista ->
+
+                Log.i("cantidad de registros: ", lista.size.toString())
+
+            }
+
+
+
+        }
+
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment TrscInventarioFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            TrscInventarioFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
+
+
+
 }

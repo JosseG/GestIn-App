@@ -40,5 +40,17 @@ object BaseDatosConnection {
     @Provides
     fun provideAlmacenDao(db: BaseDatos) = db.getAlmacenDao()
 
+    @Singleton
+    @Provides
+    fun provideProductoDao(db:BaseDatos) = db.getProductoDao()
+
+    @Singleton
+    @Provides
+    fun provideInventarioDao(db:BaseDatos) = db.getInventarioDao()
+
+    @Singleton
+    @Provides
+    fun provideTipoInventarioDao(db:BaseDatos) = db.getTipoInventarioDao()
+
 
 }

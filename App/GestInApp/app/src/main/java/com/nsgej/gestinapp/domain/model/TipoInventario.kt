@@ -5,11 +5,12 @@ import com.nsgej.gestinapp.data.entities.TipoInventarioEntity
 
 private val klaxon = Klaxon()
 
-class TipoInventario(val id: Int, val nombre: String, val estado: Boolean) {
+class TipoInventario(val id: Int = 0, val nombre: String, val estado: Boolean = true) {
 
     override fun toString(): String {
-        return "TipoInventario(id=$id, nombre='$nombre', estado=$estado)"
+        return nombre
     }
+
 
     fun toJson() = klaxon.toJsonString(this)
 

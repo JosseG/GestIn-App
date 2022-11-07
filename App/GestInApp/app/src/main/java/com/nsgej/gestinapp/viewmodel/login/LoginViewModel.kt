@@ -21,13 +21,21 @@ class LoginViewModel @Inject constructor(
     private val cargoRepositorio: CargoRepositorio,
     private val empleadoRepositorio: EmpleadoRepositorio,
     private val almacenRepositorio: AlmacenRepositorio,
-    private val sucursalRepositorio: SucursalRepositorio
+    private val sucursalRepositorio: SucursalRepositorio,
+    private val productoRepositorio:ProductoRepositorio
 ) : ViewModel() {
 
 
     val usuarioMutable = usuarioRepositorio.obtenerUsuarios().asLiveData()
 
     val sucursalesMutable = sucursalRepositorio.obtenerSucursales().asLiveData()
+
+
+    val listaAlmacenes = almacenRepositorio.obtenerAlmacenes().asLiveData()
+
+    val listaempleados = empleadoRepositorio.obtenerEmpleados().asLiveData()
+
+    val listarProductos = productoRepositorio.obtenerProductos().asLiveData()
 
 
     private val _loginResult = MutableLiveData<LoginResult>()
@@ -171,6 +179,12 @@ class LoginViewModel @Inject constructor(
                 _loginResult.value = LoginResult(error = 0)
             }
         }
+    }
+
+    fun RegistraProducto(producto: Producto){
+        viewModelScope.launch {
+            Log.i("L-producto","insertado")
+            productoRepositorio.insertPoducto(producto)}
     }
 
 

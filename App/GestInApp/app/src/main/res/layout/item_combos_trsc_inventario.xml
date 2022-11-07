@@ -1,11 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:maxHeight="56dp"
     android:padding="16dp"
-    android:ellipsize="end"
-    android:maxLines="2"
-    android:text="este es el item es para los combo  Tracsacion inventario"
-    android:textAppearance="?attr/textAppearanceSubtitle1"/>
+    android:background="#ffffff"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/codig"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="#ffffff"
+        android:textColor="@color/black"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+        tools:text="Código" />
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:background="#ffffff"
+        android:textColor="@color/black"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+        android:gravity="start"
+        android:layout_height="wrap_content"
+        tools:text="Nombre" />
+</LinearLayout>
 

@@ -25,20 +25,28 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/txt_movimiento"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="85dp"
         android:layout_marginEnd="32dp"
+        app:boxStrokeColor="@color/gris"
+        android:textColorHint="@color/gris"
+
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2">
 
         <AutoCompleteTextView
+            android:id="@+id/autoCompletemovimiento"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/movimiento" />
+            android:hint="@string/movimiento"
+            android:inputType="none"
+            android:textColor="@color/black"
+            tools:ignore="TextContrastCheck" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -49,14 +57,21 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
+        app:boxStrokeColor="@color/gris"
+        android:textColorHint="@color/gris"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_movimiento">
 
         <AutoCompleteTextView
+            android:id="@+id/autoCompleteProduct"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/productoinventario" />
+            android:hint="@string/productoinventario"
+            android:inputType="none"
+            android:textColor="@color/black"
+            tools:ignore="TextContrastCheck" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -67,14 +82,21 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
+        app:boxStrokeColor="@color/gris"
+        android:textColorHint="@color/gris"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_producto">
 
         <AutoCompleteTextView
+            android:id="@+id/autoCompleteAlmc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/almacen" />
+            android:hint="@string/almacen"
+            android:inputType="none"
+            android:textColor="@color/black"
+            tools:ignore="TextContrastCheck" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -85,14 +107,21 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
+        app:boxStrokeColor="@color/gris"
+        android:textColorHint="@color/gris"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_almacen">
 
         <AutoCompleteTextView
+            android:id="@+id/autoCompletePers"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/personalinventario" />
+            android:hint="@string/personalinventario"
+            android:inputType="none"
+            android:textColor="@color/black"
+            tools:ignore="TextContrastCheck" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -103,6 +132,9 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
+        app:boxStrokeColor="@color/gris"
+        android:textColorHint="@color/gris"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_personal">
@@ -110,7 +142,9 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/cantidad" />
+            android:hint="@string/cantidad"
+            android:textColor="@color/black"
+            tools:ignore="TextContrastCheck" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
@@ -130,7 +164,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_cantidad" />
 
-
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_regresar"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
@@ -149,4 +182,5 @@
         app:layout_constraintTop_toTopOf="parent"
         app:strokeColor="@color/transparente"
         tools:ignore="SpeakableTextPresentCheck" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
