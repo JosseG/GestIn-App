@@ -76,17 +76,20 @@ class LoginFragment : Fragment() {
         activityViewModel.getStatus()
 
         activityViewModel.onSession.observe(viewLifecycleOwner) {
-            if (it) {
-                findNavController().navigate(R.id.action_loginFragment_to_bienvenidoFragment)
+            loginViewModel.usuarioMutable.observe(viewLifecycleOwner) { usuario ->
+                if(usuario.isNotEmpty()){
+                    if (it) {
+                        findNavController().navigate(R.id.action_loginFragment_to_bienvenidoFragment)
+                    }
+                }else{
+                    activityViewModel.clearData()
+                }
             }
+
         }
 
 
-        loginViewModel.usuarioMutable.observe(viewLifecycleOwner) {
-            for (usuario in it) {
-                Log.i("Usuario",usuario.alias)
-            }
-        }
+
 
 
         /* ------------------------------------- 1 COMENTADO --------------------------------------*/
@@ -141,7 +144,9 @@ class LoginFragment : Fragment() {
 
         /* ------------------------------------- 2 COMENTADO --------------------------------------*/
 
+/*
         val empleado = Empleado("E00003","A0001","Cristobal","Carrillo","crisllo@email.com","990261100",true)
+*/
 
 /*
         val usuario = Usuario(idEmpleado = "E00003", idCargo = "C00001", alias = "almacenero", contrasena = "almacenero", estado = true)

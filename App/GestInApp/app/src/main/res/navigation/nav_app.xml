@@ -9,131 +9,131 @@
         android:id="@+id/loginFragment"
         android:name="com.nsgej.gestinapp.ui.login.LoginFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" >
+        tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment_to_bienvenidoFragment"
             app:destination="@id/bienvenidoFragment"
             app:launchSingleTop="true"
             app:popUpTo="@+id/nav_app"
-            app:popUpToInclusive="true"
-            />
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/bienvenidoFragment"
         android:name="com.nsgej.gestinapp.ui.menu.BienvenidoFragment"
         android:label="fragment_bienvenido"
-        tools:layout="@layout/fragment_bienvenido" >
+        tools:layout="@layout/fragment_bienvenido">
         <action
             android:id="@+id/action_bienvenidoFragment_to_menuFragment"
             app:destination="@id/menuFragment"
             app:launchSingleTop="true"
             app:popUpTo="@+id/nav_app"
-            app:popUpToInclusive="true"/>
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/menuFragment"
         android:name="com.nsgej.gestinapp.ui.menu.MenuFragment"
         android:label="fragment_menu"
-        tools:layout="@layout/fragment_menu" >
+        tools:layout="@layout/fragment_menu">
         <action
             android:id="@+id/action_menuFragment_to_reportesFragment"
             app:destination="@id/reportesFragment"
             app:launchSingleTop="true"
             app:popUpTo="@+id/nav_app"
-            app:popUpToInclusive="true"/>
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_menuFragment_to_transaccionFragment"
             app:destination="@id/transaccionFragment"
             app:launchSingleTop="true"
             app:popUpTo="@+id/nav_app"
-            app:popUpToInclusive="true"/>
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_menuFragment_to_perfilFragment"
             app:destination="@id/perfilFragment"
             app:launchSingleTop="true"
             app:popUpTo="@+id/nav_app"
-            app:popUpToInclusive="true"/>
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_menuFragment_to_mantenimientoFragment"
             app:destination="@id/mantenimientoFragment"
+            app:enterAnim="@anim/enter_right_to_left"
+            app:exitAnim="@anim/exit_left"
             app:launchSingleTop="true"
             app:popUpTo="@+id/nav_app"
-            app:popUpToInclusive="true"/>
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/mantenimientoFragment"
         android:name="com.nsgej.gestinapp.ui.menu.maintenance.MantenimientoFragment"
         android:label="fragment_mantenimiento"
-        tools:layout="@layout/fragment_mantenimiento"
         app:launchSingleTop="true"
         app:popUpTo="@+id/nav_app"
-        app:popUpToInclusive="true">
+        app:popUpToInclusive="true"
+        tools:layout="@layout/fragment_mantenimiento">
         <action
             android:id="@+id/action_mantenimientoFragment_to_mntmEmpleadoListaFragment"
             app:destination="@id/mntmEmpleadoListaFragment"
             app:launchSingleTop="true"
             app:popUpTo="@+id/nav_app"
-            app:popUpToInclusive="true"/>
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_mantenimientoFragment_to_mantenimientoAppFragment"
             app:destination="@id/mantenimientoAppFragment"
             app:launchSingleTop="true"
             app:popUpTo="@+id/nav_app"
-            app:popUpToInclusive="true"/>
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_mantenimientoFragment_to_menuFragment"
             app:destination="@id/menuFragment"
+            app:enterAnim="@anim/enter_left_to_right"
+            app:exitAnim="@anim/exit_right"
             app:launchSingleTop="true"
             app:popUpTo="@+id/nav_app"
-            app:popUpToInclusive="true"/>
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/mntmEmpleadoListaFragment"
         android:name="com.nsgej.gestinapp.ui.menu.maintenance.empleado.MntmEmpleadoListaFragment"
         android:label="fragment_mntm_empleado_lista"
-        tools:layout="@layout/fragment_mntm_empleado_lista" >
+        tools:layout="@layout/fragment_mntm_empleado_lista">
         <action
             android:id="@+id/action_mntmEmpleadoListaFragment_to_mntmEmpleadoRegistroFragment2"
-            app:destination="@id/mntmEmpleadoRegistroFragment2"
-/>
+            app:destination="@id/mntmEmpleadoRegistroFragment2" />
         <action
             android:id="@+id/action_mntmEmpleadoListaFragment_to_mntmEmpleadoActualizarFragment"
-            app:destination="@id/mntmEmpleadoActualizarFragment"
-/>
+            app:destination="@id/mntmEmpleadoActualizarFragment" />
         <action
             android:id="@+id/action_mntmEmpleadoListaFragment_to_mantenimientoFragment"
-            app:destination="@id/mantenimientoFragment"
-/>
+            app:destination="@id/mantenimientoFragment" />
     </fragment>
     <fragment
         android:id="@+id/reportesFragment"
         android:name="com.nsgej.gestinapp.ui.menu.report.ReportesFragment"
         android:label="fragment_reportes"
-        tools:layout="@layout/fragment_reportes" >
+        tools:layout="@layout/fragment_reportes">
         <action
             android:id="@+id/action_reportesFragment_to_rprtInventarioFragment"
             app:destination="@id/rprtInventarioFragment"
             app:launchSingleTop="true"
             app:popUpTo="@+id/nav_app"
-            app:popUpToInclusive="true"/>
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_reportesFragment_to_menuFragment"
             app:destination="@id/menuFragment"
             app:launchSingleTop="true"
             app:popUpTo="@+id/nav_app"
-            app:popUpToInclusive="true"/>
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/perfilFragment"
         android:name="com.nsgej.gestinapp.ui.menu.profile.PerfilFragment"
         android:label="fragment_perfil"
-        tools:layout="@layout/fragment_perfil" >
+        tools:layout="@layout/fragment_perfil">
         <action
             android:id="@+id/action_perfilFragment_to_menuFragment"
             app:destination="@id/menuFragment"
             app:launchSingleTop="true"
             app:popUpTo="@+id/nav_app"
-            app:popUpToInclusive="true"/>
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_perfilFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
@@ -142,78 +142,83 @@
         android:id="@+id/transaccionFragment"
         android:name="com.nsgej.gestinapp.ui.menu.transaction.TransaccionFragment"
         android:label="fragment_transaccion"
-        tools:layout="@layout/fragment_transaccion" >
+        tools:layout="@layout/fragment_transaccion">
         <action
             android:id="@+id/action_transaccionFragment_to_trscInventarioFragment"
             app:destination="@id/trscInventarioFragment"
             app:launchSingleTop="true"
             app:popUpTo="@+id/nav_app"
-            app:popUpToInclusive="true"/>
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_transaccionFragment_to_menuFragment"
             app:destination="@id/menuFragment"
             app:launchSingleTop="true"
             app:popUpTo="@+id/nav_app"
-            app:popUpToInclusive="true"/>
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/rprtInventarioFragment"
         android:name="com.nsgej.gestinapp.ui.menu.report.inventario.RprtInventarioFragment"
         android:label="fragment_rprt_inventario"
-        tools:layout="@layout/fragment_rprt_inventario" >
+        tools:layout="@layout/fragment_rprt_inventario">
         <action
             android:id="@+id/action_rprtInventarioFragment_to_reportesFragment"
             app:destination="@id/reportesFragment"
             app:launchSingleTop="true"
             app:popUpTo="@+id/nav_app"
-            app:popUpToInclusive="true"/>
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/trscInventarioFragment"
         android:name="com.nsgej.gestinapp.ui.menu.transaction.inventario.TrscInventarioFragment"
         android:label="fragment_trsc_inventario"
-        tools:layout="@layout/fragment_trsc_inventario" >
+        tools:layout="@layout/fragment_trsc_inventario">
         <action
             android:id="@+id/action_trscInventarioFragment_to_transaccionFragment"
             app:destination="@id/transaccionFragment"
             app:launchSingleTop="true"
             app:popUpTo="@+id/nav_app"
-            app:popUpToInclusive="true"/>
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/mntmEmpleadoActualizarFragment"
         android:name="com.nsgej.gestinapp.ui.menu.maintenance.empleado.MntmEmpleadoActualizacionFragment"
         android:label="fragment_mntm_empleado_actualizar"
-        tools:layout="@layout/fragment_mntm_empleado_actualizacion" >
+        tools:layout="@layout/fragment_mntm_empleado_actualizacion">
+        <argument
+            android:name="imagen"
+            android:defaultValue="null"
+            app:argType="string"
+            app:nullable="true" />
         <action
             android:id="@+id/action_mntmEmpleadoActualizarFragment_to_mntmEmpleadoListaFragment"
             app:destination="@id/mntmEmpleadoListaFragment"
             app:launchSingleTop="true"
             app:popUpTo="@+id/nav_app"
-            app:popUpToInclusive="true"/>
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/mntmEmpleadoRegistroFragment2"
         android:name="com.nsgej.gestinapp.ui.menu.maintenance.empleado.MntmEmpleadoRegistroFragment"
         android:label="fragment_mntm_empleado_registro"
-        tools:layout="@layout/fragment_mntm_empleado_registro" >
+        tools:layout="@layout/fragment_mntm_empleado_registro">
         <action
             android:id="@+id/action_mntmEmpleadoRegistroFragment2_to_mntmEmpleadoListaFragment"
             app:destination="@id/mntmEmpleadoListaFragment"
             app:launchSingleTop="true"
             app:popUpTo="@+id/nav_app"
-            app:popUpToInclusive="true"/>
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/mantenimientoAppFragment"
         android:name="com.nsgej.gestinapp.util.MantenimientoAppFragment"
         android:label="fragment_mantenimiento_app"
-        tools:layout="@layout/fragment_mantenimiento_app" >
+        tools:layout="@layout/fragment_mantenimiento_app">
         <action
             android:id="@+id/action_mantenimientoAppFragment_to_mantenimientoFragment"
             app:destination="@id/mantenimientoFragment"
             app:launchSingleTop="true"
             app:popUpTo="@+id/nav_app"
-            app:popUpToInclusive="true"/>
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>

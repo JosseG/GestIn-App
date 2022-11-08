@@ -18,7 +18,7 @@ object BaseDatosConnection {
     @Singleton
     @Provides
     fun getDatabase(@ApplicationContext context: Context) =
-        Room.databaseBuilder(context, BaseDatos::class.java, "bd_almacen").build()
+        Room.databaseBuilder(context, BaseDatos::class.java, "bd_almacen").fallbackToDestructiveMigration().build()
 
     @Singleton
     @Provides

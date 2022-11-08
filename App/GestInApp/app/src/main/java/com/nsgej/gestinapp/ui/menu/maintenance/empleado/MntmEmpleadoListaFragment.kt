@@ -5,8 +5,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavDirections
+import androidx.navigation.fragment.FragmentNavigator
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.nsgej.gestinapp.R
@@ -64,9 +69,33 @@ class MntmEmpleadoListaFragment : Fragment() {
 
         binding.rvMantEmpleados.layoutManager=manager
 
-        val empleadoAdapter = EmpleadoAdapter{
-            findNavController().navigate(R.id.action_mntmEmpleadoListaFragment_to_mntmEmpleadoActualizarFragment)
+        val empleadoAdapter = EmpleadoAdapter{ empleado, imageView ->
+
+/*            Log.i("viewcompat",ViewCompat.getTransitionName(imageView).toString())*/
+
+/*            val extras = FragmentNavigator.Extras.Builder()
+                .addSharedElement(imageView, ViewCompat.getTransitionName(imageView)!!)
+                .build()*/
+
+/*            extras.sharedElements.forEach{
+                Log.i("extrsss",it.key.transitionName)
+            }*/
+
+            val extras = FragmentNavigatorExtras(
+                imageView to empleado.id
+            )
+/*            val bundle = Bundle()
+            bundle.putString("photo", imageView.transitionName);*/
+
+            val direction: NavDirections =
+                MntmEmpleadoListaFragmentDirections.actionMntmEmpleadoListaFragmentToMntmEmpleadoActualizarFragment(imageView.transitionName)
+
+            /*
+
+            findNavController().navigate(R.id.action_mntmEmpleadoListaFragment_to_mntmEmpleadoActualizarFragment)*/
+            findNavController().navigate(direction,extras)
         }
+
 
         binding.rvMantEmpleados.adapter = empleadoAdapter
 

@@ -1,10 +1,17 @@
 package com.nsgej.gestinapp.ui.menu.maintenance.empleado
 
+import android.content.Context
 import android.os.Bundle
+import android.transition.TransitionInflater
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.ViewCompat
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+import com.nsgej.gestinapp.R
 import com.nsgej.gestinapp.databinding.FragmentMntmEmpleadoActualizacionBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -21,28 +28,30 @@ class MntmEmpleadoActualizacionFragment : Fragment() {
     private var _binding: FragmentMntmEmpleadoActualizacionBinding? = null
     val binding get() = _binding!!
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
 
+
+    private val args by navArgs<MntmEmpleadoActualizacionFragmentArgs>()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentMntmEmpleadoActualizacionBinding.inflate(inflater, container, false)
+        sharedElementEnterTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
         return binding.root
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-       /* binding.btnRegresar.setOnClickListener {
-            findNavController().navigate(R.id.action_mntmEmpleadoRegistroFragment2_to_mntmEmpleadoListaFragment)
-        }*/
+        Log.i("id",args.imagen.toString())
+
+        binding.imageView2.transitionName = args.imagen
+        binding.imageView2.setImageResource(R.drawable.ic_administrador)
+
+        binding.btnRegresar.setOnClickListener {
+            findNavController().navigate(R.id.action_mntmEmpleadoActualizarFragment_to_mntmEmpleadoListaFragment)
+        }
     }
 
     companion object {

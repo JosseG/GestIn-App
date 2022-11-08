@@ -1,12 +1,14 @@
 package com.nsgej.gestinapp.ui.adapter.empleado
 
+import android.media.Image
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.nsgej.gestinapp.databinding.ItemMntmEmpleadoBinding
 import com.nsgej.gestinapp.domain.model.Empleado
 
-class EmpleadoAdapter(val onClick: (Empleado) -> Unit) : RecyclerView.Adapter<EmpleadosViewHolder>() {
+class EmpleadoAdapter(val onClick: (Empleado,ImageView) -> Unit) : RecyclerView.Adapter<EmpleadosViewHolder>() {
 
     private var lista = mutableListOf<Empleado>()
 
@@ -19,8 +21,10 @@ class EmpleadoAdapter(val onClick: (Empleado) -> Unit) : RecyclerView.Adapter<Em
         lista.clear()
     }
 
+    lateinit var binding: ItemMntmEmpleadoBinding
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EmpleadosViewHolder {
-        val binding = ItemMntmEmpleadoBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+        binding = ItemMntmEmpleadoBinding.inflate(LayoutInflater.from(parent.context),parent,false)
         return EmpleadosViewHolder(binding)
     }
 
@@ -28,8 +32,7 @@ class EmpleadoAdapter(val onClick: (Empleado) -> Unit) : RecyclerView.Adapter<Em
         val empleado = lista[position]
         holder.cargarDatos(empleado)
         holder.itemView.setOnClickListener{
-
-            onClick(empleado)
+            onClick(empleado,holder.imagev)
         }
     }
 

@@ -166,6 +166,10 @@ class LoginViewModel @Inject constructor(
         }
     }
 
+    fun hasDataInRoom(){
+        /*usuarioRepositorio.obtenerUsuarios()*/
+    }
+
     fun login(alias: String, contrasena: String) {
 
         viewModelScope.launch {
