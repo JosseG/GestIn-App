@@ -93,7 +93,7 @@ class LoginFragment : Fragment() {
 
 
         /* ------------------------------------- 1 COMENTADO --------------------------------------*/
-/*         val sucursal = Sucursal("S00001","NOR-ESTE",true)
+         val sucursal = Sucursal("S00001","NOR-ESTE",true)
 
          val cargo = Cargo("C00001","ADMINISTRADOR",true)
 
@@ -139,16 +139,14 @@ class LoginFragment : Fragment() {
          loginViewModel.cargoObtenido.observe(viewLifecycleOwner){
              loginViewModel.insertarEmpleadosPorAlmacen(empleados,almacen)
              loginViewModel.insertarUsuariosPorEmpleadosPorCargo(usuarios,empleados,it)
-         }*/
+         }
         /* ------------------------------------- 1 COMENTADO --------------------------------------*/
 
         /* ------------------------------------- 2 COMENTADO --------------------------------------*/
 
 /*
         val empleado = Empleado("E00003","A0001","Cristobal","Carrillo","crisllo@email.com","990261100",true)
-*/
 
-/*
         val usuario = Usuario(idEmpleado = "E00003", idCargo = "C00001", alias = "almacenero", contrasena = "almacenero", estado = true)
         val empleados = listOf(
             empleado

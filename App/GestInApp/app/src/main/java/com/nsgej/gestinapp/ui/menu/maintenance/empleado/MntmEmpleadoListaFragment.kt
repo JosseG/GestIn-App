@@ -70,29 +70,12 @@ class MntmEmpleadoListaFragment : Fragment() {
         binding.rvMantEmpleados.layoutManager=manager
 
         val empleadoAdapter = EmpleadoAdapter{ empleado, imageView ->
-
-/*            Log.i("viewcompat",ViewCompat.getTransitionName(imageView).toString())*/
-
-/*            val extras = FragmentNavigator.Extras.Builder()
-                .addSharedElement(imageView, ViewCompat.getTransitionName(imageView)!!)
-                .build()*/
-
-/*            extras.sharedElements.forEach{
-                Log.i("extrsss",it.key.transitionName)
-            }*/
-
             val extras = FragmentNavigatorExtras(
                 imageView to empleado.id
             )
-/*            val bundle = Bundle()
-            bundle.putString("photo", imageView.transitionName);*/
-
             val direction: NavDirections =
                 MntmEmpleadoListaFragmentDirections.actionMntmEmpleadoListaFragmentToMntmEmpleadoActualizarFragment(imageView.transitionName)
 
-            /*
-
-            findNavController().navigate(R.id.action_mntmEmpleadoListaFragment_to_mntmEmpleadoActualizarFragment)*/
             findNavController().navigate(direction,extras)
         }
 
@@ -104,13 +87,6 @@ class MntmEmpleadoListaFragment : Fragment() {
             empleadoAdapter.clean()
             empleadoAdapter.cargarLista(it)
         }
-
-
-
-
-
-
-
 
 
     }

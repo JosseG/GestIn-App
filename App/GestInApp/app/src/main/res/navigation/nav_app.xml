@@ -76,8 +76,8 @@
             app:popUpTo="@+id/nav_app"
             app:popUpToInclusive="true" />
         <action
-            android:id="@+id/action_mantenimientoFragment_to_mantenimientoAppFragment"
-            app:destination="@id/mantenimientoAppFragment"
+            android:id="@+id/action_mantenimientoFragment_to_mntmProductoListaGenFragment"
+            app:destination="@id/mntmProductoListaGenFragment"
             app:launchSingleTop="true"
             app:popUpTo="@+id/nav_app"
             app:popUpToInclusive="true" />
@@ -220,5 +220,50 @@
             app:launchSingleTop="true"
             app:popUpTo="@+id/nav_app"
             app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/mntmProductoListaGenFragment"
+        android:name="com.nsgej.gestinapp.ui.menu.maintenance.producto.MntmProductoListaGenFragment"
+        android:label="fragment_mntm_producto_lista_gen"
+        tools:layout="@layout/fragment_mntm_producto_lista_gen" >
+        <action
+            android:id="@+id/action_mntmProductoListaGenFragment_to_mntmProductoListaEspFragment"
+            app:destination="@id/mntmProductoListaEspFragment" />
+        <action
+            android:id="@+id/action_mntmProductoListaGenFragment_to_mantenimientoFragment"
+            app:destination="@id/mantenimientoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mntmProductoActualizacionFragment"
+        android:name="com.nsgej.gestinapp.ui.menu.maintenance.producto.MntmProductoActualizacionFragment"
+        android:label="fragment_mntm_producto_actualizacion"
+        tools:layout="@layout/fragment_mntm_producto_actualizacion" >
+        <action
+            android:id="@+id/action_mntmProductoActualizacionFragment_to_mntmProductoListaEspFragment"
+            app:destination="@id/mntmProductoListaEspFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mntmProductoListaEspFragment"
+        android:name="com.nsgej.gestinapp.ui.menu.maintenance.producto.MntmProductoListaEspFragment"
+        android:label="fragment_mntm_producto_lista_esp"
+        tools:layout="@layout/fragment_mntm_producto_lista_esp" >
+        <action
+            android:id="@+id/action_mntmProductoListaEspFragment_to_mntmProductoRegistroFragment"
+            app:destination="@id/mntmProductoRegistroFragment" />
+        <action
+            android:id="@+id/action_mntmProductoListaEspFragment_to_mntmProductoActualizacionFragment"
+            app:destination="@id/mntmProductoActualizacionFragment" />
+        <action
+            android:id="@+id/action_mntmProductoListaEspFragment_to_mntmProductoListaGenFragment"
+            app:destination="@id/mntmProductoListaGenFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mntmProductoRegistroFragment"
+        android:name="com.nsgej.gestinapp.ui.menu.maintenance.producto.MntmProductoRegistroFragment"
+        android:label="fragment_mntm_producto_registro"
+        tools:layout="@layout/fragment_mntm_producto_registro" >
+        <action
+            android:id="@+id/action_mntmProductoRegistroFragment_to_mntmProductoListaEspFragment"
+            app:destination="@id/mntmProductoListaEspFragment" />
     </fragment>
 </navigation>

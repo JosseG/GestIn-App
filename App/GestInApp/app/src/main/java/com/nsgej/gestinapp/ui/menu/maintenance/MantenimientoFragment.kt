@@ -41,8 +41,8 @@ class MantenimientoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.btnProducto.setOnClickListener {
-            callDialogFragment()
-            /*findNavController().navigate(R.id.action_mantenimientoFragment_to_mantenimientoAppFragment)*/
+           /* callDialogFragment()*/
+            findNavController().navigate(R.id.action_mantenimientoFragment_to_mntmProductoListaGenFragment)
 
         }
         binding.btnPersonal.setOnClickListener {

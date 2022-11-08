@@ -5,7 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.nsgej.gestinapp.R
+import com.nsgej.gestinapp.databinding.FragmentMntmEmpleadoActualizacionBinding
+import com.nsgej.gestinapp.databinding.FragmentMntmProductoActualizacionBinding
+import com.nsgej.gestinapp.databinding.FragmentMntmProductoListaGenBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 // TODO: Rename parameter arguments, choose names that match
@@ -18,6 +22,8 @@ class MntmProductoListaGenFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    private var _binding: FragmentMntmProductoListaGenBinding? = null
+    val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,9 +37,19 @@ class MntmProductoListaGenFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_mntm_producto_lista_gen, container, false)
+        _binding = FragmentMntmProductoListaGenBinding.inflate(inflater, container, false)
+        return binding.root
     }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
+        binding.btnRegresar.setOnClickListener {
+            findNavController().navigate(R.id.action_mntmProductoListaGenFragment_to_mantenimientoFragment)
+        }
+        binding.btnProcesador .setOnClickListener {
+            findNavController().navigate(R.id.action_mntmProductoListaGenFragment_to_mntmProductoListaEspFragment)
+        }
+    }
     companion object {
 
         @JvmStatic

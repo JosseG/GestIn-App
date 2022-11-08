@@ -24,7 +24,7 @@ import com.nsgej.gestinapp.domain.model.Sucursal
         TipoProductoEntity::class,
         UsuarioEntity::class
     ],
-    version = 3
+    version = 1
 )
 abstract class BaseDatos : RoomDatabase() {
 
