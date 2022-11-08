@@ -6,12 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.nsgej.gestinapp.R
+import dagger.hilt.android.AndroidEntryPoint
 
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-
+@AndroidEntryPoint
 class MntmProductoListaEspFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null

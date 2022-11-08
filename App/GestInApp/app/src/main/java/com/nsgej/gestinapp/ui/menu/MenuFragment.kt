@@ -1,16 +1,16 @@
 package com.nsgej.gestinapp.ui.menu
 
-import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.nsgej.gestinapp.R
 import com.nsgej.gestinapp.databinding.FragmentMenuBinding
+import com.nsgej.gestinapp.prefs
 import com.nsgej.gestinapp.viewmodel.MenuViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -26,7 +26,6 @@ class MenuFragment : Fragment() {
     private var _binding: FragmentMenuBinding? = null
     private val binding get() = _binding!!
 
-    lateinit var sharedPreferences: SharedPreferences
 
     private val menuViewModel by viewModels<MenuViewModel>()
 
@@ -43,7 +42,6 @@ class MenuFragment : Fragment() {
     ): View {
         _binding = FragmentMenuBinding.inflate(inflater, container, false)
 
-        sharedPreferences = context?.getSharedPreferences("preferences", Context.MODE_PRIVATE)!!
         return binding.root
     }
 
@@ -51,29 +49,34 @@ class MenuFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val id = sharedPreferences.getString("ID_EMPLEADO", null)
+        val id = prefs.stringPref
 
         if (id != null) {
             menuViewModel.obtenerEmpleado(id)
         }
 
-        menuViewModel.empleado.observe(viewLifecycleOwner) {
-            binding.lblNombreuser.text = it.nombre
+        menuViewModel.empleado.observe(viewLifecycleOwner) { empleado ->
+            binding.lblNombreuser.text = empleado.nombre
+
+
+            binding.btnMantenimiento.setOnClickListener {
+                findNavController().navigate(R.id.action_menuFragment_to_mantenimientoFragment)
+            }
+            binding.btnTransaccion.setOnClickListener {
+                findNavController().navigate(R.id.action_menuFragment_to_transaccionFragment)
+            }
+            binding.btnReporte.setOnClickListener {
+                findNavController().navigate(R.id.action_menuFragment_to_reportesFragment)
+            }
+            binding.btnPerfil.setOnClickListener {
+                val bundle = Bundle()
+                bundle.putSerializable("empleado", empleado);
+                findNavController().navigate(R.id.action_menuFragment_to_perfilFragment,bundle)
+            }
         }
 
 
-        binding.btnMantenimiento.setOnClickListener {
-            findNavController().navigate(R.id.action_menuFragment_to_mantenimientoFragment)
-        }
-        binding.btnTransaccion.setOnClickListener {
-            findNavController().navigate(R.id.action_menuFragment_to_transaccionFragment)
-        }
-        binding.btnReporte.setOnClickListener {
-            findNavController().navigate(R.id.action_menuFragment_to_reportesFragment)
-        }
-        binding.btnPerfil.setOnClickListener {
-            findNavController().navigate(R.id.action_menuFragment_to_perfilFragment)
-        }
+
     }
 
 

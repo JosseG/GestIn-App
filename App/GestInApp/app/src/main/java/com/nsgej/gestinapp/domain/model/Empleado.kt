@@ -2,10 +2,11 @@ package com.nsgej.gestinapp.domain.model
 
 import com.beust.klaxon.Klaxon
 import com.nsgej.gestinapp.data.entities.EmpleadoEntity
+import java.io.Serializable
 
 private val klaxon = Klaxon()
 
-class Empleado(val id: String, var idAlmacen: String, val nombre: String, val apellido: String, val correo: String, val telefono: String, val estado: Boolean) {
+class Empleado(val id: String, var idAlmacen: String, val nombre: String, val apellido: String, val correo: String, val telefono: String, val estado: Boolean) : Serializable{
 
     override fun toString(): String {
         return "$nombre $apellido"

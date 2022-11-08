@@ -14,4 +14,11 @@
     </style>
 
 
+    <style name="customfontstyle" parent="@android:style/TextAppearance.Small">
+        <item name="android:fontFamily">@font/robotomono_bold</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="fontWeight">600</item>
+    </style>
+
+
 </resources>

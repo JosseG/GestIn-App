@@ -7,6 +7,30 @@
     android:background="@drawable/empleadolistado"
     tools:context=".ui.menu.maintenance.empleado.MntmEmpleadoListaFragment">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="40dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fa_registrar">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_mant_empleados"
+            android:layout_width="match_parent"
+            android:layout_height="496dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="0dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_mntm_empleado" />
+    </RelativeLayout>
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
@@ -22,33 +46,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_mant_empleados"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="32dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fa_registrar"
-        tools:listitem="@layout/item_mntm_empleado" />
-
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fa_registrar"
         android:layout_width="56dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="314dp"
         android:layout_marginTop="113dp"
         android:layout_marginEnd="42dp"
         android:clickable="true"
         android:src="@android:drawable/ic_input_add"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="TODO"
+        android:focusable="true" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_regresar"
@@ -56,7 +65,6 @@
         android:layout_width="wrap_content"
         android:layout_height="82dp"
         android:layout_gravity="center"
-
         android:layout_marginTop="8dp"
         android:layout_marginStart="-15dp"
         app:icon="@drawable/ic_retorno"

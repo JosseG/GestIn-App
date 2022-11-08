@@ -9,12 +9,15 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.nsgej.gestinapp.R
 import com.nsgej.gestinapp.databinding.FragmentPerfilBinding
+import com.nsgej.gestinapp.domain.model.Empleado
+import com.nsgej.gestinapp.prefs
 import com.nsgej.gestinapp.ui.ActivityViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-
+@AndroidEntryPoint
 class PerfilFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -34,18 +37,29 @@ class PerfilFragment : Fragment() {
         }
     }
 
+    lateinit var empleado: Empleado
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
 
         _binding = FragmentPerfilBinding.inflate(inflater, container, false)
+
+        empleado = arguments?.getSerializable("empleado") as Empleado
         return binding.root
     }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
+        binding.txtNombrep.text = empleado.nombre
+        binding.txtApellidop.text = empleado.apellido
+        binding.txtCorreop.text = empleado.correo
+        binding.txtTelefonop.text = empleado.telefono
+
         binding.btnRegresar.setOnClickListener {
             findNavController().navigate(R.id.action_perfilFragment_to_menuFragment)
         }

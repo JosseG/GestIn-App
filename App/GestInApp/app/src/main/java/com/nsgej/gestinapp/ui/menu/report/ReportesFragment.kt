@@ -8,11 +8,12 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.nsgej.gestinapp.R
 import com.nsgej.gestinapp.databinding.FragmentReportesBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-private const val ARG_PARAM1 = "param1"
+ private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-
+ @AndroidEntryPoint
 class ReportesFragment : Fragment() {
 
     private var param1: String? = null
