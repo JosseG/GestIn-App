@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import com.nsgej.gestinapp.R
-import com.nsgej.gestinapp.data.entities.AlmacenEntity
 import com.nsgej.gestinapp.domain.model.Almacen
 
 class AlmacenAdapter (context: Context, almac: List<Almacen>):

@@ -1,23 +1,18 @@
 package com.nsgej.gestinapp.ui.menu.maintenance.empleado
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavDirections
-import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.nsgej.gestinapp.R
 import com.nsgej.gestinapp.databinding.FragmentMntmEmpleadoListaBinding
 import com.nsgej.gestinapp.ui.adapter.empleado.EmpleadoAdapter
-import com.nsgej.gestinapp.viewmodel.MenuViewModel
 import com.nsgej.gestinapp.viewmodel.empleado.EmpleadoViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -79,18 +74,15 @@ class MntmEmpleadoListaFragment : Fragment() {
             findNavController().navigate(direction,extras)
         }
 
-
         binding.rvMantEmpleados.adapter = empleadoAdapter
 
         empleadoViewModel.empleados.observe(viewLifecycleOwner){
-            Log.i("Mensaje","Otra vez se actualiza")
             empleadoAdapter.clean()
             empleadoAdapter.cargarLista(it)
         }
 
 
     }
-
 
 
     companion object {

@@ -1,11 +1,7 @@
 package com.nsgej.gestinapp.data.repository
 
 import com.nsgej.gestinapp.data.dao.ProductoDao
-import com.nsgej.gestinapp.data.dao.TipoInventarioDao
-import com.nsgej.gestinapp.data.entities.ProductoEntity
-import com.nsgej.gestinapp.data.entities.TipoInventarioEntity
 import com.nsgej.gestinapp.data.entities.toEntity
-import com.nsgej.gestinapp.domain.model.Empleado
 import com.nsgej.gestinapp.domain.model.Producto
 import com.nsgej.gestinapp.domain.model.toDomain
 import kotlinx.coroutines.flow.Flow
@@ -26,4 +22,14 @@ class   ProductoRepositorio @Inject constructor(private  val objPro: ProductoDao
     suspend fun insertPoducto(producto: Producto){
         objPro.agregarProducto(producto.toEntity())
     }
+
+    suspend fun insertarPoductos(producto: List<Producto>){
+        objPro.agregarProductos(producto.map { it.toEntity() })
+    }
+
+    suspend fun obtenerProducto(id:String) : Producto {
+        var respuesta = objPro.obtenerProductoPorId(id).toDomain()
+        return respuesta
+    }
+
 }

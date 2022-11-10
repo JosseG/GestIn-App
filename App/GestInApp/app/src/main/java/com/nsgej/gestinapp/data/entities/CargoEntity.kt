@@ -5,7 +5,6 @@ import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
 import com.nsgej.gestinapp.domain.model.Cargo
-import com.nsgej.gestinapp.domain.model.Usuario
 
 @Entity(tableName = "tb_cargo",indices = [Index(value = ["nombre_cargo"],unique = true)])
 data class CargoEntity (

@@ -8,6 +8,7 @@ import com.nsgej.gestinapp.data.entities.TipoProductoEntity
 data class TipoProductoConProductosEntity(
     @Embedded val tipoProducto: TipoProductoEntity,
     @Relation(
+        entity = ProductoEntity::class,
         parentColumn = "id_tipoprod",
         entityColumn = "id_tipoprod"
     )

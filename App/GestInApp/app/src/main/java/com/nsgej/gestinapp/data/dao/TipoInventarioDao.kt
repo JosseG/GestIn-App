@@ -1,11 +1,8 @@
 package com.nsgej.gestinapp.data.dao
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
-import com.nsgej.gestinapp.data.entities.ProductoEntity
+import androidx.room.*
 import com.nsgej.gestinapp.data.entities.TipoInventarioEntity
+import com.nsgej.gestinapp.data.entities.relations.otm.TipoInventarioConInventariosEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -23,6 +20,9 @@ interface TipoInventarioDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun agregarTiposInventario(tipoInventarios: List<TipoInventarioEntity>)
 
+    @Transaction
+    @Query("select * from tb_tipoinventario where id_tipoinventario = :id")
+    suspend fun obtenerTipoInventarioConInventarios(id : String) : List<TipoInventarioConInventariosEntity>
 
     @Query("DELETE FROM tb_tipoinventario")
     suspend fun borrarTodo()

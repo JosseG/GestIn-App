@@ -1,9 +1,7 @@
 package com.nsgej.gestinapp.data.dao
 
 import androidx.room.*
-import com.nsgej.gestinapp.data.entities.MenuEntity
 import com.nsgej.gestinapp.data.entities.ProductoEntity
-import com.nsgej.gestinapp.data.entities.relations.otm.EmpleadoConInventariosEntity
 import com.nsgej.gestinapp.data.entities.relations.otm.ProductoConInventariosEntity
 import kotlinx.coroutines.flow.Flow
 
@@ -15,7 +13,7 @@ interface ProductoDao {
     fun obtenerProductos() : Flow<List<ProductoEntity>>
 
     @Query("select * from tb_producto where id_producto = :id")
-    fun obtenerProductoPorId(id: String) : Flow<ProductoEntity>
+    suspend fun obtenerProductoPorId(id: String) : ProductoEntity
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun agregarProducto(producto: ProductoEntity)

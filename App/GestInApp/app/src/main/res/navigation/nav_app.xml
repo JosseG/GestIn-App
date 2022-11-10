@@ -13,6 +13,8 @@
         <action
             android:id="@+id/action_loginFragment_to_bienvenidoFragment"
             app:destination="@id/bienvenidoFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
             app:launchSingleTop="true"
             app:popUpTo="@+id/nav_app"
             app:popUpToInclusive="true" />
@@ -25,6 +27,8 @@
         <action
             android:id="@+id/action_bienvenidoFragment_to_menuFragment"
             app:destination="@id/menuFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
             app:launchSingleTop="true"
             app:popUpTo="@+id/nav_app"
             app:popUpToInclusive="true" />
@@ -228,7 +232,9 @@
         tools:layout="@layout/fragment_mntm_producto_lista_gen" >
         <action
             android:id="@+id/action_mntmProductoListaGenFragment_to_mntmProductoListaEspFragment"
-            app:destination="@id/mntmProductoListaEspFragment" />
+            app:destination="@id/mntmProductoListaEspFragment"
+            app:enterAnim="@anim/enter_right_to_left"
+            app:exitAnim="@anim/exit_left" />
         <action
             android:id="@+id/action_mntmProductoListaGenFragment_to_mantenimientoFragment"
             app:destination="@id/mantenimientoFragment" />
@@ -238,6 +244,22 @@
         android:name="com.nsgej.gestinapp.ui.menu.maintenance.producto.MntmProductoActualizacionFragment"
         android:label="fragment_mntm_producto_actualizacion"
         tools:layout="@layout/fragment_mntm_producto_actualizacion" >
+        <argument
+            android:name="imagen"
+            android:defaultValue="null"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="idtipoproducto"
+            android:defaultValue="null"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="nombretipoproducto"
+            android:defaultValue="null"
+            app:argType="string"
+            app:nullable="true" />
+
         <action
             android:id="@+id/action_mntmProductoActualizacionFragment_to_mntmProductoListaEspFragment"
             app:destination="@id/mntmProductoListaEspFragment" />
@@ -247,6 +269,18 @@
         android:name="com.nsgej.gestinapp.ui.menu.maintenance.producto.MntmProductoListaEspFragment"
         android:label="fragment_mntm_producto_lista_esp"
         tools:layout="@layout/fragment_mntm_producto_lista_esp" >
+
+        <argument
+            android:name="idtipoproducto"
+            android:defaultValue="null"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="nombretipoproducto"
+            android:defaultValue="null"
+            app:argType="string"
+            app:nullable="true" />
+
         <action
             android:id="@+id/action_mntmProductoListaEspFragment_to_mntmProductoRegistroFragment"
             app:destination="@id/mntmProductoRegistroFragment" />
@@ -255,7 +289,9 @@
             app:destination="@id/mntmProductoActualizacionFragment" />
         <action
             android:id="@+id/action_mntmProductoListaEspFragment_to_mntmProductoListaGenFragment"
-            app:destination="@id/mntmProductoListaGenFragment" />
+            app:destination="@id/mntmProductoListaGenFragment"
+            app:enterAnim="@anim/enter_left_to_right"
+            app:exitAnim="@anim/exit_right" />
     </fragment>
     <fragment
         android:id="@+id/mntmProductoRegistroFragment"

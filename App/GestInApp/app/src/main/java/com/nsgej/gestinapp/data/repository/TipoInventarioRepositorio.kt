@@ -1,9 +1,7 @@
 package com.nsgej.gestinapp.data.repository
 
 import com.nsgej.gestinapp.data.dao.TipoInventarioDao
-import com.nsgej.gestinapp.data.entities.TipoInventarioEntity
 import com.nsgej.gestinapp.data.entities.toEntity
-import com.nsgej.gestinapp.domain.model.Producto
 import com.nsgej.gestinapp.domain.model.TipoInventario
 import com.nsgej.gestinapp.domain.model.toDomain
 import kotlinx.coroutines.flow.Flow

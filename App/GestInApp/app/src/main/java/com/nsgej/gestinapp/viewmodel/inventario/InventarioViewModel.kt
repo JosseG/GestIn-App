@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import com.nsgej.gestinapp.data.entities.InventarioEntity
 import com.nsgej.gestinapp.data.repository.InventarioRepositorio
 import com.nsgej.gestinapp.domain.model.Inventario
 import dagger.hilt.android.lifecycle.HiltViewModel

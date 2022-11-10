@@ -1,8 +1,6 @@
 package com.nsgej.gestinapp.domain.model
 
-import androidx.room.ColumnInfo
 import com.beust.klaxon.Klaxon
-import com.nsgej.gestinapp.data.entities.AccesoCargoEntity
 import com.nsgej.gestinapp.data.entities.AlmacenEntity
 
 private val klaxon = Klaxon()

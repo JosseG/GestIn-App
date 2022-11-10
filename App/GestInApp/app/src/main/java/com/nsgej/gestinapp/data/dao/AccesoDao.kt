@@ -5,7 +5,6 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.nsgej.gestinapp.data.entities.AccesoEntity
-import com.nsgej.gestinapp.data.entities.UsuarioEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao

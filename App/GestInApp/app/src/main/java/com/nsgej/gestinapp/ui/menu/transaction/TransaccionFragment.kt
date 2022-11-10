@@ -1,10 +1,10 @@
 package com.nsgej.gestinapp.ui.menu.transaction
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.nsgej.gestinapp.R
@@ -36,7 +36,6 @@ class TransaccionFragment : Fragment() {
             param2 = it.getString(ARG_PARAM2)
         }
 
-
         insertarIpoInventario()
         insertarProducto()
     }
@@ -66,7 +65,7 @@ class TransaccionFragment : Fragment() {
 
     fun insertarIpoInventario(){
 
-        val tipo1 = TipoInventario(nombre = "Ingesado")
+        val tipo1 = TipoInventario(nombre = "Ingresado")
         val tipo2 = TipoInventario(nombre = "Salida")
         viewmodeltipoInventario.RegistraTipoInventario(tipo1)
         viewmodeltipoInventario.RegistraTipoInventario(tipo2)
@@ -74,7 +73,7 @@ class TransaccionFragment : Fragment() {
     }
     fun insertarProducto(){
 
-        val prod1=  Producto(id="P001", idTipoProducto = 1, codigoBarra = "01010101", descripcion = "Monitor", marca = "Lenovo", estado = true)
+        val prod1=  Producto(id="PR007", idTipoProducto = 4, codigoBarra = "01010101", descripcion = "Monitor", marca = "Lenovo", estado = true)
         loginViewModel.RegistraProducto(prod1)
 
     }

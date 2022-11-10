@@ -1,13 +1,12 @@
 package com.nsgej.gestinapp.ui.menu.report.inventario
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.nsgej.gestinapp.R
-import com.nsgej.gestinapp.databinding.FragmentReportesBinding
 import com.nsgej.gestinapp.databinding.FragmentRprtInventarioBinding
 import dagger.hilt.android.AndroidEntryPoint
 

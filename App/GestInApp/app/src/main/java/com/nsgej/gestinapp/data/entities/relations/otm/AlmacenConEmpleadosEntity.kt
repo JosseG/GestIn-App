@@ -8,6 +8,7 @@ import com.nsgej.gestinapp.data.entities.EmpleadoEntity
 data class AlmacenConEmpleadosEntity(
     @Embedded val almacen: AlmacenEntity,
     @Relation(
+        entity = EmpleadoEntity::class,
         parentColumn = "id_almacen",
         entityColumn = "id_almacen"
     )

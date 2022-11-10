@@ -8,6 +8,32 @@
     tools:context=".ui.menu.maintenance.producto.MntmProductoListaGenFragment">
 
 
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="120dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="40dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lbl_productos">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_lista_tipo_productos"
+            android:layout_width="match_parent"
+            android:layout_height="496dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="0dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_mntm_producto_lista_gen" />
+    </RelativeLayout>
+
+
     <TextView
         android:id="@+id/lbl_productos"
         android:layout_width="wrap_content"
@@ -17,147 +43,11 @@
         android:layout_marginEnd="32dp"
         android:text="Productos"
         android:textColor="@color/black"
-        android:textSize="40dp"
+        android:textSize="40sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-
-    <Button
-        android:id="@+id/btn_cases"
-        android:layout_width="120dp"
-        android:layout_height="150dp"
-        android:text="@string/cases"
-
-        android:drawableBottom="@drawable/ltpcase"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        android:backgroundTint="@color/white"
-
-        app:layout_constraintBottom_toTopOf="@+id/btn_maus"
-        app:layout_constraintEnd_toStartOf="@+id/btn_memorias"
-        app:layout_constraintHorizontal_chainStyle="spread"
-        app:layout_constraintStart_toEndOf="@+id/btn_procesador" />
-
-    <Button
-        android:id="@+id/btn_procesador"
-        android:layout_width="120dp"
-        android:layout_height="150dp"
-        android:layout_marginStart="8dp"
-        android:text="@string/procesador"
-        android:drawableBottom="@drawable/ltpprocesador"
-        android:textSize="11dp"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        android:backgroundTint="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/btn_monitores"
-        app:layout_constraintEnd_toStartOf="@+id/btn_cases"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/btn_memorias"
-        android:layout_width="120dp"
-        android:layout_height="150dp"
-        android:layout_marginEnd="8dp"
-        android:text="@string/memorias"
-        android:drawableBottom="@drawable/ltpmemorias"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        android:backgroundTint="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/btn_fuentes"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btn_cases" />
-
-    <Button
-        android:id="@+id/btn_maus"
-        android:layout_width="120dp"
-        android:layout_height="150dp"
-        android:text="@string/mouse"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        android:drawableBottom="@drawable/ltpmouse"
-        android:backgroundTint="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/btn_almacenamiento"
-        app:layout_constraintEnd_toStartOf="@+id/btn_fuentes"
-        app:layout_constraintHorizontal_chainStyle="spread"
-        app:layout_constraintStart_toEndOf="@+id/btn_monitores" />
-
-    <Button
-        android:id="@+id/btn_fuentes"
-        android:layout_width="120dp"
-        android:layout_height="150dp"
-        android:layout_marginEnd="8dp"
-        android:text="@string/fuentes"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        android:drawableBottom="@drawable/ltpfuentes"
-        android:backgroundTint="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/btn_soporte"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btn_maus" />
-
-    <Button
-        android:id="@+id/btn_monitores"
-        android:layout_width="120dp"
-        android:layout_height="150dp"
-        android:layout_marginStart="8dp"
-        android:text="@string/monitores"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        android:textSize="13dp"
-        android:drawableBottom="@drawable/ltpmonitores"
-        android:backgroundTint="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/btn_teclado"
-        app:layout_constraintEnd_toStartOf="@+id/btn_maus"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/btn_soporte"
-        android:layout_width="120dp"
-        android:layout_height="150dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="50dp"
-        android:text="soporte"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        android:drawableBottom="@drawable/ltpsoporte"
-        android:backgroundTint="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btn_almacenamiento" />
-
-    <Button
-        android:id="@+id/btn_teclado"
-        android:layout_width="120dp"
-        android:layout_height="150dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="50dp"
-        android:text="@string/teclados"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        android:drawableBottom="@drawable/ltpteclado"
-
-        android:backgroundTint="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btn_almacenamiento"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/btn_almacenamiento"
-        android:layout_width="120dp"
-        android:layout_height="150dp"
-        android:layout_marginBottom="50dp"
-        android:text="@string/almacenamiento"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        android:textSize="8dp"
-        android:drawableBottom="@drawable/ltpalmacenamiento"
-        android:backgroundTint="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btn_soporte"
-        app:layout_constraintHorizontal_chainStyle="spread"
-        app:layout_constraintStart_toEndOf="@+id/btn_teclado" />
 
 
     <com.google.android.material.button.MaterialButton

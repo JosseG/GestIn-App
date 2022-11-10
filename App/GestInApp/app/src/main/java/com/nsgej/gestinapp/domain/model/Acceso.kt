@@ -2,7 +2,6 @@ package com.nsgej.gestinapp.domain.model
 
 import com.beust.klaxon.Klaxon
 import com.nsgej.gestinapp.data.entities.AccesoEntity
-import com.nsgej.gestinapp.data.entities.EmpleadoEntity
 
 
 private val klaxon = Klaxon()

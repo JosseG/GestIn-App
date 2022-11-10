@@ -4,7 +4,6 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
-import com.nsgej.gestinapp.domain.model.Almacen
 import com.nsgej.gestinapp.domain.model.Producto
 
 @Entity(tableName = "tb_producto",indices = [Index(value = ["codigobar_producto"], unique = true)])

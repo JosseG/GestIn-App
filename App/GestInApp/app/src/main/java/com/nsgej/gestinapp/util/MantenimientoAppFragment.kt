@@ -1,15 +1,13 @@
 package com.nsgej.gestinapp.util
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.nsgej.gestinapp.R
-import com.nsgej.gestinapp.databinding.FragmentBienvenidoBinding
 import com.nsgej.gestinapp.databinding.FragmentMantenimientoAppBinding
-import com.nsgej.gestinapp.databinding.FragmentMenuBinding
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"

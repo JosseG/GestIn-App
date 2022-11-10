@@ -1,10 +1,12 @@
 package com.nsgej.gestinapp.ui.menu
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.os.CountDownTimer
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.nsgej.gestinapp.R
 import com.nsgej.gestinapp.databinding.FragmentBienvenidoBinding
@@ -38,9 +40,16 @@ class BienvenidoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.btnSiguiente.setOnClickListener {
-            findNavController().navigate(R.id.action_bienvenidoFragment_to_menuFragment)
-        }
+
+        object : CountDownTimer(2000, 1000){
+            override fun onTick(p0: Long) {
+                Log.i("Result",p0.toString())
+            }
+            override fun onFinish() {
+                findNavController().navigate(R.id.action_bienvenidoFragment_to_menuFragment)
+            }
+        }.start()
+
     }
 
     companion object {

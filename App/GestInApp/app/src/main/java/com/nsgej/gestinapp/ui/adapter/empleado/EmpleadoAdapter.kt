@@ -1,6 +1,5 @@
 package com.nsgej.gestinapp.ui.adapter.empleado
 
-import android.media.Image
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView

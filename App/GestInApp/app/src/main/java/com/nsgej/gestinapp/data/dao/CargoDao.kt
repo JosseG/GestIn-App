@@ -2,8 +2,6 @@ package com.nsgej.gestinapp.data.dao
 
 import androidx.room.*
 import com.nsgej.gestinapp.data.entities.CargoEntity
-import com.nsgej.gestinapp.data.entities.EmpleadoEntity
-import com.nsgej.gestinapp.data.entities.relations.otm.AlmacenConInventariosEntity
 import com.nsgej.gestinapp.data.entities.relations.otm.CargoConUsuariosEntity
 import kotlinx.coroutines.flow.Flow
 

@@ -1,11 +1,6 @@
 package com.nsgej.gestinapp.data.dao
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
-import androidx.room.Transaction
-import com.nsgej.gestinapp.data.entities.AccesoEntity
+import androidx.room.*
 import com.nsgej.gestinapp.data.entities.AlmacenEntity
 import com.nsgej.gestinapp.data.entities.relations.otm.AlmacenConEmpleadosEntity
 import com.nsgej.gestinapp.data.entities.relations.otm.AlmacenConInventariosEntity

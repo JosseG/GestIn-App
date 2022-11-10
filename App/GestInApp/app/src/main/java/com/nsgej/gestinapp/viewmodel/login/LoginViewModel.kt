@@ -2,18 +2,13 @@ package com.nsgej.gestinapp.viewmodel.login
 
 import android.util.Log
 import androidx.lifecycle.*
-import com.nsgej.gestinapp.R
 import com.nsgej.gestinapp.data.Respuesta
 import com.nsgej.gestinapp.data.repository.*
 import com.nsgej.gestinapp.domain.model.*
 import com.nsgej.gestinapp.ui.login.LoginResult
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.cancel
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.suspendCancellableCoroutine
 import javax.inject.Inject
-import javax.inject.Singleton
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(

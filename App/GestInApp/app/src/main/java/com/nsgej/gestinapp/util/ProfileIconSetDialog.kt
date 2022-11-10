@@ -3,20 +3,11 @@ package com.nsgej.gestinapp.util
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.Dialog
-import android.content.DialogInterface
 import android.graphics.ColorMatrixColorFilter
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
-import com.nsgej.gestinapp.R
 import com.nsgej.gestinapp.databinding.DialogIconProfileSetBinding
-import com.nsgej.gestinapp.databinding.FragmentMantenimientoBinding.bind
-import com.nsgej.gestinapp.databinding.FragmentMantenimientoBinding.inflate
-import com.nsgej.gestinapp.databinding.FragmentMenuBinding
-import com.nsgej.gestinapp.databinding.ItemReporteInventarioBinding.inflate
 
 class ProfileIconSetDialog : DialogFragment() {
 

@@ -3,13 +3,11 @@ package com.nsgej.gestinapp.data.repository
 import android.util.Log
 import com.nsgej.gestinapp.data.Respuesta
 import com.nsgej.gestinapp.data.dao.UsuarioDao
-import com.nsgej.gestinapp.data.entities.UsuarioEntity
 import com.nsgej.gestinapp.data.entities.toEntity
 import com.nsgej.gestinapp.domain.model.Usuario
 import com.nsgej.gestinapp.domain.model.toDomain
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import java.lang.Exception
 import javax.inject.Inject
 
 

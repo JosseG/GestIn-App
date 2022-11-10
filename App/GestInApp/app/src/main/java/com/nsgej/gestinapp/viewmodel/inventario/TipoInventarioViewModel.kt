@@ -1,10 +1,8 @@
 package com.nsgej.gestinapp.viewmodel.inventario
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import com.nsgej.gestinapp.data.entities.TipoInventarioEntity
 import com.nsgej.gestinapp.data.repository.TipoInventarioRepositorio
 import com.nsgej.gestinapp.domain.model.TipoInventario
 import dagger.hilt.android.lifecycle.HiltViewModel

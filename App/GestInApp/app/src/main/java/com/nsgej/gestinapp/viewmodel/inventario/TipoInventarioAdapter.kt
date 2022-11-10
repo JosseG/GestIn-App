@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import com.nsgej.gestinapp.R
-import com.nsgej.gestinapp.data.entities.TipoInventarioEntity
 import com.nsgej.gestinapp.domain.model.TipoInventario
 
 class TipoInventarioAdapter(context: Context,  tipos: List<TipoInventario>):

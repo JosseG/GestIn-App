@@ -2,7 +2,6 @@ package com.nsgej.gestinapp.data.dao
 
 import androidx.room.*
 import com.nsgej.gestinapp.data.entities.MenuEntity
-import com.nsgej.gestinapp.data.entities.relations.otm.EmpleadoConInventariosEntity
 import com.nsgej.gestinapp.data.entities.relations.otm.MenuConAccesosEntity
 import kotlinx.coroutines.flow.Flow
 

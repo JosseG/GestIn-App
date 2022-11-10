@@ -2,7 +2,6 @@ package com.nsgej.gestinapp.data.entities
 
 import androidx.room.*
 import com.nsgej.gestinapp.domain.model.Empleado
-import com.nsgej.gestinapp.domain.model.Usuario
 
 @Entity(
     tableName = "tb_empleado",foreignKeys = [

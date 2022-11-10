@@ -1,10 +1,7 @@
 package com.nsgej.gestinapp.ui.login
 
 
-import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,7 +14,6 @@ import com.nsgej.gestinapp.domain.model.*
 import com.nsgej.gestinapp.ui.ActivityViewModel
 import com.nsgej.gestinapp.viewmodel.login.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.awaitAll
 
 @AndroidEntryPoint
 class LoginFragment : Fragment() {
@@ -37,6 +33,7 @@ class LoginFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
 
         return (binding.root)
@@ -68,10 +65,12 @@ class LoginFragment : Fragment() {
                 activityViewModel.setData(loginResult.success.idEmpleado)
 
                 findNavController().navigate(R.id.action_loginFragment_to_bienvenidoFragment)
+
+
             }
 
-        }
 
+        }
 
         activityViewModel.getStatus()
 
@@ -87,8 +86,6 @@ class LoginFragment : Fragment() {
             }
 
         }
-
-
 
 
 
@@ -124,6 +121,17 @@ class LoginFragment : Fragment() {
              Cargo("C00002","VENDEDOR",true)
          )
 
+        val empleado2 = Empleado("E00003","A0001","Cristobal","Carrillo","crisllo@email.com","990261100",true)
+
+        val usuario2 = Usuario(idEmpleado = "E00003", idCargo = "C00001", alias = "almacenero", contrasena = "almacenero", estado = true)
+        val empleados2 = listOf(
+            empleado2
+        )
+
+        val usuarios2 = listOf(
+            usuario2
+        )
+
          loginViewModel.insertarCargos(cargos)
          loginViewModel.insertarSucursales(sucursales)
 
@@ -139,33 +147,14 @@ class LoginFragment : Fragment() {
          loginViewModel.cargoObtenido.observe(viewLifecycleOwner){
              loginViewModel.insertarEmpleadosPorAlmacen(empleados,almacen)
              loginViewModel.insertarUsuariosPorEmpleadosPorCargo(usuarios,empleados,it)
+
+             loginViewModel.insertarEmpleadosPorAlmacen(empleados2,almacen)
+             loginViewModel.insertarUsuariosPorEmpleadosPorCargo(usuarios2,empleados2,it)
          }
         /* ------------------------------------- 1 COMENTADO --------------------------------------*/
 
         /* ------------------------------------- 2 COMENTADO --------------------------------------*/
 
-/*
-        val empleado = Empleado("E00003","A0001","Cristobal","Carrillo","crisllo@email.com","990261100",true)
-
-        val usuario = Usuario(idEmpleado = "E00003", idCargo = "C00001", alias = "almacenero", contrasena = "almacenero", estado = true)
-        val empleados = listOf(
-            empleado
-        )
-
-        val usuarios = listOf(
-            usuario
-        )
-
-
-        val almacen = Almacen("A0001","S00002","Almacen-A","Lurin",true)
-
-        loginViewModel.obtenerCargo("C00001")
-
-        loginViewModel.cargoObtenido.observe(viewLifecycleOwner){
-            loginViewModel.insertarEmpleadosPorAlmacen(empleados,almacen)
-            loginViewModel.insertarUsuariosPorEmpleadosPorCargo(usuarios,empleados,it)
-        }
-*/
 
 
         /* ------------------------------------- 2 COMENTADO --------------------------------------*/

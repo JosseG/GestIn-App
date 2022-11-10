@@ -15,11 +15,12 @@ class EmpleadoViewModel @Inject constructor(private var empleadoRepository: Empl
     val empleados  = empleadoRepository.obtenerEmpleados().asLiveData();
 
 
-    fun insertar(empleado: Empleado){
+    fun insertarEmpleado(empleado: Empleado){
         viewModelScope.launch {
             empleadoRepository.insertarEmpleado(empleado)
         }
     }
+
 
     suspend fun obtenerEmpleado(id : String) = empleadoRepository.obtenerEmpleado(id)
 

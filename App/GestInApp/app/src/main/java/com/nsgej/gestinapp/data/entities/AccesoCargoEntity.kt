@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
+import com.nsgej.gestinapp.domain.model.AccesoCargo
 
 @Entity(
     tableName = "tb_acceso_cargo",
@@ -32,3 +33,5 @@ data class AccesoCargoEntity(
     @ColumnInfo(name = "id_cargo") val idCargo: String,
     @ColumnInfo(name = "estado") val estado: Boolean = true
 )
+
+fun AccesoCargo.toEntity() = AccesoCargoEntity( idAcceso, idCargo, estado)

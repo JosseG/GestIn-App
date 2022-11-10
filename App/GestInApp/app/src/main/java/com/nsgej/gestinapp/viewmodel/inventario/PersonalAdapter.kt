@@ -7,8 +7,6 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import com.nsgej.gestinapp.R
-import com.nsgej.gestinapp.data.entities.AlmacenEntity
-import com.nsgej.gestinapp.data.entities.EmpleadoEntity
 import com.nsgej.gestinapp.domain.model.Empleado
 
 class PersonalAdapter (context: Context, emp: List<Empleado>):

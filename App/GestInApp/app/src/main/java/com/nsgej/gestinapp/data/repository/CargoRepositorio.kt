@@ -3,8 +3,6 @@ package com.nsgej.gestinapp.data.repository
 import com.nsgej.gestinapp.data.dao.CargoDao
 import com.nsgej.gestinapp.data.entities.toEntity
 import com.nsgej.gestinapp.domain.model.Cargo
-import com.nsgej.gestinapp.domain.model.Empleado
-import com.nsgej.gestinapp.domain.model.Usuario
 import com.nsgej.gestinapp.domain.model.toDomain
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map

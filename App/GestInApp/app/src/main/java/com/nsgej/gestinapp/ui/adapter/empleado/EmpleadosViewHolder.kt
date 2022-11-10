@@ -1,7 +1,6 @@
 package com.nsgej.gestinapp.ui.adapter.empleado
 
 import android.annotation.SuppressLint
-import android.util.Log
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.nsgej.gestinapp.R
