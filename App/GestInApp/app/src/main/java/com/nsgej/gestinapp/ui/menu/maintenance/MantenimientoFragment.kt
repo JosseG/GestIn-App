@@ -15,24 +15,14 @@ import com.nsgej.gestinapp.util.ProfileIconSetDialog
 import com.nsgej.gestinapp.viewmodel.producto.ProductoViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
 @AndroidEntryPoint
 class MantenimientoFragment : Fragment() {
-    private var param1: String? = null
-    private var param2: String? = null
+
 
     private var _binding: FragmentMantenimientoBinding? = null
     val binding get() = _binding!!
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
 
     val productooViewModel by viewModels<ProductoViewModel>()
 
@@ -137,14 +127,5 @@ class MantenimientoFragment : Fragment() {
         add.show(requireActivity().supportFragmentManager, "dialog")
     }
 
-    companion object {
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            MantenimientoFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
+
 }

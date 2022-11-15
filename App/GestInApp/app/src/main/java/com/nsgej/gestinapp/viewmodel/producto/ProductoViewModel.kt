@@ -58,6 +58,11 @@ class ProductoViewModel @Inject constructor(private val productoRepositorio: Pro
             productoRepositorio.actualizarProducto(producto)
         }
     }
+    fun eliminar(producto: Producto) {
+        viewModelScope.launch {
+            productoRepositorio.eliminarProducto(producto)
+        }
+    }
 
     fun obtenerProducto(id : String ){
         viewModelScope.launch {
@@ -65,11 +70,6 @@ class ProductoViewModel @Inject constructor(private val productoRepositorio: Pro
         }
     }
 
-    fun eliminar(producto: Producto){
-        viewModelScope.launch {
-
-        }
-    }
 
     fun obtenerProductosPorTipoProducto(id : String){
 

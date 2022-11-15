@@ -25,7 +25,8 @@
     <string name="teclados">Teclados</string>
     <string name="almacenamiento">Almacenamiento</string>
     <string name="soporte">Soporte</string>
-
+    IdProducto
+    <string name="idproducto">IdProducto</string>
     <string name="codigobarra">Codigo Barra</string>
     <string name="descripcion">Descripción</string>
     <string name="marca">Marca</string>

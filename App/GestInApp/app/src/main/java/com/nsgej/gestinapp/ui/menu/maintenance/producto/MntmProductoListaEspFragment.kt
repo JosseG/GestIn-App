@@ -36,7 +36,6 @@ class MntmProductoListaEspFragment : Fragment() {
     //----------------------------------------------------------------
     private val args by navArgs<MntmProductoListaEspFragmentArgs>()
     private val productoViewModel by viewModels<ProductoViewModel>()
-    //val productoViewModel by viewModels<ProductoViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -90,45 +89,8 @@ class MntmProductoListaEspFragment : Fragment() {
             }
         }
 
-        /* productoViewModel.obtenerProductosPorTipoProducto(args.idtipoproducto!!)
-         productoViewModel.productosPorTipoObtenido.observe(viewLifecycleOwner) {
-             val manager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
-             binding.rvProductoListadoEsp.layoutManager = manager
-             val productoAdapter = ProductosEspecificoAdapter { producto ->
-                 val extras = FragmentNavigatorExtras(
-                     imageView to producto.id
-                 )
-                 val direction: NavDirections =
-                     MntmProductoListaEspFragmentDirections.actionMntmProductoListaEspFragmentToMntmProductoActualizacionFragment(
-                         imagen = imageView.transitionName, idtipoproducto = args.idtipoproducto, nombretipoproducto = args.nombretipoproducto
-                     )
-                 findNavController().navigate(direction, extras)
-             }
-             val productosEntity = it.productos
-             for (e in productosEntity){
-                 Log.i("producto",e.descripcion)
-             }
-             binding.lblTipoProductoEnEsp.text = args.nombretipoproducto?.uppercase(Locale.ROOT)
-             val productos: List<Producto> = productosEntity.map { el -> el.toDomain() }
-             productoAdapter.clean()
-             productoAdapter.cargarLista(productos)
-             binding.rvProductoListadoEsp.adapter = productoAdapter
-         }*/
-
         binding.faAgregar.setOnClickListener {
             findNavController().navigate(R.id.action_mntmProductoListaEspFragment_to_mntmProductoRegistroFragment)
         }
-
     }
-
-/*    companion object {
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            MntmProductoListaEspFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }*/
 }

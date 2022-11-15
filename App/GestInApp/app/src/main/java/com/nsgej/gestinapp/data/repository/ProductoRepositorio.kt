@@ -1,6 +1,8 @@
 package com.nsgej.gestinapp.data.repository
 
+import androidx.room.Delete
 import com.nsgej.gestinapp.data.dao.ProductoDao
+import com.nsgej.gestinapp.data.entities.ProductoEntity
 import com.nsgej.gestinapp.data.entities.toEntity
 import com.nsgej.gestinapp.domain.model.Producto
 import com.nsgej.gestinapp.domain.model.toDomain
@@ -36,6 +38,16 @@ class   ProductoRepositorio @Inject constructor(private  val objPro: ProductoDao
         val respuesta = objPro.actualizarProducto(producto.toEntity())
         return respuesta
     }
+
+    suspend fun eliminarProducto(producto: Producto){
+        val respuesta = objPro.eliminarProducto(producto.toEntity())
+        return respuesta
+    }
+
+
+
+
+
 
 
 

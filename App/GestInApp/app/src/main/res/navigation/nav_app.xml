@@ -306,5 +306,15 @@
         <action
             android:id="@+id/action_mntmProductoRegistroFragment_to_mntmProductoListaEspFragment"
             app:destination="@id/mntmProductoListaEspFragment" />
+        <argument
+            android:name="idtipoproducto"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="null" />
+        <argument
+            android:name="nombretipoproducto"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="null" />
     </fragment>
 </navigation>

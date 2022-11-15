@@ -1,5 +1,6 @@
 package com.nsgej.gestinapp.ui.menu.maintenance.producto
 
+import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.transition.TransitionInflater
@@ -13,6 +14,7 @@ import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.nsgej.gestinapp.R
 import com.nsgej.gestinapp.databinding.FragmentMntmProductoActualizacionBinding
 import com.nsgej.gestinapp.domain.model.Producto
@@ -30,17 +32,9 @@ class MntmProductoActualizacionFragment : Fragment() {
     val binding get() = _binding!!
 
     private val args by navArgs<MntmProductoActualizacionFragmentArgs>()
-    //private val productoViewModel by viewModels<ProductoViewModel>()
-
-//------------------------------------------------------------
-    /*val productoViewModel by viewModels<ProductoViewModel> {
-        val productopru = requireActivity().application as MiAplicacion
-       viewModelFactory { productopru}
-    }*/
-//-------------------------------------------------------------
-
     private val productoViewModel by viewModels<ProductoViewModel>()
     lateinit var productoItem : Producto
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -50,7 +44,11 @@ class MntmProductoActualizacionFragment : Fragment() {
             TransitionInflater.from(context).inflateTransition(android.R.transition.move)
         return binding.root
     }
-
+    lateinit var contexto: Context
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        contexto = context
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -63,11 +61,8 @@ class MntmProductoActualizacionFragment : Fragment() {
             binding.txtCodBarra.editText?.text=Editable.Factory.getInstance().newEditable(producto.codigoBarra)
             binding.txtDescripcion.editText?.text=Editable.Factory.getInstance().newEditable(producto.descripcion)
             binding.txtMarca.editText?.text=Editable.Factory.getInstance().newEditable(producto.marca)
-            //preguntar como pasar la imagen-----------------------------------
-            /*Log.i("id",args.imagen.toString())*/
             binding.imgvProducto.transitionName = args.imagen
             Glide.with(this).load(producto.imagenUrl).into(binding.imgvProducto)
-
         }
 
 
@@ -79,26 +74,47 @@ class MntmProductoActualizacionFragment : Fragment() {
             binding.txtMarca.error = null
 
             val codigoBarra = binding.txtCodBarra.editText?.text.toString()
-            val Codigovalidar = "[A-Za-z\\d\\-_\\sÑñ]{1,50}".toRegex()
+            val Codigovalidar = "[A-Za-z\\d\\-_\\sÑñ]{8,20}".toRegex()
+            if(codigoBarra.isEmpty()){
+                binding.txtCodBarra.error ="Campo Requerido"
+                return@setOnClickListener
+            }
             if (!Codigovalidar.matches(codigoBarra)) {
-                binding.txtCodBarra.error = "Campo Solicitado"
+                binding.txtCodBarra.error = "De 8 a 20 caracteres"
                 return@setOnClickListener
             }
+            //-----------------------------------------------------
             val descripcion = binding.txtDescripcion.editText?.text.toString()
-            val descripcionValidar = "[A-Za-z\\d\\-_\\sÑñ]{1,50}".toRegex()
+            val descripcionValidar = "[A-Za-z\\d\\-_\\sÑñ]{5,70}".toRegex()
+            if (descripcion.isEmpty()) {
+                binding.txtDescripcion.error = "Campo Requerido"
+                return@setOnClickListener
+            }
             if (!descripcionValidar.matches(descripcion)) {
-                binding.txtDescripcion.error = "Campo Solicitado"
+                binding.txtDescripcion.error = "De 5 a 70 caracteres"
                 return@setOnClickListener
             }
+            //-----------------------------------------------------
             val marca = binding.txtMarca.editText?.text.toString()
-            val Marcavalidar = "[A-Za-z\\d\\-_\\sÑñ]{1,50}".toRegex()
+            val Marcavalidar = "[A-Za-z\\d\\-_\\sÑñ]{1,20}".toRegex()
             if (!Marcavalidar.matches(marca)) {
-                binding.txtMarca.error = "Campo Solicitado"
+                binding.txtMarca.error = "Campo Requerido"
                 return@setOnClickListener
             }
+            MaterialAlertDialogBuilder(contexto)
+                .setTitle("-------------EXITO-------------")
+                .setMessage("Producto Actualizado")
+                .show()
             var producto= Producto(productoItem.id,productoItem.idTipoProducto,codigoBarra, descripcion, marca,productoItem.imagenUrl,productoItem.estado)
             Log.i("act",producto.toString())
             productoViewModel.actualizar(producto)
+
+            val direction: NavDirections =
+                MntmProductoActualizacionFragmentDirections.actionMntmProductoActualizacionFragmentToMntmProductoListaEspFragment(
+                    idtipoproducto = args.idtipoproducto,
+                    nombretipoproducto = args.nombretipoproducto
+                )
+            findNavController().navigate(direction)
 
         }
         binding.btnEliminar.setOnClickListener {
@@ -107,30 +123,49 @@ class MntmProductoActualizacionFragment : Fragment() {
             binding.txtMarca.error = null
 
             val codigoBarra = binding.txtCodBarra.editText?.text.toString()
-            val Codigovalidar = "[A-Za-z\\d\\-_\\sÑñ]{1,50}".toRegex()
+            val Codigovalidar = "[A-Za-z\\d\\-_\\sÑñ]{8,20}".toRegex()
+            if(codigoBarra.isEmpty()){
+                binding.txtCodBarra.error ="Campo Requerido"
+                return@setOnClickListener
+            }
             if (!Codigovalidar.matches(codigoBarra)) {
-                binding.txtCodBarra.error = "Campo Solicitado"
+                binding.txtCodBarra.error = "De 8 a 20 caracteres"
                 return@setOnClickListener
             }
+            //-----------------------------------------------------
             val descripcion = binding.txtDescripcion.editText?.text.toString()
-            val descripcionValidar = "[A-Za-z\\d\\-_\\sÑñ]{1,50}".toRegex()
+            val descripcionValidar = "[A-Za-z\\d\\-_\\sÑñ]{5,70}".toRegex()
+            if (descripcion.isEmpty()) {
+                binding.txtDescripcion.error = "Campo Requerido"
+                return@setOnClickListener
+            }
             if (!descripcionValidar.matches(descripcion)) {
-                binding.txtDescripcion.error = "Campo Solicitado"
+                binding.txtDescripcion.error = "De 5 a 70 caracteres"
                 return@setOnClickListener
             }
+            //-----------------------------------------------------
             val marca = binding.txtMarca.editText?.text.toString()
-            val Marcavalidar = "[A-Za-z\\d\\-_\\sÑñ]{1,50}".toRegex()
+            val Marcavalidar = "[A-Za-z\\d\\-_\\sÑñ]{1,20}".toRegex()
             if (!Marcavalidar.matches(marca)) {
-                binding.txtMarca.error = "Campo Solicitado"
+                binding.txtMarca.error = "Campo Requerido"
                 return@setOnClickListener
             }
-            /* var producto = Producto(nombre, codigo, cantidad.toInt())
-             productoViewModel.elimina(producto)*/
 
-            findNavController().navigate(R.id.action_mntmProductoActualizacionFragment_to_mntmProductoListaEspFragment)
+            MaterialAlertDialogBuilder(contexto)
+                .setTitle("-------------EXITO-------------")
+                .setMessage("Producto Eliminado")
+                .show()
+
+            var producto = Producto(productoItem.id,productoItem.idTipoProducto,codigoBarra, descripcion, marca,productoItem.imagenUrl,productoItem.estado)
+             productoViewModel.eliminar(producto)
+
+            val direction: NavDirections =
+                MntmProductoActualizacionFragmentDirections.actionMntmProductoActualizacionFragmentToMntmProductoListaEspFragment(
+                    idtipoproducto = args.idtipoproducto,
+                    nombretipoproducto = args.nombretipoproducto
+                )
+            findNavController().navigate(direction)
         }
-
-
 
         binding.btnRegresar.setOnClickListener {
             val direction: NavDirections =
@@ -139,7 +174,6 @@ class MntmProductoActualizacionFragment : Fragment() {
                     nombretipoproducto = args.nombretipoproducto
                 )
             findNavController().navigate(direction)
-            //findNavController().navigate(R.id.action_mntmProductoActualizacionFragment_to_mntmProductoListaEspFragment)
 
         }
     }
