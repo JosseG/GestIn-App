@@ -20,8 +20,8 @@ class ProductoViewModel @Inject constructor(private val productoRepositorio: Pro
     val tiposProducto  = tipoProductoRepositorio.obtenerTipoProductos().asLiveData();
 
 
-    private var _productoPorTipoObtenido = MutableLiveData<TipoProductoConProductosEntity>()
-    val productoPorTipoObtenido: LiveData<TipoProductoConProductosEntity> = _productoPorTipoObtenido
+    private var _productoPorTipoObtenido = MutableLiveData<Producto>()
+    val productoPorTipoObtenido: LiveData<Producto> = _productoPorTipoObtenido
 
 
     private var _productosPorTipoObtenido = MutableLiveData<TipoProductoConProductosEntity>()
@@ -55,21 +55,19 @@ class ProductoViewModel @Inject constructor(private val productoRepositorio: Pro
 
     fun actualizar(producto: Producto){
         viewModelScope.launch {
-
+            productoRepositorio.actualizarProducto(producto)
         }
     }
 
-
-
-/*    fun obtenerProducto(id : String ){
+    fun obtenerProducto(id : String ){
         viewModelScope.launch {
-            _productoObtenido.value =  productoRepositorio.obtenerProducto(id)
+            _productoPorTipoObtenido.value =  productoRepositorio.obtenerProducto(id)
         }
-    }*/
+    }
 
     fun eliminar(producto: Producto){
-        viewModelScope.launch {/*
-            empleadoRepository.elimi(producto)*/
+        viewModelScope.launch {
+
         }
     }
 

@@ -11,7 +11,7 @@ import javax.inject.Inject
 class   ProductoRepositorio @Inject constructor(private  val objPro: ProductoDao) {
 
     fun obtenerProductos() : Flow<List<Producto>> {
-        var respuesta = objPro.obtenerProductos().map{
+        val respuesta = objPro.obtenerProductos().map{
             it.map {
                     e -> e.toDomain()
             }
@@ -28,8 +28,15 @@ class   ProductoRepositorio @Inject constructor(private  val objPro: ProductoDao
     }
 
     suspend fun obtenerProducto(id:String) : Producto {
-        var respuesta = objPro.obtenerProductoPorId(id).toDomain()
+        val respuesta = objPro.obtenerProductoPorId(id).toDomain()
         return respuesta
     }
+
+    suspend fun actualizarProducto(producto: Producto){
+        val respuesta = objPro.actualizarProducto(producto.toEntity())
+        return respuesta
+    }
+
+
 
 }

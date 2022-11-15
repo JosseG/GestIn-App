@@ -14,7 +14,8 @@ class ProductoEntity(
     @ColumnInfo(name = "codigobar_producto") val codigoBarra: String,
     @ColumnInfo(name = "descripcion_producto") val descripcion: String,
     @ColumnInfo(name = "marca_producto") val marca: String,
+    @ColumnInfo(name = "imagenurl_prod") val imagenUrl: String,
     @ColumnInfo(name = "estado") val estado: Boolean = true
 )
 
-fun Producto.toEntity() = ProductoEntity(id, idTipoProducto, codigoBarra, descripcion, marca, estado)
+fun Producto.toEntity() = ProductoEntity(id, idTipoProducto, codigoBarra, descripcion, marca, imagenUrl,estado)

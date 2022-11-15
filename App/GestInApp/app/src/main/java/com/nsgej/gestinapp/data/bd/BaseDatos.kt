@@ -37,5 +37,4 @@ abstract class BaseDatos : RoomDatabase() {
     abstract fun getProductoDao(): ProductoDao
     abstract fun getTipoProductoDao(): TipoProductoDao
 
-
 }

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/mantenproducto"
+    android:background="@drawable/fondo3"
     tools:context=".ui.menu.maintenance.producto.MntmProductoListaGenFragment">
 
 

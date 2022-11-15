@@ -69,7 +69,7 @@ class MenuFragment : Fragment() {
             }
             binding.btnPerfil.setOnClickListener {
                 val bundle = Bundle()
-                bundle.putSerializable("empleado", empleado);
+                bundle.putSerializable("empleado", empleado)
                 findNavController().navigate(R.id.action_menuFragment_to_perfilFragment,bundle)
             }
         }

@@ -73,7 +73,7 @@ class TransaccionFragment : Fragment() {
     }
     fun insertarProducto(){
 
-        val prod1=  Producto(id="PR007", idTipoProducto = 4, codigoBarra = "01010101", descripcion = "Monitor", marca = "Lenovo", estado = true)
+        val prod1=  Producto(id ="PR007", idTipoProducto = 4, codigoBarra = "01010101", descripcion = "Monitor", marca = "Lenovo", imagenUrl = "", estado = true)
         loginViewModel.RegistraProducto(prod1)
 
     }

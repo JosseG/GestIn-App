@@ -8,7 +8,7 @@
     android:layout_height="250dp"
     android:layout_gravity="center"
     android:layout_margin="5dp"
-    android:backgroundTint="@color/amarillo"
+    android:backgroundTint="#E3DB94"
     app:cardCornerRadius="15dp"
     app:cardElevation="6dp">
 
@@ -40,7 +40,7 @@
             android:textColor="@color/black"
             android:textSize="12sp"
             android:textStyle="bold"
-            tools:text="Producto"/>
+            tools:text="Producto" />
         <TextView
             android:id="@+id/textView5"
             android:layout_width="130dp"
