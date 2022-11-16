@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.nsgej.gestinapp.R
 import com.nsgej.gestinapp.databinding.FragmentLoginBinding
 import com.nsgej.gestinapp.domain.model.*
@@ -58,6 +59,11 @@ class LoginFragment : Fragment() {
             val loginResult = it ?: return@observe
 
             if (loginResult.error != null) {
+                MaterialAlertDialogBuilder(view.context,R.style.MaterialAlertDialog__Center)
+                    .setTitle("-------------Error-------------")
+                    .setMessage("Error al loguearse, ingrese nuevamente sus datos")
+                    .show()
+
                 return@observe
             }
             if (loginResult.success != null) {

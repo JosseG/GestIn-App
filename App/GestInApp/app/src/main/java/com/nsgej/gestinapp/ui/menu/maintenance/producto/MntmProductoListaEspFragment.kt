@@ -90,7 +90,11 @@ class MntmProductoListaEspFragment : Fragment() {
         }
 
         binding.faAgregar.setOnClickListener {
-            findNavController().navigate(R.id.action_mntmProductoListaEspFragment_to_mntmProductoRegistroFragment)
+            val direction : NavDirections = MntmProductoListaEspFragmentDirections.actionMntmProductoListaEspFragmentToMntmProductoRegistroFragment(
+                idtipoproducto = args.idtipoproducto,
+                nombretipoproducto = args.nombretipoproducto,
+            )
+            findNavController().navigate(direction)
         }
     }
 }

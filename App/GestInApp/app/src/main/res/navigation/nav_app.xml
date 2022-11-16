@@ -41,18 +41,24 @@
         <action
             android:id="@+id/action_menuFragment_to_reportesFragment"
             app:destination="@id/reportesFragment"
+            app:enterAnim="@anim/enter_right_to_left"
+            app:exitAnim="@anim/exit_left"
             app:launchSingleTop="true"
             app:popUpTo="@+id/nav_app"
             app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_menuFragment_to_transaccionFragment"
             app:destination="@id/transaccionFragment"
+            app:enterAnim="@anim/enter_right_to_left"
+            app:exitAnim="@anim/exit_left"
             app:launchSingleTop="true"
             app:popUpTo="@+id/nav_app"
             app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_menuFragment_to_perfilFragment"
             app:destination="@id/perfilFragment"
+            app:enterAnim="@anim/enter_right_to_left"
+            app:exitAnim="@anim/exit_left"
             app:launchSingleTop="true"
             app:popUpTo="@+id/nav_app"
             app:popUpToInclusive="true" />
@@ -76,12 +82,16 @@
         <action
             android:id="@+id/action_mantenimientoFragment_to_mntmEmpleadoListaFragment"
             app:destination="@id/mntmEmpleadoListaFragment"
+            app:enterAnim="@anim/enter_right_to_left"
+            app:exitAnim="@anim/exit_left"
             app:launchSingleTop="true"
             app:popUpTo="@+id/nav_app"
             app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_mantenimientoFragment_to_mntmProductoListaGenFragment"
             app:destination="@id/mntmProductoListaGenFragment"
+            app:enterAnim="@anim/enter_right_to_left"
+            app:exitAnim="@anim/exit_left"
             app:launchSingleTop="true"
             app:popUpTo="@+id/nav_app"
             app:popUpToInclusive="true" />
@@ -101,13 +111,17 @@
         tools:layout="@layout/fragment_mntm_empleado_lista">
         <action
             android:id="@+id/action_mntmEmpleadoListaFragment_to_mntmEmpleadoRegistroFragment2"
-            app:destination="@id/mntmEmpleadoRegistroFragment2" />
+            app:destination="@id/mntmEmpleadoRegistroFragment2"
+            app:enterAnim="@anim/enter_right_to_left"
+            app:exitAnim="@anim/exit_left" />
         <action
             android:id="@+id/action_mntmEmpleadoListaFragment_to_mntmEmpleadoActualizarFragment"
             app:destination="@id/mntmEmpleadoActualizarFragment" />
         <action
             android:id="@+id/action_mntmEmpleadoListaFragment_to_mantenimientoFragment"
-            app:destination="@id/mantenimientoFragment" />
+            app:destination="@id/mantenimientoFragment"
+            app:enterAnim="@anim/enter_left_to_right"
+            app:exitAnim="@anim/exit_right" />
     </fragment>
     <fragment
         android:id="@+id/reportesFragment"
@@ -117,12 +131,16 @@
         <action
             android:id="@+id/action_reportesFragment_to_rprtInventarioFragment"
             app:destination="@id/rprtInventarioFragment"
+            app:enterAnim="@anim/enter_right_to_left"
+            app:exitAnim="@anim/exit_left"
             app:launchSingleTop="true"
             app:popUpTo="@+id/nav_app"
             app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_reportesFragment_to_menuFragment"
             app:destination="@id/menuFragment"
+            app:enterAnim="@anim/enter_left_to_right"
+            app:exitAnim="@anim/exit_right"
             app:launchSingleTop="true"
             app:popUpTo="@+id/nav_app"
             app:popUpToInclusive="true" />
@@ -135,6 +153,8 @@
         <action
             android:id="@+id/action_perfilFragment_to_menuFragment"
             app:destination="@id/menuFragment"
+            app:enterAnim="@anim/enter_left_to_right"
+            app:exitAnim="@anim/exit_right"
             app:launchSingleTop="true"
             app:popUpTo="@+id/nav_app"
             app:popUpToInclusive="true" />
@@ -150,12 +170,16 @@
         <action
             android:id="@+id/action_transaccionFragment_to_trscInventarioFragment"
             app:destination="@id/trscInventarioFragment"
+            app:enterAnim="@anim/enter_right_to_left"
+            app:exitAnim="@anim/exit_left"
             app:launchSingleTop="true"
             app:popUpTo="@+id/nav_app"
             app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_transaccionFragment_to_menuFragment"
             app:destination="@id/menuFragment"
+            app:enterAnim="@anim/enter_left_to_right"
+            app:exitAnim="@anim/exit_right"
             app:launchSingleTop="true"
             app:popUpTo="@+id/nav_app"
             app:popUpToInclusive="true" />
@@ -168,6 +192,8 @@
         <action
             android:id="@+id/action_rprtInventarioFragment_to_reportesFragment"
             app:destination="@id/reportesFragment"
+            app:enterAnim="@anim/enter_left_to_right"
+            app:exitAnim="@anim/exit_right"
             app:launchSingleTop="true"
             app:popUpTo="@+id/nav_app"
             app:popUpToInclusive="true" />
@@ -180,6 +206,8 @@
         <action
             android:id="@+id/action_trscInventarioFragment_to_transaccionFragment"
             app:destination="@id/transaccionFragment"
+            app:enterAnim="@anim/enter_left_to_right"
+            app:exitAnim="@anim/exit_right"
             app:launchSingleTop="true"
             app:popUpTo="@+id/nav_app"
             app:popUpToInclusive="true" />
@@ -197,6 +225,8 @@
         <action
             android:id="@+id/action_mntmEmpleadoActualizarFragment_to_mntmEmpleadoListaFragment"
             app:destination="@id/mntmEmpleadoListaFragment"
+            app:enterAnim="@anim/enter_left_to_right"
+            app:exitAnim="@anim/exit_right"
             app:launchSingleTop="true"
             app:popUpTo="@+id/nav_app"
             app:popUpToInclusive="true" />
@@ -209,6 +239,8 @@
         <action
             android:id="@+id/action_mntmEmpleadoRegistroFragment2_to_mntmEmpleadoListaFragment"
             app:destination="@id/mntmEmpleadoListaFragment"
+            app:enterAnim="@anim/enter_left_to_right"
+            app:exitAnim="@anim/exit_right"
             app:launchSingleTop="true"
             app:popUpTo="@+id/nav_app"
             app:popUpToInclusive="true" />
@@ -237,7 +269,9 @@
             app:exitAnim="@anim/exit_left" />
         <action
             android:id="@+id/action_mntmProductoListaGenFragment_to_mantenimientoFragment"
-            app:destination="@id/mantenimientoFragment" />
+            app:destination="@id/mantenimientoFragment"
+            app:enterAnim="@anim/enter_left_to_right"
+            app:exitAnim="@anim/exit_right" />
     </fragment>
     <fragment
         android:id="@+id/mntmProductoActualizacionFragment"
@@ -267,7 +301,9 @@
 
         <action
             android:id="@+id/action_mntmProductoActualizacionFragment_to_mntmProductoListaEspFragment"
-            app:destination="@id/mntmProductoListaEspFragment" />
+            app:destination="@id/mntmProductoListaEspFragment"
+            app:enterAnim="@anim/enter_left_to_right"
+            app:exitAnim="@anim/exit_right" />
     </fragment>
     <fragment
         android:id="@+id/mntmProductoListaEspFragment"
@@ -288,7 +324,9 @@
 
         <action
             android:id="@+id/action_mntmProductoListaEspFragment_to_mntmProductoRegistroFragment"
-            app:destination="@id/mntmProductoRegistroFragment" />
+            app:destination="@id/mntmProductoRegistroFragment"
+            app:enterAnim="@anim/enter_right_to_left"
+            app:exitAnim="@anim/exit_left" />
         <action
             android:id="@+id/action_mntmProductoListaEspFragment_to_mntmProductoActualizacionFragment"
             app:destination="@id/mntmProductoActualizacionFragment" />
@@ -305,7 +343,9 @@
         tools:layout="@layout/fragment_mntm_producto_registro" >
         <action
             android:id="@+id/action_mntmProductoRegistroFragment_to_mntmProductoListaEspFragment"
-            app:destination="@id/mntmProductoListaEspFragment" />
+            app:destination="@id/mntmProductoListaEspFragment"
+            app:enterAnim="@anim/enter_left_to_right"
+            app:exitAnim="@anim/exit_right" />
         <argument
             android:name="idtipoproducto"
             app:argType="string"
