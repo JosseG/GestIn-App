@@ -4,11 +4,16 @@ import android.util.Log
 import androidx.lifecycle.*
 import com.nsgej.gestinapp.data.entities.ProductoEntity
 import com.nsgej.gestinapp.data.entities.relations.otm.TipoProductoConProductosEntity
+import com.nsgej.gestinapp.data.entities.toEntity
 import com.nsgej.gestinapp.data.repository.ProductoAlmacenRepositorio
 import com.nsgej.gestinapp.data.repository.ProductoRepositorio
 import com.nsgej.gestinapp.data.repository.TipoProductoRepositorio
 import com.nsgej.gestinapp.domain.model.*
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.flow.flatMapConcat
+import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -24,6 +29,8 @@ class ProductoViewModel @Inject constructor(
     val productos = productoRepositorio.obtenerProductos().asLiveData()
 
     val tiposProducto = tipoProductoRepositorio.obtenerTipoProductos().asLiveData()
+
+
 
 
     private var _productoPorTipoObtenido = MutableLiveData<Producto>()
@@ -47,6 +54,19 @@ class ProductoViewModel @Inject constructor(
         MutableLiveData<HashMap<Producto, ProductoAlmacen>>()
     val productosFiltradoPorAlmacenYTipoMapping: LiveData<HashMap<Producto, ProductoAlmacen>> =
         _productosFiltradoPorAlmacenYTipoMapping
+
+    private var _productosFueraDeAlmacenPorTipo = MutableLiveData<List<Producto>>()
+    val productosFueraDeAlmacenPorTipo: LiveData<List<Producto>> = _productosFueraDeAlmacenPorTipo
+
+
+    private var _listarProductosXMiAlmacen = MutableLiveData<List<Producto>>()
+    val listarProductosXMiAlmacen: LiveData<List<Producto>> = _listarProductosXMiAlmacen
+
+
+    private var _productoAlmacen = MutableLiveData<ProductoAlmacen>()
+    val productoAlmacen : LiveData<ProductoAlmacen> = _productoAlmacen
+
+
 
 
     fun insertarProducto(producto: Producto) {
@@ -108,7 +128,7 @@ class ProductoViewModel @Inject constructor(
             val productosSoloFiltroAlmacen =
                 productoAlmacenRepositorio.obtenerProductosPorAlmacen(idAlmacen)
 
-            val productostipoFiltrando: MutableList<ProductoEntity> = mutableListOf()
+            /*val productostipoFiltrando: MutableList<ProductoEntity> = mutableListOf()*/
 
             val todosProductoAlmacen = productoAlmacenRepositorio.obtenerTodos()
 
@@ -118,7 +138,7 @@ class ProductoViewModel @Inject constructor(
                 almprod.productos.forEach foreachalm@{ productos ->
                     todosProductoAlmacen.forEach { productosalmacen ->
                         if (productos.idTipoProducto == idTipo) {
-                            productostipoFiltrando.add(productos)
+//                            productostipoFiltrando.add(productos)
                             if (productosalmacen.idProducto == productos.id) {
                                 Log.i("Ingreso ", productos.id + " " + productosalmacen.idProducto)
                                 productosfiltradoAlmacenYTipo[productos.toDomain()] =
@@ -137,11 +157,123 @@ class ProductoViewModel @Inject constructor(
 
     }
 
+
+    fun obtenerProductosPorTipoProductoFueraDeAlmacen(idAlmacen: String, idTipo: Int) {
+
+        viewModelScope.launch {
+            Log.i("LLEGO", "it.descripcion")
+
+            val productos = productoRepositorio.obtenerTodosProductos()
+
+            val productosSoloFiltroAlmacen =
+                productoAlmacenRepositorio.obtenerProductosPorAlmacen(idAlmacen)
+
+            productos.forEach {
+                Log.i("TAG2", it.descripcion)
+            }
+
+
+            productosSoloFiltroAlmacen.forEach { almprod ->
+                almprod.productos.forEach {
+                    Log.i("Sin filtro desde la app", it.descripcion)
+                }
+
+            }
+            productosSoloFiltroAlmacen.forEach { almprod ->
+
+                var alm = almprod.productos
+                var x = alm.map {
+                    it.toDomain()
+                }
+
+
+                var el = productos.filterNotIn(x)
+                el.forEach {
+                    /*Log.i("Con filtro", it.descripcion)*/
+                }
+
+                val sum = productos + x
+
+                val lista = sum.groupBy { it.id }
+                    .filter { it.value.size == 1 }
+                    .flatMap { it.value }
+
+                lista.forEach {
+                    Log.i("Con filtro mejorado", it.descripcion)
+                }
+
+            }
+
+
+            var listaMutableProductoSinAlmacen: MutableList<Producto> = mutableListOf()
+
+            productosSoloFiltroAlmacen.forEach { almprod ->
+                var alm = almprod.productos
+                var x = alm.map {
+                    it.toDomain()
+                }
+
+                val sum = productos + x
+                sum.groupBy { it.id }
+                    .filter { it.value.size == 1 }
+                    .flatMap { it.value }.forEach { producto ->
+                        if (producto.idTipoProducto == idTipo) {
+                            Log.i("ENpRODUCTOVIWE", producto.descripcion)
+                            listaMutableProductoSinAlmacen.add(producto)
+
+                        }
+
+                    }
+                /*almprod.productos.forEach foreachalm@{ productos ->
+                    todosProductoAlmacen.forEach { productosalmacen ->
+                        if (productos.idTipoProducto == idTipo) {
+                            productostipoFiltrando.add(productos)
+                            if (productosalmacen.idProducto == productos.id) {
+                                Log.i("Ingreso ", productos.id + " " + productosalmacen.idProducto)
+                                productosfiltradoAlmacenYTipo[productos.toDomain()] =
+                                    productosalmacen
+                                return@foreachalm
+                            }
+
+                        }
+
+                    }
+
+                }*/
+            }
+
+            listaMutableProductoSinAlmacen.forEach {
+                Log.i("Lista sin almacen prod", it.descripcion)
+            }
+            _productosFueraDeAlmacenPorTipo.value = listaMutableProductoSinAlmacen
+        }
+
+    }
+
+
+    suspend fun <T> Flow<List<T>>.flattenToList() = flatMapConcat { it.asFlow() }.toList()
+
+    fun <T> Collection<T>.filterNotIn(collection: Collection<T>): Collection<T> {
+        val set = collection.toSet()
+        return filterNot { set.contains(it) }
+    }
+
+
     fun obtenerProductosPorAlmacen(id: String) {
 
         viewModelScope.launch {
-            _productosPorAlmacenObtenido.value =
-                productoAlmacenRepositorio.obtenerProductosPorAlmacen(id)
+
+            val productosSoloFiltroAlmacen = productoAlmacenRepositorio.obtenerProductosPorAlmacen(id)
+
+            productosSoloFiltroAlmacen.forEach { almprod ->
+                var alm = almprod.productos
+                var x = alm.map {
+                    it.toDomain()
+                }
+                _listarProductosXMiAlmacen.value =x
+            }
+
+
 
         }
 
@@ -157,6 +289,25 @@ class ProductoViewModel @Inject constructor(
     fun insertarProductosAlmacenes(productosAlmacenes: List<ProductoAlmacen>) {
         viewModelScope.launch {
             productoAlmacenRepositorio.insertarProductosAlmacenes(productosAlmacenes)
+        }
+    }
+
+    fun eliminarProductoAlmacen(productoAlmacen: ProductoAlmacen){
+        viewModelScope.launch {
+            productoAlmacenRepositorio.eliminarProductoPorAlmacen(productoAlmacen)
+        }
+    }
+
+    fun actualizarProductoAlmacen(productoAlmacen: ProductoAlmacen){
+        viewModelScope.launch {
+            productoAlmacenRepositorio.actualizarProductoPorAlmacen(productoAlmacen)
+        }
+    }
+
+
+    fun obtenerProductoAlmacen(idprod : String, idAlmacen: String){
+        viewModelScope.launch {
+            _productoAlmacen.value = productoAlmacenRepositorio.obtener(idprod,idAlmacen)
         }
     }
 

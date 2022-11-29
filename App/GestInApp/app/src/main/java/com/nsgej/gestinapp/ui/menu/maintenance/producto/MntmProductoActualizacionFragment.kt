@@ -18,8 +18,11 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.nsgej.gestinapp.R
 import com.nsgej.gestinapp.databinding.FragmentMntmProductoActualizacionBinding
 import com.nsgej.gestinapp.domain.model.Producto
+import com.nsgej.gestinapp.domain.model.ProductoAlmacen
+import com.nsgej.gestinapp.prefs
 import com.nsgej.gestinapp.ui.adapter.producto.ProductosEspecificoAdapter
 import com.nsgej.gestinapp.ui.adapter.producto.ProductosEspecificoViewHolder
+import com.nsgej.gestinapp.viewmodel.empleado.EmpleadoViewModel
 import com.nsgej.gestinapp.viewmodel.producto.ProductoViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
@@ -33,7 +36,8 @@ class MntmProductoActualizacionFragment : Fragment() {
 
     private val args by navArgs<MntmProductoActualizacionFragmentArgs>()
     private val productoViewModel by viewModels<ProductoViewModel>()
-    lateinit var productoItem : Producto
+    private val empleadoViewModel by viewModels<EmpleadoViewModel>()
+    lateinit var productoItem: Producto
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,27 +48,38 @@ class MntmProductoActualizacionFragment : Fragment() {
             TransitionInflater.from(context).inflateTransition(android.R.transition.move)
         return binding.root
     }
+
     lateinit var contexto: Context
+    var idalmacen = ""
     override fun onAttach(context: Context) {
         super.onAttach(context)
         contexto = context
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
 
         productoViewModel.obtenerProducto(args.idproducto!!)
-        productoViewModel.productoPorTipoObtenido.observe(viewLifecycleOwner){ producto ->
+        productoViewModel.productoPorTipoObtenido.observe(viewLifecycleOwner) { producto ->
 
             productoItem = producto
 
-            binding.txtCodBarra.editText?.text=Editable.Factory.getInstance().newEditable(producto.codigoBarra)
-            binding.txtDescripcion.editText?.text=Editable.Factory.getInstance().newEditable(producto.descripcion)
-            binding.txtMarca.editText?.text=Editable.Factory.getInstance().newEditable(producto.marca)
+            binding.txtCodBarra.editText?.text =
+                Editable.Factory.getInstance().newEditable(producto.codigoBarra)
+            binding.txtDescripcion.editText?.text =
+                Editable.Factory.getInstance().newEditable(producto.descripcion)
+            binding.txtMarca.editText?.text =
+                Editable.Factory.getInstance().newEditable(producto.marca)
             binding.imgvProducto.transitionName = args.imagen
             Glide.with(this).load(producto.imagenUrl).into(binding.imgvProducto)
         }
 
+        empleadoViewModel.obtenerEmpleadoXId(prefs.stringPref.toString())
+
+        empleadoViewModel.empleadoObtenidoLiveData.observe(viewLifecycleOwner) { empleado ->
+            idalmacen = empleado.idAlmacen
+        }
 
 
         //--------------------------------------------------------------
@@ -75,8 +90,8 @@ class MntmProductoActualizacionFragment : Fragment() {
 
             val codigoBarra = binding.txtCodBarra.editText?.text.toString()
             val Codigovalidar = "[A-Za-z\\d\\-_\\sÑñ]{8,20}".toRegex()
-            if(codigoBarra.isEmpty()){
-                binding.txtCodBarra.error ="Campo Requerido"
+            if (codigoBarra.isEmpty()) {
+                binding.txtCodBarra.error = "Campo Requerido"
                 return@setOnClickListener
             }
             if (!Codigovalidar.matches(codigoBarra)) {
@@ -105,8 +120,16 @@ class MntmProductoActualizacionFragment : Fragment() {
                 .setTitle("-------------EXITO-------------")
                 .setMessage("Producto Actualizado")
                 .show()
-            var producto= Producto(productoItem.id,productoItem.idTipoProducto,codigoBarra, descripcion, marca,productoItem.imagenUrl,productoItem.estado)
-            Log.i("act",producto.toString())
+            var producto = Producto(
+                productoItem.id,
+                productoItem.idTipoProducto,
+                codigoBarra,
+                descripcion,
+                marca,
+                productoItem.imagenUrl,
+                productoItem.estado
+            )
+            Log.i("act", producto.toString())
             productoViewModel.actualizar(producto)
 
             val direction: NavDirections =
@@ -124,8 +147,8 @@ class MntmProductoActualizacionFragment : Fragment() {
 
             val codigoBarra = binding.txtCodBarra.editText?.text.toString()
             val Codigovalidar = "[A-Za-z\\d\\-_\\sÑñ]{8,20}".toRegex()
-            if(codigoBarra.isEmpty()){
-                binding.txtCodBarra.error ="Campo Requerido"
+            if (codigoBarra.isEmpty()) {
+                binding.txtCodBarra.error = "Campo Requerido"
                 return@setOnClickListener
             }
             if (!Codigovalidar.matches(codigoBarra)) {
@@ -156,8 +179,9 @@ class MntmProductoActualizacionFragment : Fragment() {
                 .setMessage("Producto Eliminado")
                 .show()
 
-            val producto = Producto(productoItem.id,productoItem.idTipoProducto,codigoBarra, descripcion, marca,productoItem.imagenUrl,productoItem.estado)
-             productoViewModel.eliminar(producto)
+
+            val productoAlmacen = ProductoAlmacen(args.idproducto!!, idalmacen, 0, true)
+            productoViewModel.eliminarProductoAlmacen(productoAlmacen)
 
             val direction: NavDirections =
                 MntmProductoActualizacionFragmentDirections.actionMntmProductoActualizacionFragmentToMntmProductoListaEspFragment(

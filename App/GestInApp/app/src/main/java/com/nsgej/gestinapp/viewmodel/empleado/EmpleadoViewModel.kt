@@ -28,8 +28,6 @@ class EmpleadoViewModel @Inject constructor(private var empleadoRepository: Empl
     val empleadoObtenidoLiveData: LiveData<Empleado> = _empleadoObtenidoLiveData
 
 
-    /*suspend fun obtenerEmpleado(id : String) = empleadoRepository.obtenerEmpleado(id)*/
-
     fun actualizar(empleado: Empleado){
         viewModelScope.launch {
 

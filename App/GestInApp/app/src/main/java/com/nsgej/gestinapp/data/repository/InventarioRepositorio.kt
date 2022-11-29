@@ -57,24 +57,18 @@ class InventarioRepositorio @Inject constructor(private val objDaoInv: Inventari
             }
     }
 
-    fun listarTodoinventarioFirebase(): MutableList<InventarioDC> {
+    suspend fun listarTodoinventarioFirebase(almacen : String): MutableList<InventarioDC?> {
 
-        var listaInventario = mutableListOf<InventarioDC>()
+        val listaInventario :  MutableList<InventarioDC?>  = mutableListOf<InventarioDC?>()
 
-        db.collection("Inventario")
-            .addSnapshotListener { result, e ->
-                if (e != null) {
-                    Log.w(TAG, "Listen fallido.", e)
-                    return@addSnapshotListener
-                }
-                for (documento in result!!) {
-                    var inventario = documento.toObject(InventarioDC::class.java)
-                    listaInventario.add(inventario)
+        val query = db.collection("Inventario")
 
-                }
-                Log.d("Lista-Inventario:", " ${listaInventario}")
+        val snapshot = query.whereEqualTo("codigo", almacen).get().await()
+        for(document in snapshot.documents){
 
-            }
+            listaInventario.add(document.toObject())
+        }
+
         return listaInventario
     }
 

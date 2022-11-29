@@ -2,6 +2,7 @@ package com.nsgej.gestinapp.ui.menu.transaction.inventario
 
 import android.content.ContentValues.TAG
 import android.os.Bundle
+import android.text.Editable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -15,8 +16,11 @@ import com.nsgej.gestinapp.R
 import com.nsgej.gestinapp.data.dataclass.InventarioDC
 import com.nsgej.gestinapp.databinding.FragmentTrscInventarioBinding
 import com.nsgej.gestinapp.domain.model.*
+import com.nsgej.gestinapp.prefs
+import com.nsgej.gestinapp.viewmodel.empleado.EmpleadoViewModel
 import com.nsgej.gestinapp.viewmodel.inventario.*
 import com.nsgej.gestinapp.viewmodel.login.LoginViewModel
+import com.nsgej.gestinapp.viewmodel.producto.ProductoViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -39,11 +43,12 @@ class TrscInventarioFragment : Fragment() {
 
     private val viewmodeltipoInventario by viewModels<TipoInventarioViewModel>()
 
-
+    private val productoViewModel by viewModels<ProductoViewModel>()
     private val loginViewModel by viewModels<LoginViewModel>()
+    private val empleadoViewModel by viewModels<EmpleadoViewModel>()
 
-
-
+    var idalmacen = ""
+    var nombrepersonal = ""
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -66,6 +71,18 @@ class TrscInventarioFragment : Fragment() {
             findNavController().navigate(R.id.action_trscInventarioFragment_to_transaccionFragment)
         }
 
+        binding.txtAlmacen.isEnabled = true
+        binding.txtCantidad.isEnabled = true
+        binding.txtMovimiento.isEnabled = true
+        binding.txtProducto.isEnabled = true
+
+        empleadoViewModel.obtenerEmpleadoXId(prefs.stringPref.toString())
+
+        empleadoViewModel.empleadoObtenidoLiveData.observe(viewLifecycleOwner) { empleado ->
+            idalmacen = empleado.idAlmacen
+            nombrepersonal = empleado.nombre
+        }
+
 
         val movimientoAuto: AutoCompleteTextView = binding.autoCompletemovimiento
         val productoAuto: AutoCompleteTextView = binding.autoCompleteProduct
@@ -78,27 +95,143 @@ class TrscInventarioFragment : Fragment() {
                 movimientoAuto.setAdapter(tp)
             }
         }
-        movimientoAuto.setOnItemClickListener { parent, _, position, _ ->
-            val tipoInv = parent.adapter.getItem(position) as TipoInventario
-            codigoTp = tipoInv.id
-            nombreTP = tipoInv.nombre
-        }
+        movimientoAuto.setOnItemClickListener { parentmov, _, positionmov, _ ->
+            val tipoInvMov = parentmov.adapter.getItem(positionmov) as TipoInventario
+            codigoTp = tipoInvMov.id
+            nombreTP = tipoInvMov.nombre
+
+            if(tipoInvMov.nombre == "Ingresado"){
+                binding.txtCantidad.isEnabled = false
+
+                Log.i("","")
+
+                viewmodelInventario.listarTodoInventarioFirebase(idalmacen)
+                viewmodelInventario.listaTodoInventarioFirebase.observe(viewLifecycleOwner){ inventarioItemFs ->
+
+                    if(inventarioItemFs.isEmpty()){
+                        return@observe
+                    }else{
+                        viewmodelInventario.listarTodoInventario.observe(viewLifecycleOwner) { inventarioItemRoom ->
+
+                            var listainventarionuevo = mutableListOf<InventarioDC>()
+                            var listainventariosec = mutableListOf<InventarioDC>()
+
+                            if(inventarioItemRoom.isEmpty()){
+                                listainventarionuevo.clear()
+                                inventarioItemFs.forEach el@{ invfs ->
+
+                                    if(invfs != null){
+                                        listainventarionuevo.add(invfs)
+                                    }
+
+                                }
+                            }else{
+                                listainventarionuevo.clear()
+                                inventarioItemFs.forEach el@{ invfs ->
+
+                                    if(invfs != null){
+                                        inventarioItemRoom.forEach { inv ->
+                                            if(invfs.codigo == inv.id){
+                                                return@el
+                                            }else{
+                                                listainventarionuevo.add(invfs)
+                                            }
+                                        }
+                                    }
+
+                                }
+
+                                inventarioItemFs.forEach { inventarioDeFirebase ->
+                                    if (inventarioDeFirebase!==null){
+                                        Log.i("TAG INVEN",inventarioDeFirebase.idProducto + " " + inventarioDeFirebase.codigo+ " " + inventarioDeFirebase.idTipoInventario)
+                                    }
+                                }
+                            }
+                            ProductoInventarioAdapter(requireContext(), listainventarionuevo.toList()).also { lp ->
+                                productoAuto.setAdapter(lp)
+                            }
+
+                            productoAuto.setOnItemClickListener { parent, _, position, _ ->
+                                val tipoInvr = parent.adapter.getItem(position) as Inventario
+                                codp = tipoInvr.idProducto
+
+                                binding.txtAlmacen.editText?.text  = Editable.Factory.getInstance().newEditable(tipoInvr.descripcion)
+                                binding.txtAlmacen.isEnabled = false
+
+
+                                binding.txtPersonal.editText?.text  = Editable.Factory.getInstance().newEditable(tipoInvr.idEmpleado)
+                                binding.txtPersonal.isEnabled = false
+
+
+                                binding.txtCantidad.editText?.text  = Editable.Factory.getInstance().newEditable(tipoInvr.cantidad.toString())
+                                binding.txtCantidad.isEnabled = false
+
+                            }
+                        }
+                    }
+
+
+                }
 
 
 
-        loginViewModel.listarProductos.observe(viewLifecycleOwner) { lista ->
-            ProductoAdapter(requireContext(), lista).also { lp ->
-                productoAuto.setAdapter(lp)
+            }else{
+                binding.txtCantidad.isEnabled = true
+
+
+                productoViewModel.obtenerProductosPorAlmacen(idalmacen)
+
+                productoViewModel.listarProductosXMiAlmacen.observe(viewLifecycleOwner){ listaprod ->
+
+                    ProductoAdapter(requireContext(), listaprod).also { lp ->
+                        productoAuto.setAdapter(lp)
+                    }
+
+                }
+
+                productoAuto.setOnItemClickListener { parentprodm, _, positionprodm, _ ->
+                    val tipoprodsalida = parentprodm.adapter.getItem(positionprodm) as Producto
+                    codp = tipoprodsalida.id
+
+
+
+                }
+
+                viewmodelInventario.listarSinMiAlmacen(idalmacen)
+
+                viewmodelInventario.listaSinMiAlmacenObtenido.observe(viewLifecycleOwner){ listaSMalmacen ->
+                    AlmacenAdapter(requireContext(),listaSMalmacen).also { al ->
+                        almacenAuto.setAdapter(al)
+                    }
+                }
+                almacenAuto.setOnItemClickListener { parentalma, _, positionalma, _ ->
+                    val almacenobt = parentalma.adapter.getItem(positionalma) as Almacen
+                    cod_al = almacenobt.id
+                    desc_al = almacenobt.descripcion
+
+
+                    binding.txtPersonal.editText?.text = Editable.Factory.getInstance().newEditable(nombrepersonal)
+                    binding.txtPersonal.isEnabled = false
+                }
+
+/*                loginViewModel.listarProductos.observe(viewLifecycleOwner) { lista ->
+                    ProductoAdapter(requireContext(), lista).also { lp ->
+                        productoAuto.setAdapter(lp)
+                    }
+                }*/
+
+
+
             }
         }
-        productoAuto.setOnItemClickListener { parent, _, position, _ ->
-            val tipoInv = parent.adapter.getItem(position) as Producto
-            codp = tipoInv.id
-            desc = tipoInv.descripcion
-        }
 
 
-        loginViewModel.listaAlmacenes.observe(viewLifecycleOwner) { lista ->
+
+
+
+
+
+/*        loginViewModel.listaAlmacenes.observe(viewLifecycleOwner) { lista ->
             AlmacenAdapter(requireContext(),lista).also { al ->
                 almacenAuto.setAdapter(al)
             }
@@ -107,7 +240,7 @@ class TrscInventarioFragment : Fragment() {
             val tipoInv = parent.adapter.getItem(position) as Almacen
             cod_al = tipoInv.id
             desc_al = tipoInv.descripcion
-        }
+        }*/
 
 
         loginViewModel.listaempleados.observe(viewLifecycleOwner) { lista ->
@@ -124,9 +257,8 @@ class TrscInventarioFragment : Fragment() {
         viewmodelInventario.nuevoregistroAgregado()
 
 
-        viewmodelInventario.codigoObtenido.observe(viewLifecycleOwner){
-            cod = it
-            Log.i(TAG, cod.toString())
+        viewmodelInventario.codigoObtenido.observe(viewLifecycleOwner){ codigodeFirebase ->
+            cod = codigodeFirebase
 
             binding.btnRegistrarinventario.setOnClickListener {
 
@@ -164,16 +296,28 @@ class TrscInventarioFragment : Fragment() {
                 }
 
 
-
-
                 if(codigoTp == 1){
-                    val inventario = Inventario(idTipoInventario = codigoTp, idProducto = codp, idAlmacen = cod_al, idEmpleado = cod_pers, cantidad = cant.toInt())
+                    val inventario = Inventario(cod,idTipoInventario = codigoTp, idProducto = codp, idAlmacen = cod_al, idEmpleado = cod_pers, cantidad = cant.toInt())
                     viewmodelInventario.RegistraInventario(inventario)
+                    /*val productoAlmacen = ProductoAlmacen(codp, idalmacen, cant.toInt(), true)*/
+
+                    productoViewModel.obtenerProductoAlmacen(codp,idalmacen)
+                    productoViewModel.productoAlmacen.observe(viewLifecycleOwner){ prodAlma->
+                        prodAlma.cantidad += cant.toInt();
+                        productoViewModel.actualizarProductoAlmacen(prodAlma)
+                    }
+
                 }
                 if(codigoTp == 2){
                     val inventarioDC = InventarioDC(codigo = cod,idTipoInventario = codigoTp, idProducto = codp, idAlmacen = cod_al, idEmpleado = cod_pers, cantidad = cant.toInt())
                     viewmodelInventario.RegistraInventarioFireabase(inventarioDC)
                     viewmodelInventario.nuevoregistroAgregado()
+                    /*val productoAlmacen = ProductoAlmacen(codp, idalmacen, cant.toInt(), true)*/
+                    productoViewModel.obtenerProductoAlmacen(codp,idalmacen)
+                    productoViewModel.productoAlmacen.observe(viewLifecycleOwner){ prodAlma->
+                        prodAlma.cantidad -= cant.toInt();
+                        productoViewModel.actualizarProductoAlmacen(prodAlma)
+                    }
                 }
 
 

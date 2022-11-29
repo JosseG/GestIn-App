@@ -13,6 +13,9 @@ interface ProductoDao {
     @Query("select * from tb_producto")
     fun obtenerProductos() : Flow<List<ProductoEntity>>
 
+    @Query("select * from tb_producto")
+    suspend fun obtenerTodosProductos() : List<ProductoEntity>
+
     @Query("select * from tb_producto where id_producto = :id")
     suspend fun obtenerProductoPorId(id: String) : ProductoEntity
 

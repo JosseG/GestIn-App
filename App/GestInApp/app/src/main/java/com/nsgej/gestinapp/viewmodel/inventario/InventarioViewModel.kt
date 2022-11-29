@@ -7,14 +7,17 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.nsgej.gestinapp.data.dataclass.InventarioDC
+import com.nsgej.gestinapp.data.repository.AlmacenRepositorio
 import com.nsgej.gestinapp.data.repository.InventarioRepositorio
+import com.nsgej.gestinapp.domain.model.Almacen
 import com.nsgej.gestinapp.domain.model.Inventario
+import com.nsgej.gestinapp.domain.model.Producto
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class InventarioViewModel  @Inject constructor(private val objRepo: InventarioRepositorio) : ViewModel(){
+class InventarioViewModel  @Inject constructor(private val objRepo: InventarioRepositorio, private val almacenRepositorio: AlmacenRepositorio,) : ViewModel(){
 
     fun RegistraInventario(inventario: Inventario){
         viewModelScope.launch {
@@ -36,21 +39,77 @@ class InventarioViewModel  @Inject constructor(private val objRepo: InventarioRe
 
     //métodos para Firebase
 
-    val listarTodoInventarioFirebase: MutableList<InventarioDC> = objRepo.listarTodoinventarioFirebase()
+    private var _listaTodoInventarioFirebase = MutableLiveData<MutableList<InventarioDC?>>()
+
+    val listaTodoInventarioFirebase : LiveData<MutableList<InventarioDC?>> =_listaTodoInventarioFirebase
+
+
+    private var _listarProductosParaIngresar = MutableLiveData<Producto>()
+    val listarProductosParaIngresar : LiveData<Producto> = _listarProductosParaIngresar
+
+    private var _listarInventariosParaIngresar = MutableLiveData<Producto>()
+    val listarInventariosParaIngresar : LiveData<Producto> = _listarInventariosParaIngresar
+
+
+    private var _listaSinMiAlmacenObtenido = MutableLiveData<List<Almacen>>()
+
+    val listaSinMiAlmacenObtenido : LiveData<List<Almacen>> = _listaSinMiAlmacenObtenido
+
+
+    fun listarTodoInventarioFirebase(almacen : String){
+        viewModelScope.launch {
+            _listaTodoInventarioFirebase.value = objRepo.listarTodoinventarioFirebase(almacen)
+        }
+    }
+
+    fun listarSinMiAlmacen(almacen : String){
+
+        viewModelScope.launch {
+
+            val listaSinMialmacen = mutableListOf<Almacen>()
+
+            var almacenes = almacenRepositorio.obtenerAlmacenesSinFlow()
+
+            almacenes.forEach {
+                if (it.id != almacen){
+                    listaSinMialmacen.add(it)
+                }
+            }
+
+            _listaSinMiAlmacenObtenido.value = listaSinMialmacen.toList()
+
+
+        }
+
+    }
+
+
+
+
+    fun obtenerListaProductosAIngresar (){
+
+
+
+    }
+
+    fun obtenerListaInventariosAIngresar(){
+        viewModelScope.launch {
+
+        }
+    }
+
 
 
     fun RegistraInventarioFireabase(inventario: InventarioDC){
         viewModelScope.launch {
 
             objRepo.insertInventarioFirebase(inventario)
-            Log.i("L-inventario", "inventario Registrado")
         }
     }
 
 
     fun nuevoregistroAgregado() {
 
-        Log.i("L-Nuevo Reg:", "registro agregado recientemente")
         viewModelScope.launch {
             val inventarioDC = objRepo.listarUltimoInventionFirebase();
             if (inventarioDC != null) {

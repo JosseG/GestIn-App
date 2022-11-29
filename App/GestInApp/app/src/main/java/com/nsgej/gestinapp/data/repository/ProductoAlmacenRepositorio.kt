@@ -33,6 +33,10 @@ class ProductoAlmacenRepositorio @Inject constructor(private  val objProdAlmacen
         objProdAlmacen.update(productoAlmacen.toEntity())
     }
 
+    suspend fun eliminarProductoPorAlmacen(productoAlmacen: ProductoAlmacen){
+        objProdAlmacen.delete(productoAlmacen.toEntity())
+    }
+
     suspend fun insertarProductoAlmacen(productoAlmacen: ProductoAlmacen){
         objProdAlmacen.insert(productoAlmacen.toEntity())
     }
@@ -43,6 +47,10 @@ class ProductoAlmacenRepositorio @Inject constructor(private  val objProdAlmacen
 
     suspend fun obtenerTodos() : List<ProductoAlmacen>{
         return objProdAlmacen.obtenerTodos().map { it.toDomain() }
+    }
+
+    suspend fun obtener(idprod : String, idalmacen : String) : ProductoAlmacen{
+        return objProdAlmacen.obtener(idprod,idalmacen).toDomain()
     }
 
 }

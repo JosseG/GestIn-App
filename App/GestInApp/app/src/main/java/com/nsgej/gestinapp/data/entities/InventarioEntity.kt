@@ -14,8 +14,8 @@ import com.nsgej.gestinapp.domain.model.Inventario
     indices = [Index(value = ["id_almacen"])]
 )
 data class InventarioEntity(
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "id_inventario") val id: Int = 0,
+    @PrimaryKey
+    @ColumnInfo(name = "id_inventario") val id: Int,
     @ColumnInfo(name = "id_producto") val idProducto: String,
     @ColumnInfo(name = "id_tipoinventario") val idTipoInventario: Int,
     @ColumnInfo(name = "id_almacen") val idAlmacen: String,

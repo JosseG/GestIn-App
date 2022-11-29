@@ -33,7 +33,8 @@ class LoginViewModel @Inject constructor(
     val listarProductos = productoRepositorio.obtenerProductos().asLiveData()
 
 
-    private val _loginResult = MutableLiveData<LoginResult>()
+
+    private var _loginResult = MutableLiveData<LoginResult>()
     val loginResult: LiveData<LoginResult> = _loginResult
 
     private var _cargoObtenido = MutableLiveData<Cargo>()
@@ -43,6 +44,12 @@ class LoginViewModel @Inject constructor(
 
     private var _sucursalObtenido = MutableLiveData<Sucursal>()
     val sucursalObtenido: LiveData<Sucursal> = _sucursalObtenido
+
+
+
+
+
+
 
 
     fun insertarUsuariosPorEmpleadosPorCargo(

@@ -11,7 +11,7 @@ class Producto(
     val imagenUrl: String, val estado: Boolean)  : Serializable{
 
     override fun toString(): String {
-        return descripcion
+        return id
     }
 
     fun toJson() = klaxon.toJsonString(this)

@@ -21,6 +21,12 @@ class AlmacenRepositorio @Inject constructor(
         return respuesta
     }
 
+    suspend fun obtenerAlmacenesSinFlow() : List<Almacen> {
+
+        return almacenDao.obtenerAlmacenesSinFlow().map { it.toDomain() }
+
+    }
+
     suspend fun obtenerAlmacen(id : String) : Almacen {
         var respuesta = almacenDao.obtenerAlmacenPorId(id).toDomain()
 

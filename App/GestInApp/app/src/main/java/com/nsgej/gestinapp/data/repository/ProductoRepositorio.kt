@@ -4,6 +4,7 @@ import androidx.room.Delete
 import com.nsgej.gestinapp.data.dao.ProductoDao
 import com.nsgej.gestinapp.data.entities.ProductoEntity
 import com.nsgej.gestinapp.data.entities.toEntity
+import com.nsgej.gestinapp.domain.model.AlmacenConProductos
 import com.nsgej.gestinapp.domain.model.Producto
 import com.nsgej.gestinapp.domain.model.toDomain
 import kotlinx.coroutines.flow.Flow
@@ -19,6 +20,12 @@ class   ProductoRepositorio @Inject constructor(private  val objPro: ProductoDao
             }
         };
         return respuesta
+    }
+
+
+
+    suspend fun obtenerTodosProductos(): List<Producto> {
+        return objPro.obtenerTodosProductos().map { it.toDomain() }
     }
 
     suspend fun insertPoducto(producto: Producto){

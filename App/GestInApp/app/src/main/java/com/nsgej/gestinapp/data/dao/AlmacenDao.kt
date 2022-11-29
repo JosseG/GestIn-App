@@ -12,6 +12,9 @@ interface AlmacenDao {
     @Query("select * from tb_almacen")
     fun obtenerAlmacenes() : Flow<List<AlmacenEntity>>
 
+    @Query("select * from tb_almacen")
+    suspend fun obtenerAlmacenesSinFlow() : List<AlmacenEntity>
+
     @Query("select * from tb_almacen where id_almacen= :id")
     suspend fun obtenerAlmacenPorId(id: String) : AlmacenEntity
 

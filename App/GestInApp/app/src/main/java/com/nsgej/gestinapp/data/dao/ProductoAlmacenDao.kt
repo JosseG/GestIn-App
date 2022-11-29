@@ -14,6 +14,8 @@ interface ProductoAlmacenDao {
     @Query("DELETE FROM tb_producto_almacen")
     suspend fun borrarTodo()
 
+    @Query("SELECT * FROM tb_producto_almacen WHERE id_almacen = :idalmacen AND id_producto = :idprod")
+    suspend fun obtener(idprod: String,idalmacen : String) : ProductoAlmacenEntity
 
     @Transaction
     @Query("SELECT * FROM tb_almacen WHERE id_almacen = :id")
@@ -35,5 +37,8 @@ interface ProductoAlmacenDao {
 
     @Update(onConflict = OnConflictStrategy.IGNORE)
     suspend fun update(productoAlmacen: ProductoAlmacenEntity)
+
+    @Delete
+    suspend fun delete(productoAlmacen: ProductoAlmacenEntity)
 
 }
