@@ -1,20 +1,19 @@
-<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/fondo4"
-    tools:context=".ui.menu.maintenance.producto.MntmProductoRegistroFragment">
+    >
 
     <TextView
-        android:id="@+id/lbl_registro"
+        android:id="@+id/lbl_ingreso"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="50dp"
         android:layout_marginEnd="32dp"
-        android:text="Registro"
+        android:text="Ingreso"
         android:textColor="@color/black"
         android:textSize="40dp"
         android:textStyle="bold"
@@ -36,10 +35,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lbl_registro" />
+        app:layout_constraintTop_toBottomOf="@+id/lbl_ingreso" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/txt_codbarra"
+        android:id="@+id/txt_descripcion"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -53,29 +52,11 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/codigobarra" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/txt_descripcion"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="32dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_codbarra">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:hint="@string/descripcion" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/txt_marca"
+        android:id="@+id/txt_stock"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -89,26 +70,24 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/marca" />
+            android:hint="@string/stock" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/btn_registrarprod"
+        android:id="@+id/btn_ingreso"
         android:layout_width="209dp"
         android:layout_height="68dp"
         android:layout_marginStart="100dp"
-        android:layout_marginTop="16dp"
         android:layout_marginEnd="100dp"
         android:layout_marginBottom="50dp"
-        android:text="@string/registrar"
         android:backgroundTint="@color/amarillo"
+        android:text="@string/ingreso"
         android:textColor="@color/black"
         android:textSize="20dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_marca" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_regresar"
@@ -122,7 +101,7 @@
         app:icon="@drawable/ic_retorno"
         app:iconGravity="textStart"
         app:iconTint="@color/black"
-        app:layout_constraintEnd_toStartOf="@+id/lbl_registro"
+        app:layout_constraintEnd_toStartOf="@+id/lbl_ingreso"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -131,7 +110,7 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/txt_idproducto"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -141,10 +120,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lbl_producto">
 
-        <com.google.android.material.textfield.TextInputEditText
+        <AutoCompleteTextView
+            android:id="@+id/autoCompletemovimiento"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="IdProducto" />
+            android:hint="IdProducto"
+            android:inputType="none"
+            android:textColor="@color/black"
+            tools:ignore="TextContrastCheck"/>
     </com.google.android.material.textfield.TextInputLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

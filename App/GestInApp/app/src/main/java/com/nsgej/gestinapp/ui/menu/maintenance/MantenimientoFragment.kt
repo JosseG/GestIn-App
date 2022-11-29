@@ -10,19 +10,30 @@ import androidx.navigation.fragment.findNavController
 import com.nsgej.gestinapp.R
 import com.nsgej.gestinapp.databinding.FragmentMantenimientoBinding
 import com.nsgej.gestinapp.domain.model.Producto
+import com.nsgej.gestinapp.domain.model.ProductoAlmacen
 import com.nsgej.gestinapp.domain.model.TipoProducto
 import com.nsgej.gestinapp.util.ProfileIconSetDialog
 import com.nsgej.gestinapp.viewmodel.producto.ProductoViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
+private const val ARG_PARAM1 = "param1"
+private const val ARG_PARAM2 = "param2"
 
 @AndroidEntryPoint
 class MantenimientoFragment : Fragment() {
-
+    private var param1: String? = null
+    private var param2: String? = null
 
     private var _binding: FragmentMantenimientoBinding? = null
     val binding get() = _binding!!
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            param1 = it.getString(ARG_PARAM1)
+            param2 = it.getString(ARG_PARAM2)
+        }
+    }
 
     val productooViewModel by viewModels<ProductoViewModel>()
 
@@ -117,7 +128,24 @@ class MantenimientoFragment : Fragment() {
             Producto("PR045",9,"DP-N222-N80RGB","Para Laptop de 17 pulgadas Reclinable","Deep Cool", imagenUrl = "https://firebasestorage.googleapis.com/v0/b/t5gl-2022-2-cab80.appspot.com/o/imgSoporte%2F5.png?alt=media&token=24b2bbf5-d94f-4b76-a9fc-0a69f7bcbc49",true),
 
             )
+
+        var productosAlmacenes = listOf(
+            ProductoAlmacen("PR001","A0001",20),
+            ProductoAlmacen("PR002","A0001",20),
+            ProductoAlmacen("PR003","A0001",20),
+            ProductoAlmacen("PR004","A0001",20),
+            ProductoAlmacen("PR005","A0001",20),
+
+
+            ProductoAlmacen("PR003","A0002",20),
+            ProductoAlmacen("PR004","A0002",20),
+            ProductoAlmacen("PR005","A0002",20)
+
+        )
+
         productooViewModel.insertarProductos(productos)
+
+        productooViewModel.insertarProductosAlmacenes(productosAlmacenes)
 
     }
 
@@ -127,5 +155,14 @@ class MantenimientoFragment : Fragment() {
         add.show(requireActivity().supportFragmentManager, "dialog")
     }
 
-
+    companion object {
+        @JvmStatic
+        fun newInstance(param1: String, param2: String) =
+            MantenimientoFragment().apply {
+                arguments = Bundle().apply {
+                    putString(ARG_PARAM1, param1)
+                    putString(ARG_PARAM2, param2)
+                }
+            }
+    }
 }

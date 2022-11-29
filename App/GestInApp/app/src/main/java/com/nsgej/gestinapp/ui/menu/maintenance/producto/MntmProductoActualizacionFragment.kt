@@ -156,7 +156,7 @@ class MntmProductoActualizacionFragment : Fragment() {
                 .setMessage("Producto Eliminado")
                 .show()
 
-            var producto = Producto(productoItem.id,productoItem.idTipoProducto,codigoBarra, descripcion, marca,productoItem.imagenUrl,productoItem.estado)
+            val producto = Producto(productoItem.id,productoItem.idTipoProducto,codigoBarra, descripcion, marca,productoItem.imagenUrl,productoItem.estado)
              productoViewModel.eliminar(producto)
 
             val direction: NavDirections =

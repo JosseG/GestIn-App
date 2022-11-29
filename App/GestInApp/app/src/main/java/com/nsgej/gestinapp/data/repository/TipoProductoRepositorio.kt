@@ -30,7 +30,7 @@ class TipoProductoRepositorio @Inject constructor(
         tipoProductoDao.agregarTiposProducto(tiposProducto.map { it.toEntity() })
     }
 
-    suspend fun obtenerProductosPorTipoProducto(id : String): TipoProductoConProductosEntity{
+    suspend fun obtenerProductosPorTipoProducto(id : Int): TipoProductoConProductosEntity{
         return tipoProductoDao.obtenerTipoProductoConProductos(id)
     }
 

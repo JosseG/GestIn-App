@@ -43,7 +43,7 @@ class MntmProductoListaGenFragment : Fragment() {
 
             val direction: NavDirections =
                 MntmProductoListaGenFragmentDirections.actionMntmProductoListaGenFragmentToMntmProductoListaEspFragment(
-                    tipoProducto.id.toString(),
+                    tipoProducto.id,
                     tipoProducto.nombre
                 )
 

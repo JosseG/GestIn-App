@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.nsgej.gestinapp.R
 import com.nsgej.gestinapp.databinding.FragmentLoginBinding
 import com.nsgej.gestinapp.domain.model.*
@@ -18,10 +17,8 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class LoginFragment : Fragment() {
-    //lo comente  solo para que los demas puedan ver fragment , usted descomentelo es provisional
-    /*companion object {
-       fun newInstance() = LoginFragment()
-   }*/
+
+
     private val loginViewModel by viewModels<LoginViewModel>()
 
     private val activityViewModel by viewModels<ActivityViewModel>()
@@ -59,11 +56,6 @@ class LoginFragment : Fragment() {
             val loginResult = it ?: return@observe
 
             if (loginResult.error != null) {
-                MaterialAlertDialogBuilder(view.context,R.style.MaterialAlertDialog__Center)
-                    .setTitle("-------------Error-------------")
-                    .setMessage("Error al loguearse, ingrese nuevamente sus datos")
-                    .show()
-
                 return@observe
             }
             if (loginResult.success != null) {
@@ -95,76 +87,86 @@ class LoginFragment : Fragment() {
 
 
 
-        /* ------------------------------------- 1 COMENTADO --------------------------------------*/
-         val sucursal = Sucursal("S00001","NOR-ESTE",true)
+        val sucursal = Sucursal("S00001","NOR-ESTE",true)
 
-         val cargo = Cargo("C00001","ADMINISTRADOR",true)
+        val cargo = Cargo("C00001","ADMINISTRADOR",true)
 
-         val almacen = Almacen("A0001","S00001","Almacen-A","Lurin",true)
+        val almacen = Almacen("A0001","S00001","Almacen-A","Lurin",true)
+        val almacen2 = Almacen("A0002","S00001","Almacen-B","Lince",true)
 
-         val empleado = Empleado("E00001","A0001","Jhon","Martinez","jmartines@email.com","990260333",true)
+        val empleado = Empleado("E00001","A0001","Jhon","Martinez","jmartines@email.com","990260333",true)
 
-         val usuario = Usuario(idEmpleado = "E00001", idCargo = "C00001", alias = "vendedor", contrasena = "vendedor", estado = true)
+        val usuario = Usuario(idEmpleado = "E00001", idCargo = "C00001", alias = "vendedor", contrasena = "vendedor", estado = true)
 
-         val sucursales = listOf(
-             sucursal,
-             Sucursal("S00002","NOR-OESTE",true)
-         )
+        val sucursales = listOf(
+            sucursal,
+            Sucursal("S00002","NOR-OESTE",true)
+        )
 
-         val almacenes = listOf(
-             almacen
-         )
+        val almacenes = listOf(
+            almacen,
+            almacen2
+        )
 
-         val empleados = listOf(
-             empleado
-         )
+        val empleados = listOf(
+            empleado
+        )
 
-         val usuarios = listOf(
-             usuario
-         )
-         val cargos = listOf(
-             cargo,
-             Cargo("C00002","VENDEDOR",true)
-         )
+        val usuarios = listOf(
+            usuario
+        )
+        val cargos = listOf(
+            cargo,
+            Cargo("C00002","VENDEDOR",true)
+        )
 
         val empleado2 = Empleado("E00003","A0001","Cristobal","Carrillo","crisllo@email.com","990261100",true)
+        val empleado3 = Empleado("E00004","A0002","Genaro","Mendez","genmendez@email.com","990261550",true)
+
 
         val usuario2 = Usuario(idEmpleado = "E00003", idCargo = "C00001", alias = "almacenero", contrasena = "almacenero", estado = true)
+        val usuario3 = Usuario(idEmpleado = "E00004", idCargo = "C00001", alias = "genaro", contrasena = "123", estado = true)
+
         val empleados2 = listOf(
             empleado2
+
+        )
+
+        val empleados3 = listOf(
+            empleado3
         )
 
         val usuarios2 = listOf(
-            usuario2
+            usuario2,
+        )
+        val usuarios3 = listOf(
+
+            usuario3
         )
 
-         loginViewModel.insertarCargos(cargos)
-         loginViewModel.insertarSucursales(sucursales)
+        loginViewModel.insertarCargos(cargos)
+        loginViewModel.insertarSucursales(sucursales)
 
-         loginViewModel.sucursalesMutable.observe(viewLifecycleOwner){
-             loginViewModel.obtenerSucursal(sucursal.id)
-         }
+        loginViewModel.sucursalesMutable.observe(viewLifecycleOwner){
+            loginViewModel.obtenerSucursal(sucursal.id)
+        }
 
-         loginViewModel.sucursalObtenido.observe(viewLifecycleOwner){
-             loginViewModel.insertarAlmacenesPorSucursal(almacenes,sucursal)
-             loginViewModel.obtenerCargo(cargo.id)
-         }
+        loginViewModel.sucursalObtenido.observe(viewLifecycleOwner){
+            loginViewModel.insertarAlmacenesPorSucursal(almacenes,sucursal)
+            loginViewModel.obtenerCargo(cargo.id)
+        }
 
-         loginViewModel.cargoObtenido.observe(viewLifecycleOwner){
-             loginViewModel.insertarEmpleadosPorAlmacen(empleados,almacen)
-             loginViewModel.insertarUsuariosPorEmpleadosPorCargo(usuarios,empleados,it)
+        loginViewModel.cargoObtenido.observe(viewLifecycleOwner){
+            loginViewModel.insertarEmpleadosPorAlmacen(empleados,almacen)
+            loginViewModel.insertarUsuariosPorEmpleadosPorCargo(usuarios,empleados,it)
 
-             loginViewModel.insertarEmpleadosPorAlmacen(empleados2,almacen)
-             loginViewModel.insertarUsuariosPorEmpleadosPorCargo(usuarios2,empleados2,it)
-         }
-        /* ------------------------------------- 1 COMENTADO --------------------------------------*/
-
-        /* ------------------------------------- 2 COMENTADO --------------------------------------*/
+            loginViewModel.insertarEmpleadosPorAlmacen(empleados2,almacen)
+            loginViewModel.insertarUsuariosPorEmpleadosPorCargo(usuarios2,empleados2,it)
 
 
-
-        /* ------------------------------------- 2 COMENTADO --------------------------------------*/
-
+            loginViewModel.insertarEmpleadosPorAlmacen(empleados3,almacen2)
+            loginViewModel.insertarUsuariosPorEmpleadosPorCargo(usuarios3,empleados3,it)
+        }
 
     }
 

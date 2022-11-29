@@ -1,5 +1,7 @@
 package com.nsgej.gestinapp.viewmodel.empleado
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
@@ -21,12 +23,22 @@ class EmpleadoViewModel @Inject constructor(private var empleadoRepository: Empl
         }
     }
 
+    private var _empleadoObtenidoLiveData = MutableLiveData<Empleado>()
 
-    suspend fun obtenerEmpleado(id : String) = empleadoRepository.obtenerEmpleado(id)
+    val empleadoObtenidoLiveData: LiveData<Empleado> = _empleadoObtenidoLiveData
+
+
+    /*suspend fun obtenerEmpleado(id : String) = empleadoRepository.obtenerEmpleado(id)*/
 
     fun actualizar(empleado: Empleado){
         viewModelScope.launch {
 
+        }
+    }
+
+    fun obtenerEmpleadoXId(id : String){
+        viewModelScope.launch {
+            _empleadoObtenidoLiveData.value=empleadoRepository.obtenerEmpleado(id)
         }
     }
 

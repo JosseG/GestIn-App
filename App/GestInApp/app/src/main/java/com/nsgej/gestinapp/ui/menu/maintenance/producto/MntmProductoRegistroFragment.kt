@@ -50,11 +50,10 @@ class MntmProductoRegistroFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-        binding.btnRegistrarprod.setOnClickListener {
+        binding.btnIngreso.setOnClickListener {
             binding.txtIdproducto.error=null
-            binding.txtCodbarra.error = null
             binding.txtDescripcion.error = null
-            binding.txtMarca.error = null
+            binding.txtStock.error= null
 
             val id = binding.txtIdproducto.editText?.text.toString()
             val idvalidar = "[A-Za-z\\d\\-_\\sÑñ]{5}".toRegex()
@@ -67,14 +66,14 @@ class MntmProductoRegistroFragment : Fragment() {
                 return@setOnClickListener
             }
 
-            val codigoBarra = binding.txtCodbarra.editText?.text.toString()
+            val codigoBarra = binding.txtIdproducto.editText?.text.toString()
             val Codigovalidar = "[A-Za-z\\d\\-_\\sÑñ]{8,20}".toRegex()
             if(codigoBarra.isEmpty()){
-                binding.txtCodbarra.error ="Campo Requerido"
+                binding.txtIdproducto.error ="Campo Requerido"
                 return@setOnClickListener
             }
             if (!Codigovalidar.matches(codigoBarra)) {
-                binding.txtCodbarra.error = "De 8 a 20 caracteres"
+                binding.txtDescripcion.error = "De 8 a 20 caracteres"
                 return@setOnClickListener
             }
             //-----------------------------------------------------
@@ -89,10 +88,10 @@ class MntmProductoRegistroFragment : Fragment() {
                 return@setOnClickListener
             }
             //-----------------------------------------------------
-            val marca = binding.txtMarca.editText?.text.toString()
+            val marca = binding.txtDescripcion.editText?.text.toString()
             val Marcavalidar = "[A-Za-z\\d\\-_\\sÑñ]{1,20}".toRegex()
             if (!Marcavalidar.matches(marca)) {
-                binding.txtMarca.error = "Campo Requerido"
+                binding.txtStock.error = "Campo Requerido"
                 return@setOnClickListener
             }
             MaterialAlertDialogBuilder(contexto)

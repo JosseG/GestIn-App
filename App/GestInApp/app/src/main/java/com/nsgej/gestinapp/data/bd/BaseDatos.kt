@@ -19,7 +19,8 @@ import com.nsgej.gestinapp.data.entities.*
         SucursalEntity::class,
         TipoInventarioEntity::class,
         TipoProductoEntity::class,
-        UsuarioEntity::class
+        UsuarioEntity::class,
+        ProductoAlmacenEntity::class
     ],
     version = 1
 )
@@ -36,5 +37,6 @@ abstract class BaseDatos : RoomDatabase() {
     abstract fun getTipoInventarioDao(): TipoInventarioDao
     abstract fun getProductoDao(): ProductoDao
     abstract fun getTipoProductoDao(): TipoProductoDao
+    abstract fun getProductoAlmacenDao() : ProductoAlmacenDao
 
 }

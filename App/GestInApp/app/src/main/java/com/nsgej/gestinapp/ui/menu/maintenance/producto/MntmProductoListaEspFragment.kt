@@ -17,6 +17,7 @@ import com.nsgej.gestinapp.databinding.FragmentMntmProductoListaEspBinding
 import com.nsgej.gestinapp.domain.model.Producto
 import com.nsgej.gestinapp.domain.model.TipoProducto
 import com.nsgej.gestinapp.domain.model.toDomain
+import com.nsgej.gestinapp.prefs
 import com.nsgej.gestinapp.ui.adapter.producto.ProductosEspecificoAdapter
 import com.nsgej.gestinapp.ui.adapter.producto.ProductosGeneralAdapter
 import com.nsgej.gestinapp.viewmodel.empleado.EmpleadoViewModel
@@ -36,6 +37,7 @@ class MntmProductoListaEspFragment : Fragment() {
     //----------------------------------------------------------------
     private val args by navArgs<MntmProductoListaEspFragmentArgs>()
     private val productoViewModel by viewModels<ProductoViewModel>()
+    private val empleadoViewModel by viewModels<EmpleadoViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,47 +56,70 @@ class MntmProductoListaEspFragment : Fragment() {
         }
 
 
-        productoViewModel.obtenerProductosPorTipoProducto(args.idtipoproducto!!)
-        productoViewModel.productosPorTipoObtenido.observe(viewLifecycleOwner) {
-            val productoAdapter = ProductosEspecificoAdapter { producto, img->
 
-                val extras = FragmentNavigatorExtras(
-                    img to producto.id
-                )
+        empleadoViewModel.obtenerEmpleadoXId(prefs.stringPref.toString())
 
-                val direction: NavDirections =
-                    MntmProductoListaEspFragmentDirections.actionMntmProductoListaEspFragmentToMntmProductoActualizacionFragment(
-                        imagen = img.transitionName,
-                        idtipoproducto = args.idtipoproducto,
-                        nombretipoproducto = args.nombretipoproducto,
-                        idproducto = producto.id
+
+        empleadoViewModel.empleadoObtenidoLiveData.observe(viewLifecycleOwner){ empleado ->
+
+
+            productoViewModel.obtenerProductosPorTipoProductoDelXAlmacen(empleado.idAlmacen,args.idtipoproducto)
+            productoViewModel.productosFiltradoPorAlmacenYTipoMapping.observe(viewLifecycleOwner){ mapProductos->
+
+
+                val productoAdapter = ProductosEspecificoAdapter { producto, img->
+
+                    val extras = FragmentNavigatorExtras(
+                        img to producto.id
                     )
-                findNavController().navigate(direction,extras)
+
+                    val direction: NavDirections =
+                        MntmProductoListaEspFragmentDirections.actionMntmProductoListaEspFragmentToMntmProductoActualizacionFragment(
+                            imagen = img.transitionName,
+                            idtipoproducto = args.idtipoproducto,
+                            nombretipoproducto = args.nombretipoproducto,
+                            idproducto = producto.id
+                        )
+                    findNavController().navigate(direction,extras)
+                }
+
+                var productos: MutableList<Producto> = mutableListOf()
+
+                mapProductos.forEach {
+                    productos.add(it.key)
+                }
+
+                binding.lblTipoProductoEnEsp.text = args.nombretipoproducto?.uppercase(Locale.ROOT)
+
+                val manager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
+                binding.rvProductoListadoEsp.layoutManager = manager
+                binding.rvProductoListadoEsp.adapter = productoAdapter
+                productoViewModel.productos.observe(viewLifecycleOwner) {
+                    productoAdapter.clean()
+                    productoAdapter.cargarLista(productos)
+                }
             }
 
-
-            val productosEntity = it.productos
-            for (e in productosEntity){
-                Log.i("producto",e.descripcion)
-            }
-            binding.lblTipoProductoEnEsp.text = args.nombretipoproducto?.uppercase(Locale.ROOT)
-            val productos: List<Producto> = productosEntity.map { el -> el.toDomain() }
-            val manager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
-            binding.rvProductoListadoEsp.layoutManager = manager
-            binding.rvProductoListadoEsp.adapter = productoAdapter
-            productoViewModel.productos.observe(viewLifecycleOwner) {
-                productoAdapter.clean()
-                productoAdapter.cargarLista(productos)
-
-            }
         }
 
         binding.faAgregar.setOnClickListener {
             val direction : NavDirections = MntmProductoListaEspFragmentDirections.actionMntmProductoListaEspFragmentToMntmProductoRegistroFragment(
                 idtipoproducto = args.idtipoproducto,
-                nombretipoproducto = args.nombretipoproducto,
+                nombretipoproducto = args.nombretipoproducto
             )
             findNavController().navigate(direction)
         }
+
     }
+
+/*    companion object {
+        @JvmStatic
+        fun newInstance(param1: String, param2: String) =
+            MntmProductoListaEspFragment().apply {
+                arguments = Bundle().apply {
+                    putString(ARG_PARAM1, param1)
+                    putString(ARG_PARAM2, param2)
+                }
+            }
+    }*/
 }

@@ -56,5 +56,13 @@ object BaseDatosConnection {
     @Provides
     fun provideTipoProductoDao(db:BaseDatos) = db.getTipoProductoDao()
 
+    @Singleton
+    @Provides
+    fun provideAccesoCargoDao(db:BaseDatos) = db.getAccesoCargoDao()
+
+    @Singleton
+    @Provides
+    fun provideProductoAlmacen(db:BaseDatos) = db.getProductoAlmacenDao()
+
 
 }

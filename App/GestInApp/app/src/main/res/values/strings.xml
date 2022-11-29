@@ -47,5 +47,7 @@
     <string name="almacen">Almacen</string>
     <string name="personalinventario">Personal</string>
     <string name="cantidad">Cantidad</string>
+    <string name="ingreso" />
+    <string name="stock" />
 
 </resources>

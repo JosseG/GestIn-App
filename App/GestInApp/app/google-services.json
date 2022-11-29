@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "395277767294",
+    "project_id": "gestinapp-52dcb",
+    "storage_bucket": "gestinapp-52dcb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:395277767294:android:1392b625ca7fc02f897e2f",
+        "android_client_info": {
+          "package_name": "com.nsgej.gestinapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "395277767294-l6jv88cc5m6o44u6rcljent03b356nce.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZI1DZVtvjb_kDFNckYn909Amym3VmVoY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "395277767294-l6jv88cc5m6o44u6rcljent03b356nce.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
