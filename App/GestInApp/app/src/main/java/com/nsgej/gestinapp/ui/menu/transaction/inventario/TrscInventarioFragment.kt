@@ -168,6 +168,7 @@ class TrscInventarioFragment : Fragment() {
                                 binding.txtAlmacen.isEnabled = false
 
 
+                                cod_pers = prefs.stringPref.toString()
                                 binding.txtPersonal.editText?.text  = Editable.Factory.getInstance().newEditable(nombrepersonal)
                                 binding.txtPersonal.isEnabled = false
 
@@ -217,7 +218,7 @@ class TrscInventarioFragment : Fragment() {
                     val almacenobt = parentalma.adapter.getItem(positionalma) as Almacen
                     cod_al = almacenobt.id
                     desc_al = almacenobt.descripcion
-
+                    cod_pers = prefs.stringPref.toString()
 
                     binding.txtPersonal.editText?.text = Editable.Factory.getInstance().newEditable(nombrepersonal)
                     binding.txtPersonal.isEnabled = false
