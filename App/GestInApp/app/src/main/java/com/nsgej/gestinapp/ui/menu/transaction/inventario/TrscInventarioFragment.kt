@@ -168,7 +168,7 @@ class TrscInventarioFragment : Fragment() {
                                 binding.txtAlmacen.isEnabled = false
 
 
-                                binding.txtPersonal.editText?.text  = Editable.Factory.getInstance().newEditable(tipoInvr.idEmpleado)
+                                binding.txtPersonal.editText?.text  = Editable.Factory.getInstance().newEditable(nombrepersonal)
                                 binding.txtPersonal.isEnabled = false
 
 
