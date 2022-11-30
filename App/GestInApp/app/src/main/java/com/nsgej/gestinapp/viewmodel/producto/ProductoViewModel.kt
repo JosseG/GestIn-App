@@ -307,7 +307,11 @@ class ProductoViewModel @Inject constructor(
 
     fun obtenerProductoAlmacen(idprod : String, idAlmacen: String){
         viewModelScope.launch {
-            _productoAlmacen.value = productoAlmacenRepositorio.obtener(idprod,idAlmacen)
+
+            val productoalmacen = productoAlmacenRepositorio.obtener(idprod,idAlmacen)
+            Log.i("PROD", productoalmacen.idProducto)
+
+            _productoAlmacen.value = productoalmacen
         }
     }
 

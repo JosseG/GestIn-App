@@ -9,4 +9,8 @@ data class InventarioDC(
     var cantidad: Int=0,
     var descripcion: String = "",
     var estado: Boolean = true)  {
+
+    override fun toString(): String {
+        return idProducto
+    }
 }

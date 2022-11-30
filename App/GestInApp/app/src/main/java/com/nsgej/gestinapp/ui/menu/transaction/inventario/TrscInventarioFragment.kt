@@ -49,6 +49,9 @@ class TrscInventarioFragment : Fragment() {
 
     var idalmacen = ""
     var nombrepersonal = ""
+
+    var codigosinincrementar =0
+    var idalmaceningreso = ""
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -65,6 +68,7 @@ class TrscInventarioFragment : Fragment() {
         super.onDestroy()
         _binding = null
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.btnRegresar.setOnClickListener {
@@ -79,6 +83,7 @@ class TrscInventarioFragment : Fragment() {
         empleadoViewModel.obtenerEmpleadoXId(prefs.stringPref.toString())
 
         empleadoViewModel.empleadoObtenidoLiveData.observe(viewLifecycleOwner) { empleado ->
+            Log.i("TAG333", empleado.idAlmacen)
             idalmacen = empleado.idAlmacen
             nombrepersonal = empleado.nombre
         }
@@ -103,12 +108,13 @@ class TrscInventarioFragment : Fragment() {
             if(tipoInvMov.nombre == "Ingresado"){
                 binding.txtCantidad.isEnabled = false
 
-                Log.i("","")
+                Log.i("TAG3","Esta en ingreso")
 
                 viewmodelInventario.listarTodoInventarioFirebase(idalmacen)
                 viewmodelInventario.listaTodoInventarioFirebase.observe(viewLifecycleOwner){ inventarioItemFs ->
 
                     if(inventarioItemFs.isEmpty()){
+                        Log.i("No hay TAG", "vacio")
                         return@observe
                     }else{
                         viewmodelInventario.listarTodoInventario.observe(viewLifecycleOwner) { inventarioItemRoom ->
@@ -152,10 +158,13 @@ class TrscInventarioFragment : Fragment() {
                             }
 
                             productoAuto.setOnItemClickListener { parent, _, position, _ ->
-                                val tipoInvr = parent.adapter.getItem(position) as Inventario
+                                val tipoInvr = parent.adapter.getItem(position) as InventarioDC
                                 codp = tipoInvr.idProducto
 
-                                binding.txtAlmacen.editText?.text  = Editable.Factory.getInstance().newEditable(tipoInvr.descripcion)
+                                codigosinincrementar = tipoInvr.codigo
+                                idalmaceningreso = tipoInvr.idAlmacen
+
+                                binding.txtAlmacen.editText?.text  = Editable.Factory.getInstance().newEditable(tipoInvr.idAlmacen)
                                 binding.txtAlmacen.isEnabled = false
 
 
@@ -262,9 +271,6 @@ class TrscInventarioFragment : Fragment() {
 
             binding.btnRegistrarinventario.setOnClickListener {
 
-
-
-
                 val tipo = binding.txtMovimiento.editText?.text.toString()
                 if (tipo.isEmpty()) {
                     binding.txtMovimiento.error = "seleccione un producto"
@@ -297,9 +303,10 @@ class TrscInventarioFragment : Fragment() {
 
 
                 if(codigoTp == 1){
-                    val inventario = Inventario(cod,idTipoInventario = codigoTp, idProducto = codp, idAlmacen = cod_al, idEmpleado = cod_pers, cantidad = cant.toInt())
+                    val inventario = Inventario(codigosinincrementar,idTipoInventario = codigoTp, idProducto = codp, idAlmacen = idalmaceningreso, idEmpleado = cod_pers, cantidad = cant.toInt())
+
                     viewmodelInventario.RegistraInventario(inventario)
-                    /*val productoAlmacen = ProductoAlmacen(codp, idalmacen, cant.toInt(), true)*/
+                    Log.i("SUPERTAG", codigosinincrementar.toString() + " " + codigoTp + "  " + codp  + " " + idalmaceningreso + " " + cod_pers + " " + cant)
 
                     productoViewModel.obtenerProductoAlmacen(codp,idalmacen)
                     productoViewModel.productoAlmacen.observe(viewLifecycleOwner){ prodAlma->

@@ -39,6 +39,8 @@ class MntmProductoActualizacionFragment : Fragment() {
     private val empleadoViewModel by viewModels<EmpleadoViewModel>()
     lateinit var productoItem: Producto
 
+    var cantidadtemporal  = ""
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -60,19 +62,33 @@ class MntmProductoActualizacionFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
+
         productoViewModel.obtenerProducto(args.idproducto!!)
+
+
         productoViewModel.productoPorTipoObtenido.observe(viewLifecycleOwner) { producto ->
+            empleadoViewModel.obtenerEmpleadoXId(prefs.stringPref.toString())
+            empleadoViewModel.empleadoObtenidoLiveData.observe(viewLifecycleOwner){
+                productoViewModel.obtenerProductoAlmacen(args.idproducto!!,it.idAlmacen)
+            }
 
-            productoItem = producto
+            productoViewModel.productoAlmacen.observe(viewLifecycleOwner){productoalm->
 
-            binding.txtCodBarra.editText?.text =
-                Editable.Factory.getInstance().newEditable(producto.codigoBarra)
-            binding.txtDescripcion.editText?.text =
-                Editable.Factory.getInstance().newEditable(producto.descripcion)
-            binding.txtMarca.editText?.text =
-                Editable.Factory.getInstance().newEditable(producto.marca)
-            binding.imgvProducto.transitionName = args.imagen
-            Glide.with(this).load(producto.imagenUrl).into(binding.imgvProducto)
+                productoItem = producto
+
+                binding.txtCodBarra.editText?.text =
+                    Editable.Factory.getInstance().newEditable(producto.codigoBarra)
+                binding.txtDescripcion.editText?.text =
+                    Editable.Factory.getInstance().newEditable(producto.descripcion)
+                cantidadtemporal = productoalm.cantidad.toString()
+                binding.txtCantidadProd.editText?.text =
+                    Editable.Factory.getInstance().newEditable(productoalm.cantidad.toString())
+                binding.imgvProducto.transitionName = args.imagen
+                Glide.with(this).load(producto.imagenUrl).into(binding.imgvProducto)
+
+            }
+
+
         }
 
         empleadoViewModel.obtenerEmpleadoXId(prefs.stringPref.toString())
@@ -86,7 +102,7 @@ class MntmProductoActualizacionFragment : Fragment() {
         binding.btnActualizar.setOnClickListener {
             binding.txtCodBarra.error = null
             binding.txtDescripcion.error = null
-            binding.txtMarca.error = null
+            binding.txtCantidadProd.error = null
 
             val codigoBarra = binding.txtCodBarra.editText?.text.toString()
             val Codigovalidar = "[A-Za-z\\d\\-_\\sÑñ]{8,20}".toRegex()
@@ -110,27 +126,27 @@ class MntmProductoActualizacionFragment : Fragment() {
                 return@setOnClickListener
             }
             //-----------------------------------------------------
-            val marca = binding.txtMarca.editText?.text.toString()
-            val Marcavalidar = "[A-Za-z\\d\\-_\\sÑñ]{1,20}".toRegex()
-            if (!Marcavalidar.matches(marca)) {
-                binding.txtMarca.error = "Campo Requerido"
+            val cantidad = binding.txtCantidadProd.editText?.text.toString()
+            val Marcavalidar = "[0-9]{1,2}".toRegex()
+            if (!Marcavalidar.matches(cantidad)) {
+                binding.txtCantidadProd.error = "Campo Requerido"
                 return@setOnClickListener
             }
             MaterialAlertDialogBuilder(contexto)
                 .setTitle("-------------EXITO-------------")
                 .setMessage("Producto Actualizado")
                 .show()
-            var producto = Producto(
-                productoItem.id,
-                productoItem.idTipoProducto,
-                codigoBarra,
-                descripcion,
-                marca,
-                productoItem.imagenUrl,
-                productoItem.estado
-            )
-            Log.i("act", producto.toString())
-            productoViewModel.actualizar(producto)
+
+/*
+            val productoAlmacen = ProductoAlmacen(args.idproducto!!, idalmacen, cantidad.toInt(), true)
+            productoViewModel.actualizarProductoAlmacen(productoAlmacen)
+*/
+
+            productoViewModel.obtenerProductoAlmacen(args.idproducto!!,idalmacen)
+            productoViewModel.productoAlmacen.observe(viewLifecycleOwner){ prodAlma->
+                prodAlma.cantidad = cantidad.toInt();
+                productoViewModel.actualizarProductoAlmacen(prodAlma)
+            }
 
             val direction: NavDirections =
                 MntmProductoActualizacionFragmentDirections.actionMntmProductoActualizacionFragmentToMntmProductoListaEspFragment(
@@ -143,7 +159,7 @@ class MntmProductoActualizacionFragment : Fragment() {
         binding.btnEliminar.setOnClickListener {
             binding.txtCodBarra.error = null
             binding.txtDescripcion.error = null
-            binding.txtMarca.error = null
+            binding.txtCantidadProd.error = null
 
             val codigoBarra = binding.txtCodBarra.editText?.text.toString()
             val Codigovalidar = "[A-Za-z\\d\\-_\\sÑñ]{8,20}".toRegex()
@@ -167,10 +183,10 @@ class MntmProductoActualizacionFragment : Fragment() {
                 return@setOnClickListener
             }
             //-----------------------------------------------------
-            val marca = binding.txtMarca.editText?.text.toString()
+            val cantidadprod = binding.txtCantidadProd.editText?.text.toString()
             val Marcavalidar = "[A-Za-z\\d\\-_\\sÑñ]{1,20}".toRegex()
-            if (!Marcavalidar.matches(marca)) {
-                binding.txtMarca.error = "Campo Requerido"
+            if (!Marcavalidar.matches(cantidadprod)) {
+                binding.txtCantidadProd.error = "Campo Requerido"
                 return@setOnClickListener
             }
 

@@ -48,5 +48,6 @@
     <string name="cantidad">Cantidad</string>
     <string name="ingreso" >ingreso</string>
     <string name="stock" >stock</string>
+    <string name="cantidadx">Cantidad</string>
 
 </resources>

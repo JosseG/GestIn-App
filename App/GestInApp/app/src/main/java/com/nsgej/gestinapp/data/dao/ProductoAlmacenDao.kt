@@ -15,7 +15,7 @@ interface ProductoAlmacenDao {
     suspend fun borrarTodo()
 
     @Query("SELECT * FROM tb_producto_almacen WHERE id_almacen = :idalmacen AND id_producto = :idprod")
-    suspend fun obtener(idprod: String,idalmacen : String) : ProductoAlmacenEntity
+    suspend fun obtener(idprod: String, idalmacen : String) : ProductoAlmacenEntity
 
     @Transaction
     @Query("SELECT * FROM tb_almacen WHERE id_almacen = :id")

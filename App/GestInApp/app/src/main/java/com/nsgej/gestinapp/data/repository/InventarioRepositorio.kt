@@ -59,14 +59,21 @@ class InventarioRepositorio @Inject constructor(private val objDaoInv: Inventari
 
     suspend fun listarTodoinventarioFirebase(almacen : String): MutableList<InventarioDC?> {
 
-        val listaInventario :  MutableList<InventarioDC?>  = mutableListOf<InventarioDC?>()
+
+        val listaInventario :  MutableList<InventarioDC?>  = mutableListOf()
 
         val query = db.collection("Inventario")
 
-        val snapshot = query.whereEqualTo("codigo", almacen).get().await()
+        val snapshot = query.whereEqualTo("idAlmacen", almacen).get().await()
         for(document in snapshot.documents){
 
             listaInventario.add(document.toObject())
+        }
+
+        listaInventario.forEach {
+            if (it != null) {
+                Log.i("TAG4", it.idProducto + " " + it.idAlmacen)
+            }
         }
 
         return listaInventario

@@ -129,7 +129,6 @@ class LoginFragment : Fragment() {
 
         val empleados2 = listOf(
             empleado2
-
         )
 
         val empleados3 = listOf(
