@@ -90,13 +90,15 @@ class LoginFragment : Fragment() {
         val sucursal = Sucursal("S00001","NOR-ESTE",true)
 
         val cargo = Cargo("C00001","ADMINISTRADOR",true)
+        val cargo2 = Cargo("C00002","ASISTENTE_VENTAS",true)
+        val cargo3 = Cargo("C00003","ALMACENERO",true)
 
         val almacen = Almacen("A0001","S00001","Almacen-A","Lurin",true)
         val almacen2 = Almacen("A0002","S00001","Almacen-B","Lince",true)
 
         val empleado = Empleado("E00001","A0001","Jhon","Martinez","jmartines@email.com","990260333",true)
 
-        val usuario = Usuario(idEmpleado = "E00001", idCargo = "C00001", alias = "vendedor", contrasena = "vendedor", estado = true)
+        val usuario = Usuario(idEmpleado = "E00001", idCargo = "C00001", alias = "jhonm", contrasena = "12345", estado = true)
 
         val sucursales = listOf(
             sucursal,
@@ -117,15 +119,16 @@ class LoginFragment : Fragment() {
         )
         val cargos = listOf(
             cargo,
-            Cargo("C00002","VENDEDOR",true)
+            cargo2,
+            cargo3
         )
 
-        val empleado2 = Empleado("E00003","A0001","Cristobal","Carrillo","crisllo@email.com","990261100",true)
-        val empleado3 = Empleado("E00004","A0002","Genaro","Mendez","genmendez@email.com","990261550",true)
+        val empleado2 = Empleado("E00002","A0001","Cristobal","Carrillo","crisllo@email.com","990261100",true)
+        val empleado3 = Empleado("E00003","A0002","Genaro","Mendez","genmendez@email.com","990261550",true)
 
 
-        val usuario2 = Usuario(idEmpleado = "E00003", idCargo = "C00001", alias = "almacenero", contrasena = "almacenero", estado = true)
-        val usuario3 = Usuario(idEmpleado = "E00004", idCargo = "C00001", alias = "genaro", contrasena = "123", estado = true)
+        val usuario2 = Usuario(idEmpleado = "E00002", idCargo = "C00002", alias = "cristobal12", contrasena = "12345", estado = true)
+        val usuario3 = Usuario(idEmpleado = "E00003", idCargo = "C00001", alias = "genaro9", contrasena = "12345", estado = true)
 
         val empleados2 = listOf(
             empleado2
@@ -139,7 +142,6 @@ class LoginFragment : Fragment() {
             usuario2,
         )
         val usuarios3 = listOf(
-
             usuario3
         )
 
@@ -157,14 +159,13 @@ class LoginFragment : Fragment() {
 
         loginViewModel.cargoObtenido.observe(viewLifecycleOwner){
             loginViewModel.insertarEmpleadosPorAlmacen(empleados,almacen)
-            loginViewModel.insertarUsuariosPorEmpleadosPorCargo(usuarios,empleados,it)
+            loginViewModel.insertarUsuariosPorEmpleadosPorCargo(usuarios,empleados,cargo)
 
             loginViewModel.insertarEmpleadosPorAlmacen(empleados2,almacen)
-            loginViewModel.insertarUsuariosPorEmpleadosPorCargo(usuarios2,empleados2,it)
-
+            loginViewModel.insertarUsuariosPorEmpleadosPorCargo(usuarios2,empleados2,cargo2)
 
             loginViewModel.insertarEmpleadosPorAlmacen(empleados3,almacen2)
-            loginViewModel.insertarUsuariosPorEmpleadosPorCargo(usuarios3,empleados3,it)
+            loginViewModel.insertarUsuariosPorEmpleadosPorCargo(usuarios3,empleados3,cargo)
         }
 
     }

@@ -9,12 +9,16 @@ import com.nsgej.gestinapp.domain.model.Usuario
         ForeignKey(
             entity = EmpleadoEntity::class,
             parentColumns = ["id_empleado"],
-            childColumns = ["id_empleado"]
+            childColumns = ["id_empleado"] ,
+            onUpdate = ForeignKey.CASCADE,
+            onDelete = ForeignKey.CASCADE
         ),
         ForeignKey(
             entity = CargoEntity::class,
             parentColumns = ["id_cargo"],
-            childColumns = ["id_cargo"]
+            childColumns = ["id_cargo"],
+            onUpdate = ForeignKey.CASCADE,
+            onDelete = ForeignKey.CASCADE
         )
     ],
     indices = [Index(value = ["id_empleado"], unique = true),Index(value = ["id_cargo"])]

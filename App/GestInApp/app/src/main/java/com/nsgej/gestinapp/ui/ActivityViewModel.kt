@@ -18,6 +18,7 @@ class ActivityViewModel @Inject constructor() : ViewModel() {
     fun setData(id: String) {
 
         prefs.stringPref = id
+
     }
 
     fun clearData() {

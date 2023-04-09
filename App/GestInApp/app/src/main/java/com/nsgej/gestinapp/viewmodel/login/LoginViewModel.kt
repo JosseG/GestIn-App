@@ -47,9 +47,38 @@ class LoginViewModel @Inject constructor(
 
 
 
+    fun insertarUsuarioPorEmpleadoPorCargo(
+        usuario: Usuario,
+        empleado: Empleado,
+        idCargo: String
+    ){
+        viewModelScope.launch {
+            if (idCargo == "") {
+                return@launch
+            }
+            usuario.idEmpleado = empleado.id
+            usuario.idCargo = idCargo
+            usuarioRepositorio.insertarUsuario(usuario)
+        }
+    }
+
+    fun insertarEmpleadoPorAlmacen(empleado: Empleado, almacen: String){
+        viewModelScope.launch {
+            if (almacen == "") {
+                return@launch
+            }
+            empleado.idAlmacen = almacen
+
+            empleadoRepositorio.insertarEmpleado(empleado)
+        }
+    }
 
 
-
+    fun eliminarUsuario(usuario: Usuario){
+        viewModelScope.launch {
+            usuarioRepositorio.eliminarUsuario(usuario)
+        }
+    }
 
 
     fun insertarUsuariosPorEmpleadosPorCargo(

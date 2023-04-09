@@ -70,11 +70,11 @@ class InventarioRepositorio @Inject constructor(private val objDaoInv: Inventari
             listaInventario.add(document.toObject())
         }
 
-        listaInventario.forEach {
+/*        listaInventario.forEach {
             if (it != null) {
                 Log.i("TAG4", it.idProducto + " " + it.idAlmacen)
             }
-        }
+        }*/
 
         return listaInventario
     }

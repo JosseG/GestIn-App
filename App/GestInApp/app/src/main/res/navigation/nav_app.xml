@@ -222,6 +222,10 @@
             android:defaultValue="null"
             app:argType="string"
             app:nullable="true" />
+        <argument
+            android:name="usuario"
+            android:defaultValue="false"
+            app:argType="boolean"/>
         <action
             android:id="@+id/action_mntmEmpleadoActualizarFragment_to_mntmEmpleadoListaFragment"
             app:destination="@id/mntmEmpleadoListaFragment"
@@ -230,6 +234,10 @@
             app:launchSingleTop="true"
             app:popUpTo="@+id/nav_app"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_mntmEmpleadoActualizarFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/mntmEmpleadoRegistroFragment2"

@@ -12,6 +12,7 @@ import androidx.core.text.isDigitsOnly
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.nsgej.gestinapp.R
 import com.nsgej.gestinapp.data.dataclass.InventarioDC
 import com.nsgej.gestinapp.databinding.FragmentTrscInventarioBinding
@@ -26,15 +27,15 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class TrscInventarioFragment : Fragment() {
 
-    var codigoTp=0
-    var  nombreTP=""
-    var codp=""
-    var desc=""
-    var cod_al =""
+    var codigoTp = 0
+    var nombreTP = ""
+    var codp = ""
+    var desc = ""
+    var cod_al = ""
     var desc_al = ""
     var cod_pers = ""
     var desc_pers = ""
-    var cod=0
+    var cod = 0
 
     private var _binding: FragmentTrscInventarioBinding? = null
     val binding get() = _binding!!
@@ -50,13 +51,18 @@ class TrscInventarioFragment : Fragment() {
     var idalmacen = ""
     var nombrepersonal = ""
 
-    var codigosinincrementar =0
+    var codigosinincrementar = 0
     var idalmaceningreso = ""
+    var isExistProduct = false
+
+    private val listProductsNotExist = mutableListOf<String>()
+    private val listProductsAlmacen = mutableListOf<Producto>()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+
         _binding = FragmentTrscInventarioBinding.inflate(inflater, container, false)
 
         return binding.root
@@ -71,6 +77,9 @@ class TrscInventarioFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
+
         binding.btnRegresar.setOnClickListener {
             findNavController().navigate(R.id.action_trscInventarioFragment_to_transaccionFragment)
         }
@@ -83,11 +92,19 @@ class TrscInventarioFragment : Fragment() {
         empleadoViewModel.obtenerEmpleadoXId(prefs.stringPref.toString())
 
         empleadoViewModel.empleadoObtenidoLiveData.observe(viewLifecycleOwner) { empleado ->
-            Log.i("TAG333", empleado.idAlmacen)
             idalmacen = empleado.idAlmacen
             nombrepersonal = empleado.nombre
-        }
 
+            productoViewModel.obtenerProductosPorAlmacenV2(idalmacen)
+
+
+        }
+        productoViewModel.listarProductosXMiAlmacenV2.observe (
+            viewLifecycleOwner
+        ){
+            Log.i("LIST","Se añadio")
+            listProductsAlmacen.addAll(it)
+        }
 
         val movimientoAuto: AutoCompleteTextView = binding.autoCompletemovimiento
         val productoAuto: AutoCompleteTextView = binding.autoCompleteProduct
@@ -105,55 +122,78 @@ class TrscInventarioFragment : Fragment() {
             codigoTp = tipoInvMov.id
             nombreTP = tipoInvMov.nombre
 
-            if(tipoInvMov.nombre == "Ingresado"){
+            if (tipoInvMov.nombre == "Ingresado") {
                 binding.txtCantidad.isEnabled = false
 
-                Log.i("TAG3","Esta en ingreso")
 
                 viewmodelInventario.listarTodoInventarioFirebase(idalmacen)
-                viewmodelInventario.listaTodoInventarioFirebase.observe(viewLifecycleOwner){ inventarioItemFs ->
+                viewmodelInventario.listaTodoInventarioFirebase.observe(viewLifecycleOwner) { inventarioItemFs ->
 
-                    if(inventarioItemFs.isEmpty()){
-                        Log.i("No hay TAG", "vacio")
+                    if (inventarioItemFs.isEmpty()) {
                         return@observe
-                    }else{
+                    } else {
                         viewmodelInventario.listarTodoInventario.observe(viewLifecycleOwner) { inventarioItemRoom ->
 
                             var listainventarionuevo = mutableListOf<InventarioDC>()
-                            var listainventariosec = mutableListOf<InventarioDC>()
 
-                            if(inventarioItemRoom.isEmpty()){
+                            if (inventarioItemRoom.isEmpty()) {
                                 listainventarionuevo.clear()
                                 inventarioItemFs.forEach el@{ invfs ->
 
-                                    if(invfs != null){
+                                    if (invfs != null) {
                                         listainventarionuevo.add(invfs)
                                     }
 
                                 }
-                            }else{
+                            } else {
                                 listainventarionuevo.clear()
-                                inventarioItemFs.forEach el@{ invfs ->
+                                var isExistTrsc = false
 
-                                    if(invfs != null){
+                                inventarioItemFs.forEach el@{ invfs ->
+                                    isExistProduct = false
+                                    if (invfs != null) {
+
                                         inventarioItemRoom.forEach { inv ->
-                                            if(invfs.codigo == inv.id){
+
+                                            if (invfs.codigo == inv.id) {
+                                                isExistTrsc = true
                                                 return@el
-                                            }else{
-                                                listainventarionuevo.add(invfs)
+                                            } else {
+
+                                                isExistTrsc = false
                                             }
+
+                                        }
+                                        if (!isExistTrsc) {
+
+                                            run lit@ {
+                                                listProductsAlmacen.forEach {producto ->
+                                                    if (invfs.idProducto == producto.id) {
+                                                        isExistProduct = true
+                                                        return@lit
+                                                    }else{
+                                                        isExistProduct = false
+                                                    }
+                                                }
+                                            }
+
+
+                                            if (!isExistProduct) {
+                                                listProductsNotExist.add(invfs.idProducto)
+                                            }
+                                            listainventarionuevo.add(invfs)
                                         }
                                     }
 
                                 }
 
-                                inventarioItemFs.forEach { inventarioDeFirebase ->
-                                    if (inventarioDeFirebase!==null){
-                                        Log.i("TAG INVEN",inventarioDeFirebase.idProducto + " " + inventarioDeFirebase.codigo+ " " + inventarioDeFirebase.idTipoInventario)
-                                    }
-                                }
+
+
                             }
-                            ProductoInventarioAdapter(requireContext(), listainventarionuevo.toList()).also { lp ->
+                            ProductoInventarioAdapter(
+                                requireContext(),
+                                listainventarionuevo.toList()
+                            ).also { lp ->
                                 productoAuto.setAdapter(lp)
                             }
 
@@ -164,16 +204,19 @@ class TrscInventarioFragment : Fragment() {
                                 codigosinincrementar = tipoInvr.codigo
                                 idalmaceningreso = tipoInvr.idAlmacen
 
-                                binding.txtAlmacen.editText?.text  = Editable.Factory.getInstance().newEditable(tipoInvr.idAlmacen)
+                                binding.txtAlmacen.editText?.text =
+                                    Editable.Factory.getInstance().newEditable(tipoInvr.idAlmacen)
                                 binding.txtAlmacen.isEnabled = false
 
 
                                 cod_pers = prefs.stringPref.toString()
-                                binding.txtPersonal.editText?.text  = Editable.Factory.getInstance().newEditable(nombrepersonal)
+                                binding.txtPersonal.editText?.text =
+                                    Editable.Factory.getInstance().newEditable(nombrepersonal)
                                 binding.txtPersonal.isEnabled = false
 
 
-                                binding.txtCantidad.editText?.text  = Editable.Factory.getInstance().newEditable(tipoInvr.cantidad.toString())
+                                binding.txtCantidad.editText?.text = Editable.Factory.getInstance()
+                                    .newEditable(tipoInvr.cantidad.toString())
                                 binding.txtCantidad.isEnabled = false
 
                             }
@@ -184,14 +227,12 @@ class TrscInventarioFragment : Fragment() {
                 }
 
 
-
-            }else{
+            } else {
                 binding.txtCantidad.isEnabled = true
-
 
                 productoViewModel.obtenerProductosPorAlmacen(idalmacen)
 
-                productoViewModel.listarProductosXMiAlmacen.observe(viewLifecycleOwner){ listaprod ->
+                productoViewModel.listarProductosXMiAlmacen.observe(viewLifecycleOwner) { listaprod ->
 
                     ProductoAdapter(requireContext(), listaprod).also { lp ->
                         productoAuto.setAdapter(lp)
@@ -203,14 +244,12 @@ class TrscInventarioFragment : Fragment() {
                     val tipoprodsalida = parentprodm.adapter.getItem(positionprodm) as Producto
                     codp = tipoprodsalida.id
 
-
-
                 }
 
                 viewmodelInventario.listarSinMiAlmacen(idalmacen)
 
-                viewmodelInventario.listaSinMiAlmacenObtenido.observe(viewLifecycleOwner){ listaSMalmacen ->
-                    AlmacenAdapter(requireContext(),listaSMalmacen).also { al ->
+                viewmodelInventario.listaSinMiAlmacenObtenido.observe(viewLifecycleOwner) { listaSMalmacen ->
+                    AlmacenAdapter(requireContext(), listaSMalmacen).also { al ->
                         almacenAuto.setAdapter(al)
                     }
                 }
@@ -220,7 +259,8 @@ class TrscInventarioFragment : Fragment() {
                     desc_al = almacenobt.descripcion
                     cod_pers = prefs.stringPref.toString()
 
-                    binding.txtPersonal.editText?.text = Editable.Factory.getInstance().newEditable(nombrepersonal)
+                    binding.txtPersonal.editText?.text =
+                        Editable.Factory.getInstance().newEditable(nombrepersonal)
                     binding.txtPersonal.isEnabled = false
                 }
 
@@ -231,14 +271,8 @@ class TrscInventarioFragment : Fragment() {
                 }*/
 
 
-
             }
         }
-
-
-
-
-
 
 
 /*        loginViewModel.listaAlmacenes.observe(viewLifecycleOwner) { lista ->
@@ -254,7 +288,7 @@ class TrscInventarioFragment : Fragment() {
 
 
         loginViewModel.listaempleados.observe(viewLifecycleOwner) { lista ->
-            PersonalAdapter(requireContext(),lista).also { pers ->
+            PersonalAdapter(requireContext(), lista).also { pers ->
                 personalAuto.setAdapter(pers)
             }
         }
@@ -267,7 +301,7 @@ class TrscInventarioFragment : Fragment() {
         viewmodelInventario.nuevoregistroAgregado()
 
 
-        viewmodelInventario.codigoObtenido.observe(viewLifecycleOwner){ codigodeFirebase ->
+        viewmodelInventario.codigoObtenido.observe(viewLifecycleOwner) { codigodeFirebase ->
             cod = codigodeFirebase
 
             binding.btnRegistrarinventario.setOnClickListener {
@@ -303,40 +337,77 @@ class TrscInventarioFragment : Fragment() {
                 }
 
 
-                if(codigoTp == 1){
-                    val inventario = Inventario(codigosinincrementar,idTipoInventario = codigoTp, idProducto = codp, idAlmacen = idalmaceningreso, idEmpleado = cod_pers, cantidad = cant.toInt())
+
+                if (codigoTp == 1) {
+
+                    listProductsNotExist.forEach {
+                        Log.i("Codigo no ex", it)
+                        if (it == prod) {
+                            MaterialAlertDialogBuilder(
+                                this.requireContext(),
+                                R.style.MaterialAlertDialog__Center
+                            )
+                                .setTitle("-------------EXITO-------------")
+                                .setMessage("El producto que quiere ingresar no existe en el almacén, primero agregue al menos su existencia")
+                                .show()
+                            findNavController().navigate(R.id.action_trscInventarioFragment_to_transaccionFragment)
+                            return@setOnClickListener
+                        }
+                    }
+
+
+                    val inventario = Inventario(
+                        codigosinincrementar,
+                        idTipoInventario = codigoTp,
+                        idProducto = codp,
+                        idAlmacen = idalmaceningreso,
+                        idEmpleado = cod_pers,
+                        cantidad = cant.toInt()
+                    )
 
                     viewmodelInventario.RegistraInventario(inventario)
-                    Log.i("SUPERTAG", codigosinincrementar.toString() + " " + codigoTp + "  " + codp  + " " + idalmaceningreso + " " + cod_pers + " " + cant)
+                    /*Log.i("SUPERTAG", codigosinincrementar.toString() + " " + codigoTp + "  " + codp  + " " + idalmaceningreso + " " + cod_pers + " " + cant)*/
 
-                    productoViewModel.obtenerProductoAlmacen(codp,idalmacen)
-                    productoViewModel.productoAlmacen.observe(viewLifecycleOwner){ prodAlma->
+                    productoViewModel.obtenerProductoAlmacen(codp, idalmacen)
+                    productoViewModel.productoAlmacen.observe(viewLifecycleOwner) { prodAlma ->
+                        Log.i("ProdAlma", prodAlma.idProducto)
                         prodAlma.cantidad += cant.toInt();
                         productoViewModel.actualizarProductoAlmacen(prodAlma)
-                    }
 
-                }
-                if(codigoTp == 2){
-                    val inventarioDC = InventarioDC(codigo = cod,idTipoInventario = codigoTp, idProducto = codp, idAlmacen = cod_al, idEmpleado = cod_pers, cantidad = cant.toInt())
-                    viewmodelInventario.RegistraInventarioFireabase(inventarioDC)
-                    viewmodelInventario.nuevoregistroAgregado()
-                    /*val productoAlmacen = ProductoAlmacen(codp, idalmacen, cant.toInt(), true)*/
-                    productoViewModel.obtenerProductoAlmacen(codp,idalmacen)
-                    productoViewModel.productoAlmacen.observe(viewLifecycleOwner){ prodAlma->
-                        prodAlma.cantidad -= cant.toInt();
-                        productoViewModel.actualizarProductoAlmacen(prodAlma)
                     }
                 }
+                    if (codigoTp == 2) {
+                        val inventarioDC = InventarioDC(
+                            codigo = cod,
+                            idTipoInventario = codigoTp,
+                            idProducto = codp,
+                            idAlmacen = cod_al,
+                            idEmpleado = cod_pers,
+                            cantidad = cant.toInt()
+                        )
+                        viewmodelInventario.RegistraInventarioFireabase(inventarioDC)
+                        viewmodelInventario.nuevoregistroAgregado()
+                        productoViewModel.obtenerProductoAlmacen(codp, idalmacen)
+                        productoViewModel.productoAlmacen.observe(viewLifecycleOwner) { prodAlma ->
+                            prodAlma.cantidad -= cant.toInt();
+                            productoViewModel.actualizarProductoAlmacen(prodAlma)
+                        }
+                    }
 
+                    MaterialAlertDialogBuilder(
+                        this.requireContext(),
+                        R.style.MaterialAlertDialog__Center
+                    )
+                        .setTitle("-------------EXITO-------------")
+                        .setMessage("Fue registrado la transacción")
+                        .show()
 
-
-
+                    findNavController().navigate(R.id.action_trscInventarioFragment_to_transaccionFragment)
+                }
             }
+
+
         }
-
-
-
-
     }
 
-}
+

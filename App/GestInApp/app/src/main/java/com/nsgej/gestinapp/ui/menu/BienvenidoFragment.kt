@@ -43,7 +43,7 @@ class BienvenidoFragment : Fragment() {
 
         object : CountDownTimer(2000, 1000){
             override fun onTick(p0: Long) {
-                Log.i("Result",p0.toString())
+               
             }
             override fun onFinish() {
                 findNavController().navigate(R.id.action_bienvenidoFragment_to_menuFragment)

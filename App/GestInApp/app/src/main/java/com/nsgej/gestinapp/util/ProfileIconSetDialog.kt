@@ -3,28 +3,42 @@ package com.nsgej.gestinapp.util
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.Dialog
+import android.content.Context
 import android.graphics.ColorMatrixColorFilter
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.viewModels
 import com.nsgej.gestinapp.databinding.DialogIconProfileSetBinding
+import com.nsgej.gestinapp.viewmodel.empleado.EmpleadoViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-class ProfileIconSetDialog : DialogFragment() {
+@AndroidEntryPoint
+class ProfileIconSetDialog(
+    private val onSubmitClickListener: (String) -> Unit
+) : DialogFragment() {
 
-
+/*    lateinit var listener: OnCargoSelected*/
     private var _binding: DialogIconProfileSetBinding? = null
     // This property is only valid between onCreateDialog and
     // onDestroyView.
     private val binding get() = _binding!!
+/*    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        listener = parentFragmentManager as OnCargoSelected
+    }*/
+
     @SuppressLint("InflateParams", "UseGetLayoutInflater")
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
-        var cod = 0;
+        var cod = "0";
 
         return activity?.let {
+
+             val empleadoViewModel by viewModels<EmpleadoViewModel>()
             _binding = DialogIconProfileSetBinding.inflate(requireActivity().layoutInflater)
             val builder = AlertDialog.Builder(it)
-            // Get the layout inflater
+            // Get the layout inflate
           /*  val inflater = requireActivity().layoutInflater*/
 
 /*
@@ -42,42 +56,36 @@ class ProfileIconSetDialog : DialogFragment() {
             )
 
             binding.btnAdministrador.setOnClickListener {
-                Log.i("saludo","perfil")
-
-                cod = 100
+                cod = "C00001"
                 binding.btnAdministrador.colorFilter = ColorMatrixColorFilter(array)
                 binding.btnAlmacenero.colorFilter = null
                 binding.btnAsistenteVentas.colorFilter = null
             }
 
-            binding.btnAlmacenero.setOnClickListener {
-                Log.i("saludo","reporte")
-                cod = 200
-                binding.btnAlmacenero.colorFilter = ColorMatrixColorFilter(array)
-                binding.btnAsistenteVentas.colorFilter = null
-                binding.btnAdministrador.colorFilter = null
-            }
-
             binding.btnAsistenteVentas.setOnClickListener {
-                Log.i("saludo","transaccion")
-                cod = 300
+                cod = "C00002"
 
                 binding.btnAsistenteVentas.colorFilter = ColorMatrixColorFilter(array)
                 binding.btnAlmacenero.colorFilter = null
                 binding.btnAdministrador.colorFilter = null
             }
 
+            binding.btnAlmacenero.setOnClickListener {
+                cod = "C00003"
+                binding.btnAlmacenero.colorFilter = ColorMatrixColorFilter(array)
+                binding.btnAsistenteVentas.colorFilter = null
+                binding.btnAdministrador.colorFilter = null
+            }
+
+
+
 
 
             builder.setView(binding.root)
-                // Add action buttons
                 .setPositiveButton("Aceptar"
                 ) { dialog, id ->
-                    // sign in the user ...
-
-                    Log.i("final",cod.toString())
-
-
+                    onSubmitClickListener.invoke(cod)
+                    Log.i("final",cod)
                 }
                 .setNegativeButton("Cancelar"
                 ) { dialog, id ->

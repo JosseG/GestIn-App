@@ -17,7 +17,7 @@ class ProductoInventarioAdapter(context: Context, products: List<InventarioDC>):
         val view = convertView?: LayoutInflater.from(context).inflate(R.layout.item_combos_trsc_inventario,parent,false)
         getItem(position)?.let { lista ->
             view.findViewById<TextView>(R.id.codig).apply {
-                text= lista.idProducto
+                text= lista.idProducto.plus("-").plus(lista.codigo)
             }
 
         }

@@ -1,9 +1,7 @@
 package com.nsgej.gestinapp.data.dao
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
+import com.nsgej.gestinapp.data.entities.ProductoEntity
 import com.nsgej.gestinapp.data.entities.UsuarioEntity
 import kotlinx.coroutines.flow.Flow
 
@@ -29,7 +27,8 @@ interface UsuarioDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun agregarUsuariosConEmpleadosPorCargo(usuarios: List<UsuarioEntity>,empleados: List<EmpleadoEntity>,cargo : CargoEntity)
 */
-
+    @Delete(entity = UsuarioEntity::class)
+    suspend fun eliminarUsuario(usuario : UsuarioEntity)
 
 
 

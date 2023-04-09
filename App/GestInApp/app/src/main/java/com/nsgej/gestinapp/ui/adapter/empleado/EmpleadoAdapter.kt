@@ -5,13 +5,15 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.nsgej.gestinapp.databinding.ItemMntmEmpleadoBinding
+import com.nsgej.gestinapp.domain.dto.Worker
 import com.nsgej.gestinapp.domain.model.Empleado
 
-class EmpleadoAdapter(val onClick: (Empleado,ImageView) -> Unit) : RecyclerView.Adapter<EmpleadosViewHolder>() {
+class EmpleadoAdapter(val onClick: (Worker,ImageView) -> Unit) : RecyclerView.Adapter<EmpleadosViewHolder>() {
 
-    private var lista = mutableListOf<Empleado>()
+    private var lista = mutableListOf<Worker>()
 
-    fun cargarLista(list: List<Empleado>){
+
+    fun cargarLista(list: List<Worker>){
         lista.addAll(list)
         notifyDataSetChanged()
     }
@@ -29,6 +31,7 @@ class EmpleadoAdapter(val onClick: (Empleado,ImageView) -> Unit) : RecyclerView.
 
     override fun onBindViewHolder(holder: EmpleadosViewHolder, position: Int) {
         val empleado = lista[position]
+
         holder.cargarDatos(empleado)
         holder.itemView.setOnClickListener{
             onClick(empleado,holder.imagev)

@@ -2,9 +2,7 @@ package com.nsgej.gestinapp.viewmodel.producto
 
 import android.util.Log
 import androidx.lifecycle.*
-import com.nsgej.gestinapp.data.entities.ProductoEntity
 import com.nsgej.gestinapp.data.entities.relations.otm.TipoProductoConProductosEntity
-import com.nsgej.gestinapp.data.entities.toEntity
 import com.nsgej.gestinapp.data.repository.ProductoAlmacenRepositorio
 import com.nsgej.gestinapp.data.repository.ProductoRepositorio
 import com.nsgej.gestinapp.data.repository.TipoProductoRepositorio
@@ -29,7 +27,6 @@ class ProductoViewModel @Inject constructor(
     val productos = productoRepositorio.obtenerProductos().asLiveData()
 
     val tiposProducto = tipoProductoRepositorio.obtenerTipoProductos().asLiveData()
-
 
 
 
@@ -62,6 +59,9 @@ class ProductoViewModel @Inject constructor(
     private var _listarProductosXMiAlmacen = MutableLiveData<List<Producto>>()
     val listarProductosXMiAlmacen: LiveData<List<Producto>> = _listarProductosXMiAlmacen
 
+
+    private var _listarProductosXMiAlmacenV2 = MutableLiveData<List<Producto>>()
+    val listarProductosXMiAlmacenV2: LiveData<List<Producto>> = _listarProductosXMiAlmacenV2
 
     private var _productoAlmacen = MutableLiveData<ProductoAlmacen>()
     val productoAlmacen : LiveData<ProductoAlmacen> = _productoAlmacen
@@ -274,6 +274,25 @@ class ProductoViewModel @Inject constructor(
             }
 
 
+        }
+
+    }
+
+
+    fun obtenerProductosPorAlmacenV2(id: String) {
+
+        viewModelScope.launch {
+
+            val productosSoloFiltroAlmacen = productoAlmacenRepositorio.obtenerProductosPorAlmacen(id)
+
+            productosSoloFiltroAlmacen.forEach { almprod ->
+                var alm = almprod.productos
+                var x = alm.map {
+                    it.toDomain()
+                }
+                _listarProductosXMiAlmacenV2.value =x
+            }
+
 
         }
 
@@ -308,8 +327,9 @@ class ProductoViewModel @Inject constructor(
     fun obtenerProductoAlmacen(idprod : String, idAlmacen: String){
         viewModelScope.launch {
 
-            val productoalmacen = productoAlmacenRepositorio.obtener(idprod,idAlmacen)
-            Log.i("PROD", productoalmacen.idProducto)
+
+            val productoalmacen = productoAlmacenRepositorio.obtenerProdAlmacen(idprod,idAlmacen)
+            Log.i("PRODUCTOOOOOOOO", productoalmacen.idProducto)
 
             _productoAlmacen.value = productoalmacen
         }

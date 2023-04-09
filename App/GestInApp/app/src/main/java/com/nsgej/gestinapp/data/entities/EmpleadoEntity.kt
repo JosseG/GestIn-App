@@ -8,7 +8,9 @@ import com.nsgej.gestinapp.domain.model.Empleado
         ForeignKey(
             entity = AlmacenEntity::class,
             parentColumns = ["id_almacen"],
-            childColumns = ["id_almacen"]
+            childColumns = ["id_almacen"],
+            onUpdate = ForeignKey.CASCADE,
+            onDelete = ForeignKey.CASCADE
         )
     ],
     indices = [Index(value = ["id_almacen"])]

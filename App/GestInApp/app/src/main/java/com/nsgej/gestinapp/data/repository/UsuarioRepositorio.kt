@@ -44,6 +44,10 @@ class UsuarioRepositorio @Inject constructor(
         usuarioDao.agregarUsuarios(usuario.map { it.toEntity() })
     }
 
+    suspend fun eliminarUsuario(usuario : Usuario) {
+        usuarioDao.eliminarUsuario(usuario.toEntity())
+    }
+
 
 
 }
